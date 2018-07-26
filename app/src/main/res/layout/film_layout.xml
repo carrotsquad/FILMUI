@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
@@ -28,175 +26,137 @@
                  android:background="@drawable/ic_dingwei_2"/>
          </LinearLayout>
 
-         <LinearLayout
-             android:id="@+id/id_tab_film"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:gravity="center"
-             android:orientation="vertical" >
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout_1"
+            android:layout_width="237dp"
+            android:layout_height="match_parent"
+            app:tabBackground="@color/colorPrimary"
+            app:tabIndicatorColor="@android:color/darker_gray"
+            app:tabIndicatorHeight="5dp"
+            app:tabSelectedTextColor="@android:color/holo_blue_light"
+            app:tabTextColor="@android:color/white"
+            app:tabGravity="center"
+        >
+            <!--<android.support.design.widget.TabItem-->
 
-             <!-- android:clickable="false" 是为了防止ImageButton截取了触摸事件 ，这里事件要给它的上一级linearlayout -->
+                <!--android:layout_width="wrap_content"-->
 
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:background="#00000000"
-                 android:clickable="false"
-                 style="?android:attr/borderlessButtonStyle"
-                 android:src="@drawable/icfilm" />
+                <!--android:layout_height="wrap_content"-->
+                <!--android:icon="@drawable/icfilm"-->
+                <!--app:tabTextColor="@color/colorPrimary"-->
+                <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
+                <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
 
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="电影" />
+                <!--android:text="电影"/>-->
+            <!--<android.support.design.widget.TabItem-->
 
-         </LinearLayout>
+                <!--android:layout_width="wrap_content"-->
 
-         <LinearLayout
-             android:id="@+id/id_tab_theatre"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:gravity="center"
-             android:orientation="vertical" >
+                <!--android:layout_height="wrap_content"-->
+                <!--android:icon="@drawable/icthe"-->
+                <!--app:tabTextColor="@color/colorPrimary"-->
+                <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
+                <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
 
-             <ImageButton
-                 android:id="@+id/id_tab_theatre_img"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:background="#00000000"
-                 android:clickable="false"
-                 style="?android:attr/borderlessButtonStyle"
-                 android:src="@drawable/icthe" />
-
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="影院" />
-         </LinearLayout>
+                <!--android:text="影院"/>-->
 
 
-    <Button
-        android:id="@+id/button_QR"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/ic_qr"/>
+        </android.support.design.widget.TabLayout>
 
-    <Button
-        android:id="@+id/button_sur"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/ic_sur"/>
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/button_QR"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_qr"/>
+
+            <Button
+                android:id="@+id/button_sur"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_sur"/>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
-
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_content_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFF"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/now_film"
-            android:layout_width="195dp"
-            android:layout_height="match_parent"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="正在热映"
-            android:textColor="#5B5B5B"/>
-        <Button
-            android:id="@+id/future_film"
-            android:layout_width="195dp"
-            android:layout_height="match_parent"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="即将上映"
-            android:textColor="#5B5B5B"/>
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+    </android.support.v4.view.ViewPager>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/swipe_refresh_1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/recycler_view_1"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--<android.support.design.widget.TabLayout-->
+
+        <!--android:id="@+id/tabLayout_2"-->
+
+        <!--android:layout_width="match_parent"-->
+
+        <!--android:layout_height="50dp">-->
+        <!--<android.support.design.widget.TabItem-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:tabMaxWidth="20dp"-->
+            <!--app:tabTextColor="@color/colorPrimary"-->
+            <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
+            <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
+            <!--android:textColor="#5B5B5B"-->
+            <!--android:text="正在热映"/>-->
+        <!--<android.support.design.widget.TabItem-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:tabMaxWidth="20dp"-->
+            <!--app:tabTextColor="@color/colorPrimary"-->
+            <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
+            <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
+            <!--android:textColor="#5B5B5B"-->
+            <!--android:text="即将上映"/>-->
+    <!--</android.support.design.widget.TabLayout>-->
+
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#FFF"-->
+        <!--android:orientation="horizontal">-->
+        <!--<Button-->
+            <!--android:id="@+id/now_film"-->
+            <!--android:layout_width="195dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--style="?android:attr/borderlessButtonStyle"-->
+            <!--android:text="正在热映"-->
+            <!--android:textColor="#5B5B5B"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/future_film"-->
+            <!--android:layout_width="195dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--style="?android:attr/borderlessButtonStyle"-->
+            <!--android:text="即将上映"-->
+            <!--android:textColor="#5B5B5B"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+    <!--android:id="@+id/swipe_refresh_1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:id="@+id/recycler_view_1"/>-->
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 </LinearLayout>
-
-
-<!--<android.support.v4.widget.DrawerLayout-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:id="@+id/drawer_layout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-    <!--&lt;!&ndash;<android.support.design.widget.CoordinatorLayout&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
-        <!--<android.support.design.widget.AppBarLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-
-            <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/toolbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--android:background="?attr/colorPrimary"-->
-                <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-                <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-                <!--app:layout_scrollFlags="scroll|enterAlways|snap">-->
-                <!--<android.support.v7.widget.ActionMenuView-->
-                    <!--android:id="@+id/actionbar"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity = "center">-->
-                <!--</android.support.v7.widget.ActionMenuView>-->
-            <!--</android.support.v7.widget.Toolbar>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="#FFF"-->
-                <!--android:orientation="horizontal">-->
-                <!--<Button-->
-                    <!--android:id="@+id/now_film"-->
-                    <!--android:layout_width="195dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--style="?android:attr/borderlessButtonStyle"-->
-                    <!--android:text="正在热映"-->
-                    <!--android:textColor="#5B5B5B"/>-->
-                <!--<Button-->
-                    <!--android:id="@+id/future_film"-->
-                    <!--android:layout_width="195dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--style="?android:attr/borderlessButtonStyle"-->
-                    <!--android:text="即将上映"-->
-                    <!--android:textColor="#5B5B5B"/>-->
-
-            <!--</LinearLayout>-->
-
-            <!--<android.support.v4.widget.SwipeRefreshLayout-->
-                <!--android:id="@+id/swipe_refresh"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-
-                <!--<android.support.v7.widget.RecyclerView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:id="@+id/recycler_view"/>-->
-            <!--</android.support.v4.widget.SwipeRefreshLayout>-->
-
-
-
-        <!--</android.support.design.widget.AppBarLayout>-->
-    <!--&lt;!&ndash;</android.support.design.widget.CoordinatorLayout>&ndash;&gt;-->
-
-<!--</android.support.v4.widget.DrawerLayout>-->
