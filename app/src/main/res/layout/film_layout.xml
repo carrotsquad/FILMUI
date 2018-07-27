@@ -9,64 +9,35 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="#FFF"
         android:orientation="horizontal">
 
 
          <LinearLayout
              android:layout_width="70dp"
-             android:layout_height="70dp"
+             android:layout_height="match_parent"
              android:orientation="horizontal">
              <Button
                  android:id="@+id/button_location"
                  android:layout_width="35dp"
                  android:layout_height="35dp"
-                 android:layout_gravity="center"
+                 android:layout_gravity="center_vertical"
                  android:background="@drawable/ic_dingwei_2"/>
          </LinearLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout_1"
-            android:layout_width="237dp"
+            android:layout_width="260dp"
             android:layout_height="match_parent"
-            app:tabBackground="@color/colorPrimary"
-            app:tabIndicatorColor="@android:color/darker_gray"
-            app:tabIndicatorHeight="5dp"
-            app:tabSelectedTextColor="@android:color/holo_blue_light"
-            app:tabTextColor="@android:color/white"
-            app:tabGravity="center"
-        >
-            <!--<android.support.design.widget.TabItem-->
-
-                <!--android:layout_width="wrap_content"-->
-
-                <!--android:layout_height="wrap_content"-->
-                <!--android:icon="@drawable/icfilm"-->
-                <!--app:tabTextColor="@color/colorPrimary"-->
-                <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
-                <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
-
-                <!--android:text="电影"/>-->
-            <!--<android.support.design.widget.TabItem-->
-
-                <!--android:layout_width="wrap_content"-->
-
-                <!--android:layout_height="wrap_content"-->
-                <!--android:icon="@drawable/icthe"-->
-                <!--app:tabTextColor="@color/colorPrimary"-->
-                <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
-                <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
-
-                <!--android:text="影院"/>-->
+            app:tabIndicatorHeight="4dp"
+            app:tabIndicatorColor="@android:color/holo_orange_light">
 
 
         </android.support.design.widget.TabLayout>
-
-
         <LinearLayout
             android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/button_QR"
@@ -83,80 +54,13 @@
                 android:background="@drawable/ic_sur"/>
 
         </LinearLayout>
-
-
-
     </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_content_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
-
-
-
-    <!--<android.support.design.widget.TabLayout-->
-
-        <!--android:id="@+id/tabLayout_2"-->
-
-        <!--android:layout_width="match_parent"-->
-
-        <!--android:layout_height="50dp">-->
-        <!--<android.support.design.widget.TabItem-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:tabMaxWidth="20dp"-->
-            <!--app:tabTextColor="@color/colorPrimary"-->
-            <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
-            <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
-            <!--android:textColor="#5B5B5B"-->
-            <!--android:text="正在热映"/>-->
-        <!--<android.support.design.widget.TabItem-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:tabMaxWidth="20dp"-->
-            <!--app:tabTextColor="@color/colorPrimary"-->
-            <!--app:tabSelectedTextColor="@android:color/holo_orange_light"-->
-            <!--app:tabIndicatorColor="@android:color/holo_orange_light"-->
-            <!--android:textColor="#5B5B5B"-->
-            <!--android:text="即将上映"/>-->
-    <!--</android.support.design.widget.TabLayout>-->
-
-
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="#FFF"-->
-        <!--android:orientation="horizontal">-->
-        <!--<Button-->
-            <!--android:id="@+id/now_film"-->
-            <!--android:layout_width="195dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--style="?android:attr/borderlessButtonStyle"-->
-            <!--android:text="正在热映"-->
-            <!--android:textColor="#5B5B5B"/>-->
-        <!--<Button-->
-            <!--android:id="@+id/future_film"-->
-            <!--android:layout_width="195dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--style="?android:attr/borderlessButtonStyle"-->
-            <!--android:text="即将上映"-->
-            <!--android:textColor="#5B5B5B"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<android.support.v4.widget.SwipeRefreshLayout-->
-    <!--android:id="@+id/swipe_refresh_1"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/recycler_view_1"/>-->
-    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 </LinearLayout>

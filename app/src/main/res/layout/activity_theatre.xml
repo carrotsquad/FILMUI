@@ -7,94 +7,15 @@
     android:background="#FFF"
     android:orientation="vertical">
 
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFF"
-        android:orientation="horizontal">
-
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/button_location_2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_dingwei_2"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/id_tab_film"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <!-- android:clickable="false" 是为了防止ImageButton截取了触摸事件 ，这里事件要给它的上一级linearlayout -->
-
-            <ImageButton
-                android:id="@+id/id_tab_film_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:clickable="false"
-                style="?android:attr/borderlessButtonStyle"
-                android:src="@drawable/icfilm" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="电影" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/id_tab_theatre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:clickable="false"
-                style="?android:attr/borderlessButtonStyle"
-                android:src="@drawable/icthe" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="影院" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="35dp"
-            android:layout_height="70dp">
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/button_sur_2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_sur_2"/>
-
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
         android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="10dp"
+            android:layout_height="match_parent">
+        </LinearLayout>
         <Button
             android:id="@+id/quyu_1"
             android:layout_width="wrap_content"
@@ -138,7 +59,7 @@
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_2"
+        android:id="@+id/swipe_refresh_3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -146,7 +67,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recycler_view_2"/>
+            android:id="@+id/recycler_view_3"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
