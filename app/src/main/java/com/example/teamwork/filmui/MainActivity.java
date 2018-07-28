@@ -2,6 +2,7 @@ package com.example.teamwork.filmui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.design.widget.TabLayout;
@@ -75,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager_2;
     private TabLayout mTabLayout_2;
-    private FragmentPagerAdapter mAdapter;
-    private List<Fragment> fragments;
+
+    private LinearLayout mHorizontalLinear;
 
 
     public static final String TAG = "TabActivity";
@@ -91,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.film_layout);
         mViewPager_1 = (ViewPager) findViewById(R.id.vp_content_1);
         mTabLayout_1 = (TabLayout) findViewById(R.id.tabLayout_1);
@@ -120,25 +120,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        initFilms();
-//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_1);
-//        GridLayoutManager layoutManager = new GridLayoutManager(this,1);
-//        recyclerView.setLayoutManager(layoutManager);
-//        adapter = new FilmConAdapter(filmConList);
-//        recyclerView.setAdapter(adapter);
-//
-//        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_1);
-//        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refreshFilms();
-//            }
-//        });
         initView();
 
     }
-
 
     private void initView() {
 
@@ -187,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override public void onTabSelected(TabLayout.Tab tab) {
                                 switch (tab.getPosition()){
                                     case 0:
-                                        initFilms_1();
+                                        initFilms(filmCons,filmConList_1);
                                         RecyclerView recyclerView_1 = (RecyclerView) findViewById(R.id.recycler_view_1);
                                         GridLayoutManager layoutManager1 = new GridLayoutManager(MainActivity.this,1);
                                         recyclerView_1.setLayoutManager(layoutManager1);
@@ -199,13 +183,14 @@ public class MainActivity extends AppCompatActivity {
                                         swipeRefreshLayout_1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                                             @Override
                                             public void onRefresh() {
-                                                refreshFilms_1();
+                                                refreshFilms(filmCons,filmConList_1,filmadapter_1,swipeRefreshLayout_1);
                                             }
                                         });
 
                                         break;
                                     case 1:
-                                        initFilms_2();
+                                        initHorizontal();
+                                        initFilms(futurefilmCons,filmConList_2);
                                         RecyclerView recyclerView_2 = (RecyclerView) findViewById(R.id.recycler_view_2);
                                         GridLayoutManager layoutManager2 = new GridLayoutManager(MainActivity.this,1);
                                         recyclerView_2.setLayoutManager(layoutManager2);
@@ -217,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                                         swipeRefreshLayout_2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                                             @Override
                                             public void onRefresh() {
-                                                refreshFilms_2();
+                                                refreshFilms(futurefilmCons,filmConList_2,filmadapter_2,swipeRefreshLayout_2);
                                             }
                                         });
                                         break;
@@ -242,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                         MyFragmentAdapter adapter_2 = new MyFragmentAdapter(getSupportFragmentManager(),fragments_2, Arrays.asList(sTitle_2));
                         mViewPager_2.setAdapter(adapter_2);
                         mTabLayout_2.getTabAt(0).setText(sTitle_2[0]);
-                        mTabLayout_2.getTabAt(1).setText(sTitle_2[0]);
+                        mTabLayout_2.getTabAt(1).setText(sTitle_2[1]);
                         mViewPager_2.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -253,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onPageSelected(int position) {
                                 switch (position){
                                     case 0:
-                                        initFilms_1();
+                                        initFilms(filmCons,filmConList_1);
                                         RecyclerView recyclerView_1 = (RecyclerView) findViewById(R.id.recycler_view_1);
                                         GridLayoutManager layoutManager1 = new GridLayoutManager(MainActivity.this,1);
                                         recyclerView_1.setLayoutManager(layoutManager1);
@@ -265,13 +250,14 @@ public class MainActivity extends AppCompatActivity {
                                         swipeRefreshLayout_1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                                             @Override
                                             public void onRefresh() {
-                                                refreshFilms_1();
+                                                refreshFilms(filmCons,filmConList_1,filmadapter_1,swipeRefreshLayout_1);
                                             }
                                         });
 
                                         break;
                                     case 1:
-                                        initFilms_2();
+                                        initHorizontal();
+                                        initFilms(futurefilmCons,filmConList_2);
                                         RecyclerView recyclerView_2 = (RecyclerView) findViewById(R.id.recycler_view_2);
                                         GridLayoutManager layoutManager2 = new GridLayoutManager(MainActivity.this,1);
                                         recyclerView_2.setLayoutManager(layoutManager2);
@@ -283,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                                         swipeRefreshLayout_2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                                             @Override
                                             public void onRefresh() {
-                                                refreshFilms_2();
+                                                refreshFilms(futurefilmCons,filmConList_2,filmadapter_2,swipeRefreshLayout_2);
                                             }
                                         });
                                         break;
@@ -312,25 +298,16 @@ public class MainActivity extends AppCompatActivity {
 
             } });
 
-
     }
 
-
-    private void initFilms_1(){
-        filmConList_1.clear();
-        for(int i=0;i<filmCons.length;i++){
-            filmConList_1.add(filmCons[i]);
+    private void initFilms(FilmCon[] filmlist,List<FilmCon> filmConList){
+        filmConList.clear();
+        for(int i=0;i<filmlist.length;i++){
+            filmConList.add(filmlist[i]);
         }
     }
 
-    private void initFilms_2(){
-        filmConList_2.clear();
-        for(int i=0;i<futurefilmCons.length;i++){
-            filmConList_2.add(futurefilmCons[i]);
-        }
-    }
-
-    private void refreshFilms_1() {
+    private void refreshFilms(final FilmCon[] filmlist, final List<FilmCon> filmConList, final FilmConAdapter filmadapter, final SwipeRefreshLayout swipeRefreshLayout) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -342,36 +319,14 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initFilms_1();
-                        filmadapter_1.notifyDataSetChanged();
-                        swipeRefreshLayout_1.setRefreshing(false);
+                        initFilms(filmlist,filmConList);
+                        filmadapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
             }
         }).start();
     }
-
-    private void refreshFilms_2() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initFilms_2();
-                        filmadapter_2.notifyDataSetChanged();
-                        swipeRefreshLayout_2.setRefreshing(false);
-                    }
-                });
-            }
-        }).start();
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -394,5 +349,22 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
+    private void initHorizontal(){
+        mHorizontalLinear = (LinearLayout)findViewById(R.id.id_horizontallinear);
+        //开始添加数据
+        for(int i = 0;i<futurefilmCons.length;i++){
+            //寻找行布局，第一个参数为行布局ID，第二个参数为这个行布局需要放到那个容器上
+            View view = LayoutInflater.from(this).inflate(R.layout.horizontal_item,mHorizontalLinear,false);
+            //通过View寻找ID实例化控件
+            ImageView img = (ImageView) view.findViewById(R.id.id_horizontal_imageView);
+            TextView name = (TextView) view.findViewById(R.id.id_horizontal_futurefilmname);
+            TextView date = (TextView) view.findViewById(R.id.id_horizontal_futurefilmdate);
+            img.setImageResource(futurefilmCons[i].getImageId());
+            name.setText(futurefilmCons[i].getName());
+            date.setText(Long.toString(futurefilmCons[i].getDate()).charAt(5)+"月"+Long.toString(futurefilmCons[i].getDate()).charAt(6)+Long.toString(futurefilmCons[i].getDate()).charAt(7)+"日");
+            mHorizontalLinear.addView(view);
+        }
+
+    }
 
 }

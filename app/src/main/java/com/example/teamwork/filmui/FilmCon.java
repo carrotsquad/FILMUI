@@ -1,5 +1,6 @@
 package com.example.teamwork.filmui;
 
+//电影信息类
 public class FilmCon {
 
     private int imageId;

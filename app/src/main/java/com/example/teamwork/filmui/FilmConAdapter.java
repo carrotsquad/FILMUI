@@ -1,4 +1,5 @@
 package com.example.teamwork.filmui;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -10,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
 
+
+//电影类适配器
 public class FilmConAdapter extends RecyclerView.Adapter<FilmConAdapter.ViewHolder> {
 
     private Context mContext;
