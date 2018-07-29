@@ -1,80 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
+<com.yyydjk.library.DropDownMenu android:id="@+id/dropDownMenu"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
-    android:orientation="vertical">
+    app:ddmenuTextSize="13sp"
+    app:ddtextUnselectedColor="@color/drop_down_unselected"
+    app:ddtextSelectedColor="@color/drop_down_selected"
+    app:dddividerColor="@color/gray"
+    app:ddunderlineColor="@color/gray"
+    app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
+    app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
+    app:ddmaskColor="@color/mask_color"
+    app:ddmenuBackgroundColor="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/ll_stay_visit_selsect"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#FFF"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <!--筛选附近区域-->
-        <LinearLayout
-            android:id="@+id/ll_place_tab"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-            <CheckBox
-                android:id="@+id/cb_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:button="@null"
-                android:drawablePadding="10dp"
-                android:drawableRight="@drawable/seletor_stock_arrow"
-                android:gravity="center"
-                android:text="附近区域"
-                android:textColor="@drawable/selector_text_stock"
-                android:textSize="15sp"/>
-        </LinearLayout>
-        <!--筛选离我最近-->
-        <LinearLayout
-            android:id="@+id/ll_type"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-            <CheckBox
-                android:id="@+id/cb_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:button="@null"
-                android:drawablePadding="10dp"
-                android:drawableRight="@drawable/seletor_stock_arrow"
-                android:gravity="center"
-                android:text="离我最近"
-                android:textColor="@drawable/selector_text_stock"
-                android:textSize="15sp"/>
-        </LinearLayout>
-        <!--筛选特色品牌-->
-        <LinearLayout
-            android:id="@+id/ll_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-            <CheckBox
-                android:id="@+id/cb_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:button="@null"
-                android:drawablePadding="10dp"
-                android:drawableRight="@drawable/seletor_stock_arrow"
-                android:gravity="center"
-                android:text="特色品牌"
-                android:textColor="@drawable/selector_text_stock"
-                android:textSize="15sp"/>
-        </LinearLayout>
-    </LinearLayout>
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/swipe_refresh_3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/recycler_view_3"/>-->
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
+    </com.yyydjk.library.DropDownMenu>
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
@@ -127,16 +79,4 @@
 
     <!--</LinearLayout>-->
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recycler_view_3"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-</LinearLayout>
