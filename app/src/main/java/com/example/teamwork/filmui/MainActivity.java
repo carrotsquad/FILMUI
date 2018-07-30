@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 import com.yyydjk.library.DropDownMenu;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -92,27 +93,6 @@ public class MainActivity extends  AppCompatActivity {
 
     private LinearLayout mHorizontalLinear;
 
-//    /** 展示城市的数据源**/
-//    private List<NearBean> mPopBeens = new ArrayList<>();
-//    /**展示类型的数据**/
-//    private List<String> mDistances = new ArrayList<>();
-//    /**展示时间的数据**/
-//    private List<BrandBean> mBrands = new ArrayList<>();
-//    /**展示的时间str集合**/
-//    private List<String> mBrandStr = new ArrayList<>();
-//    /**筛选地区整体**/
-//    private LinearLayout mNearAll;
-//    /**筛选城市cb**/
-//    private CheckBox mNearCb;
-//    /**筛选类型整体**/
-//    private LinearLayout mDistanceAll;
-//    /**筛选类型整体**/
-//    private CheckBox mDistanceCb;
-//    /**筛选时间整体**/
-//    private LinearLayout mBrandAll;
-//    /**筛选时间整体**/
-//    private CheckBox mBrandCb;
-//
 
     @BindView(R.id.dropDownMenu)
     DropDownMenu theatreDropDownMenu;
@@ -130,6 +110,12 @@ public class MainActivity extends  AppCompatActivity {
     private GirdDropDownAdapter NearAdapter;
     private ListDropDownAdapter DistanceAdapter;
     private ConstellationAdapter BrandAdapter;
+    private ListView nearView;
+    private ListView distanceView;
+    private View constellationView;
+    private GridView constellation;
+
+    List<Fragment> fragments_1;
 
 
     public static final String TAG = "TabActivity";
@@ -185,9 +171,9 @@ public class MainActivity extends  AppCompatActivity {
 
         mTabLayout_1.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition()==1) {
-                    initTheatreMenu();
-                }
+//                if(tab.getPosition()==1) {
+//                    initTheatreMenu();
+//                }
         }
 
 
@@ -202,7 +188,7 @@ public class MainActivity extends  AppCompatActivity {
         } });
 
 
-        List<Fragment> fragments_1 = new ArrayList<>();
+        fragments_1 = new ArrayList<>();
         fragments_1.add(FirstFragment.newInstance());
         fragments_1.add(SecondFragment.newInstance());
         MyFragmentAdapter adapter_1 = new MyFragmentAdapter(getSupportFragmentManager(),fragments_1, Arrays.asList(sTitle_1));
@@ -340,6 +326,7 @@ public class MainActivity extends  AppCompatActivity {
                         });
                         break;
                     case 1:
+                        initTheatreMenu();
 
                         break;
                         default:
@@ -422,147 +409,29 @@ public class MainActivity extends  AppCompatActivity {
 
     }
 
-//    private void initTheaterFilters(){
-//        NearBean placeBean1 = new NearBean("天津");
-//        NearBean placeBean2 = new NearBean("北京");
-//        NearBean placeBean3 = new NearBean("上海");
-//        NearBean placeBean4 = new NearBean("深圳");
-//        NearBean placeBean5 = new NearBean("四川");
-//        NearBean placeBean6 = new NearBean("杭州");
-//        NearBean placeBean7 = new NearBean("苏州");
-//        mPopBeens.add(placeBean1);
-//        mPopBeens.add(placeBean2);
-//        mPopBeens.add(placeBean3);
-//        mPopBeens.add(placeBean4);
-//        mPopBeens.add(placeBean5);
-//        mPopBeens.add(placeBean6);
-//        mPopBeens.add(placeBean7);
-//        // 初始化类型
-//        mDistances.add("美食");
-//        mDistances.add("电影");
-//        mDistances.add("化妆品");
-//        mDistances.add("衣服");
-//        mDistances.add("玩具");
-//        mDistances.add("电器");
-//        mDistances.add("装饰");
-//        mDistances.add("超市");
-//        // 初始化时间
-//        BrandBean brandBean1 = new BrandBean("1天内", "去玩");
-//        BrandBean brandBean2 = new BrandBean("3天内", "去购物");
-//        BrandBean brandBean3 = new BrandBean("10天内", "去旅行");
-//        BrandBean brandBean4 = new BrandBean("30天内", "去赚钱");
-//        mBrands.add(brandBean1);
-//        mBrands.add(brandBean2);
-//        mBrands.add(brandBean3);
-//        mBrands.add(brandBean4);
-//        // 获取时间中可用于筛选的数据
-//        for (BrandBean bean : mBrands) {
-//            mBrandStr.add(bean.getBrandStr());
-//        }
-//
-//        mBrandAll = (LinearLayout) findViewById(R.id.ll_place_tab);
-//        mNearCb = (CheckBox) findViewById(R.id.cb_place);
-//        mDistanceAll = (LinearLayout) findViewById(R.id.ll_type);
-//        mDistanceCb = (CheckBox) findViewById(R.id.cb_type);
-//        mBrandAll = (LinearLayout) findViewById(R.id.ll_time);
-//        mBrandCb = (CheckBox) findViewById(R.id.cb_time);
-//        // 点击选择城市整体
-//        mNearAll.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mNearCb.isChecked()) {
-//                    mNearCb.setChecked(false);
-//                } else{
-//                    mNearCb.setChecked(true);
-//                }
-//            }
-//        });
-//        // 点击选择类型整体
-//        mDistanceAll.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mDistanceCb.isChecked()) {
-//                    mDistanceCb.setChecked(false);
-//                } else {
-//                    mDistanceCb.setChecked(true);
-//                }
-//            }
-//        });
-//        // 点击选择时间整体
-//        mBrandAll.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mBrandCb.isChecked()) {
-//                    mBrandCb.setChecked(false);
-//                } else {
-//                    mBrandCb.setChecked(true);
-//                }
-//            }
-//        });
-//
-//        // 选择城市cb
-//        mNearCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                filterTabToggleT(isChecked, mNearAll, mPopBeens, new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                        hidePopListView();
-//                        mNearCb.setText(mPopBeens.get(position).getFilterStr());
-//                    }
-//                }, mNearCb, mDistanceCb, mBrandCb);
-//            }
-//        });
-//
-//        // 选择类型cb
-//        mDistanceCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                filterTabToggle(isChecked, mDistanceAll, mDistances, new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                        hidePopListView();
-//                        mDistanceCb.setText(mDistances.get(position));
-//                    }
-//                }, mDistanceCb, mNearCb, mBrandCb);
-//            }
-//        });
-//        // 选择时间cb
-//        mBrandCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                filterTabToggle(isChecked, mBrandAll, mBrandStr, new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                        hidePopListView();
-//                        mBrandCb.setText(mBrandStr.get(position));
-//                    }
-//                }, mBrandCb, mNearCb, mDistanceCb);
-//            }
-//        });
-//
-//    }
 
     private void initTheatreMenu(){
-        ButterKnife.bind(MainActivity.this);
+        ButterKnife.bind(this);
         //init city menu
-        final ListView nearView = new ListView(MainActivity.this); //gird:准备
-        NearAdapter = new GirdDropDownAdapter(MainActivity.this, Arrays.asList(nearmenu));
+        nearView = new ListView(this); //gird:准备
+        NearAdapter = new GirdDropDownAdapter(this, Arrays.asList(nearmenu));
         nearView.setDividerHeight(0);
         nearView.setAdapter(NearAdapter);
 
         //init age menu
-        final ListView distanceView = new ListView(MainActivity.this);
+        distanceView = new ListView(this);
         distanceView.setDividerHeight(0);
-        DistanceAdapter = new ListDropDownAdapter(MainActivity.this, Arrays.asList(distancemunu));
+        DistanceAdapter = new ListDropDownAdapter(this, Arrays.asList(distancemunu));
         distanceView.setAdapter(DistanceAdapter);
 
         //init constellation
-        final View constellationView = getLayoutInflater().inflate(R.layout.custom_layout, null);
-        final GridView constellation = ButterKnife.findById(constellationView, R.id.constellation);
-        BrandAdapter = new ConstellationAdapter(MainActivity.this, Arrays.asList(brandmenu));
+        constellationView = getLayoutInflater().inflate(R.layout.custom_layout, null);
+        constellation = ButterKnife.findById(constellationView, R.id.constellation);
+        BrandAdapter = new ConstellationAdapter(this, Arrays.asList(brandmenu));
         constellation.setAdapter(BrandAdapter);
         TextView ok = ButterKnife.findById(constellationView, R.id.ok);
+
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -608,14 +477,18 @@ public class MainActivity extends  AppCompatActivity {
         popupViews.add(constellationView);
 
         //init context view
-        TextView contentView = new TextView(MainActivity.this);
-        contentView.setLayoutParams(new ViewGroup.LayoutParams(3,1));
+        TextView contentView = new TextView(this);
+        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
         contentView.setText("内容显示区域");
         contentView.setGravity(Gravity.CENTER);
         contentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
+        Log.e("err",Integer.toString(Arrays.asList(headers).size())+" 另一个 "+Integer.toString(popupViews.size()));
+
         //init dropdownview
         theatreDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+        popupViews.clear();
+
     }
 }
 
