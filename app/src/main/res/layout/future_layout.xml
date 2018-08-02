@@ -21,6 +21,11 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
             <HorizontalScrollView
                 android:id="@+id/id_horizontalscrollview"
                 android:layout_width="match_parent"
@@ -34,6 +39,17 @@
                     android:orientation="horizontal">
                 </LinearLayout>
             </HorizontalScrollView>
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/comingsoonmovie_ad"/>
+
+            </LinearLayout>
 
 
         </android.support.design.widget.CollapsingToolbarLayout>

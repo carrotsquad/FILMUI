@@ -22,6 +22,9 @@
             android:id="@+id/linear_1"
             android:layout_width="70dp"
             android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <Button
@@ -34,14 +37,13 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout_1"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="0dp"
-            android:layout_toEndOf="@+id/linear_1"
-            android:layout_toRightOf="@+id/linear_1"
+            android:layout_centerInParent="true"
             app:tabIndicatorColor="@android:color/holo_orange_light"
             app:tabIndicatorHeight="4dp">
 
@@ -53,7 +55,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
 
             <Button
                 android:id="@+id/button_QR"

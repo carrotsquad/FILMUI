@@ -26,13 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teamwork.filmui.adapters.ComingSoonMovieAdapter;
-import com.example.teamwork.filmui.adapters.FilmConAdapter;
 import com.example.teamwork.filmui.adapters.HotMovieAdapter;
 import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
 import com.example.teamwork.filmui.beans.SingleComingSoonMovie;
 import com.example.teamwork.filmui.beans.SingleHotMovie;
-import com.example.teamwork.filmui.beans.FilmCon;
-import com.example.teamwork.filmui.beans.HotMovieBean;
 import com.example.teamwork.filmui.fragments.FirstFragment;
 import com.example.teamwork.filmui.fragments.SecondFragment;
 import com.example.teamwork.filmui.fragments.Subone;
