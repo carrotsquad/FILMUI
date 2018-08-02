@@ -12,54 +12,65 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#FFF"
         android:orientation="horizontal">
 
 
-         <LinearLayout
-             android:layout_width="70dp"
-             android:layout_height="match_parent"
-             android:orientation="horizontal">
-             <Button
-                 android:id="@+id/button_location"
-                 android:layout_width="35dp"
-                 android:layout_height="35dp"
-                 android:layout_gravity="center_vertical"
-                 android:background="@drawable/ic_dingwei_2"/>
-         </LinearLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout_1"
-            android:layout_width="260dp"
-            android:layout_height="match_parent"
-            app:tabIndicatorHeight="4dp"
-            app:tabIndicatorColor="@android:color/holo_orange_light">
-
-
-        </android.support.design.widget.TabLayout>
         <LinearLayout
+            android:id="@+id/linear_1"
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_location"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_dingwei_2" />
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout_1"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/linear_1"
+            android:layout_toRightOf="@+id/linear_1"
+            app:tabIndicatorColor="@android:color/holo_orange_light"
+            app:tabIndicatorHeight="4dp">
+
+
+        </android.support.design.widget.TabLayout>
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true">
+
             <Button
                 android:id="@+id/button_QR"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_qr"/>
+                android:background="@drawable/ic_qr" />
 
             <Button
                 android:id="@+id/button_sur"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_sur"/>
-
+                android:background="@drawable/ic_sur" />
         </LinearLayout>
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_content_1"

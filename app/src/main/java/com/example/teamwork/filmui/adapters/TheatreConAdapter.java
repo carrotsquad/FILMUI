@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui;
+package com.example.teamwork.filmui.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.beans.TheatreCon;
+
 import java.util.List;
 
 public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.ViewHolder>{

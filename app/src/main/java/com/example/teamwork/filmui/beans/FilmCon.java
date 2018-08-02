@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui;
+package com.example.teamwork.filmui.beans;
 
 //电影信息类
 public class FilmCon {

@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui;
+package com.example.teamwork.filmui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,16 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Subone  extends Fragment{
+import com.example.teamwork.filmui.R;
+
+public class Subtwo extends Fragment {
 
     public static Fragment newInstance(){
-        Subone fragment = new Subone();
+        Subtwo fragment = new Subtwo();
         return fragment;
     }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.now_layout,null);
+        View view = inflater.inflate(R.layout.future_layout,null);
         return view;
     }
 
