@@ -26,6 +26,30 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/now_layout_boxoffice"
+                    android:layout_width="match_parent"
+                    android:background="#F8F8F8"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:orientation="horizontal"
+                    android:focusableInTouchMode="true"
+                    android:layout_height="50dp" >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/boxoffice"/>
+                    <TextView
+                        android:id="@+id/now_layout_todaysumboxoffice"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorAccent"/>
+                </RelativeLayout>
                 <ImageView
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"

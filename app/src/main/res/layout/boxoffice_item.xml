@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/boxoffice_title"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/gray"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/boxoffice_boxoffice"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/gray"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/boxoffice_sumBoxOffice"
+        android:layout_width="80dp"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/gray" />
+    <TextView
+        android:id="@+id/boxoffice_boxPer"
+        android:layout_width="70dp"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/gray" />
+    <TextView
+        android:id="@+id/boxoffice_Irank"
+        android:layout_width="80dp"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:textColor="@color/gray" />
+</LinearLayout>

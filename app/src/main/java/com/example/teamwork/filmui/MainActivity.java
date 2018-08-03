@@ -1,5 +1,6 @@
 package com.example.teamwork.filmui;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,18 +23,21 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teamwork.filmui.adapters.ComingSoonMovieAdapter;
 import com.example.teamwork.filmui.adapters.HotMovieAdapter;
 import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
+import com.example.teamwork.filmui.beans.SingleBoxOffice;
 import com.example.teamwork.filmui.beans.SingleComingSoonMovie;
 import com.example.teamwork.filmui.beans.SingleHotMovie;
 import com.example.teamwork.filmui.fragments.FirstFragment;
 import com.example.teamwork.filmui.fragments.SecondFragment;
 import com.example.teamwork.filmui.fragments.Subone;
 import com.example.teamwork.filmui.fragments.Subtwo;
+import com.example.teamwork.filmui.utils.GetBoxOfficeData;
 import com.example.teamwork.filmui.utils.GetImageFromWeb;
 import com.example.teamwork.filmui.utils.HttpGetFilmData;
 import com.yyydjk.library.DropDownMenu;
@@ -45,6 +49,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.teamwork.filmui.utils.BoxOfficeParse.getSingleBoxOfficeList;
 import static com.example.teamwork.filmui.utils.ComingSoonMovieParse.getComingSoonMovieBean;
 import static com.example.teamwork.filmui.utils.HotMovieParse.getHotMoiveBean;
 
@@ -77,6 +82,9 @@ public class MainActivity extends  AppCompatActivity {
     /** 水平瀑布流 **/
     private LinearLayout mHorizontalLinear;
 
+    /** 票房按钮设置 **/
+    private TextView todaysumboxoffice;
+    private RelativeLayout boxoffice;
 
     @BindView(R.id.dropDownMenu)
     DropDownMenu theatreDropDownMenu;
@@ -520,6 +528,16 @@ public class MainActivity extends  AppCompatActivity {
      * @param hotmovielist
      */
     private void initHotMovieAdapter(List<SingleHotMovie> hotmovielist){
+        boxoffice = (RelativeLayout)findViewById(R.id.now_layout_boxoffice);
+        boxoffice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BoxOfficeActivity.class);
+                startActivity(intent);
+            }
+        });
+        setsumBoxOffice();
+
         RecyclerView hotmovie_recycleview = (RecyclerView) findViewById(R.id.recycler_view_1);
         GridLayoutManager layoutManager1 = new GridLayoutManager(MainActivity.this,1);
         hotmovie_recycleview.setLayoutManager(layoutManager1);
@@ -534,6 +552,42 @@ public class MainActivity extends  AppCompatActivity {
                 refreshHotMovies(swipeRefreshLayout_1);
             }
         });
+    }
+
+
+    /**
+     * 设置每日总票房
+     */
+    private void setsumBoxOffice(){
+        Handler boxofficehandler;
+        todaysumboxoffice = (TextView)findViewById(R.id.now_layout_todaysumboxoffice);
+        boxofficehandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                StringBuilder stringBuilder = (StringBuilder)msg.obj;
+                if(stringBuilder!=null&&(getSingleBoxOfficeList(stringBuilder)).size()!=0){
+                    Log.d("现在的list大小：",String.valueOf((getSingleBoxOfficeList(stringBuilder)).size()));
+                    todaysumboxoffice.setText(Double.toString(getListSum(getSingleBoxOfficeList(stringBuilder)))+"万元");
+                } else {
+
+                }
+            }
+        };
+        GetBoxOfficeData.getStringBuilder(boxofficehandler, "https://api.shenjian.io/?appid=51abe84d503ac7bf17c322da00d1cb52");
+    }
+
+
+    /**
+     * 计算票房总和
+     * @param singleBoxOfficeList
+     * @return
+     */
+    private Double getListSum(List<SingleBoxOffice> singleBoxOfficeList){
+        Double sum = 0.0;
+        for (int i = 0; i<singleBoxOfficeList.size(); i++){
+            sum += singleBoxOfficeList.get(i).getBoxOffice();
+        }
+        return sum;
     }
 
 

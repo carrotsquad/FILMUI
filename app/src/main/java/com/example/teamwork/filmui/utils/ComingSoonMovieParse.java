@@ -66,14 +66,14 @@ public class ComingSoonMovieParse {
                     subjectsBean.setYear(year);
                     comingSoonMovieBean.getSubjects().add(subjectsBean);
                     //第三层解析
-                    int max = rating.optInt("max");
-                    int min = rating.optInt("min");
+//                    int max = rating.optInt("max");
+//                    int min = rating.optInt("min");
                     int average = rating.optInt("average");
                     String stars = rating.optString("stars");
                     //封装
-                    ratingBean.setMax(max);
+//                    ratingBean.setMax(max);
                     ratingBean.setAverage(average);
-                    ratingBean.setMin(min);
+//                    ratingBean.setMin(min);
                     ratingBean.setStars(stars);
                     String small = images.optString("small");
                     String large = images.optString("large");
