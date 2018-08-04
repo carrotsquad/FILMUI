@@ -42,6 +42,7 @@ import com.example.teamwork.filmui.utils.GetImageFromWeb;
 import com.example.teamwork.filmui.utils.HttpGetFilmData;
 import com.yyydjk.library.DropDownMenu;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -538,20 +539,27 @@ public class MainActivity extends  AppCompatActivity {
         });
         setsumBoxOffice();
 
+//        swipeRefreshLayout_1 = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_1);
+//        swipeRefreshLayout_1.setColorSchemeResources(R.color.colorPrimary);
+//        swipeRefreshLayout_1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                refreshHotMovies(swipeRefreshLayout_1);
+//            }
+//        });
         RecyclerView hotmovie_recycleview = (RecyclerView) findViewById(R.id.recycler_view_1);
         GridLayoutManager layoutManager1 = new GridLayoutManager(MainActivity.this,1);
         hotmovie_recycleview.setLayoutManager(layoutManager1);
         hotMovieAdapter = new HotMovieAdapter(this, hotmovielist);
         hotmovie_recycleview.setAdapter(hotMovieAdapter);
+        /*  解决数据加载不完的问题  */
+        hotmovie_recycleview.setNestedScrollingEnabled(false);
+        hotmovie_recycleview.setHasFixedSize(true);
+        /* 解决数据加载完成后, 没有停留在顶部的问题  */
+        hotmovie_recycleview.setFocusable(false);
 
-        swipeRefreshLayout_1 = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_1);
-        swipeRefreshLayout_1.setColorSchemeResources(R.color.colorPrimary);
-        swipeRefreshLayout_1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshHotMovies(swipeRefreshLayout_1);
-            }
-        });
+
+
     }
 
 
@@ -567,7 +575,7 @@ public class MainActivity extends  AppCompatActivity {
                 StringBuilder stringBuilder = (StringBuilder)msg.obj;
                 if(stringBuilder!=null&&(getSingleBoxOfficeList(stringBuilder)).size()!=0){
                     Log.d("现在的list大小：",String.valueOf((getSingleBoxOfficeList(stringBuilder)).size()));
-                    todaysumboxoffice.setText(Double.toString(getListSum(getSingleBoxOfficeList(stringBuilder)))+"万元");
+                    todaysumboxoffice.setText(new DecimalFormat("0.0").format(getListSum(getSingleBoxOfficeList(stringBuilder)))+"万元");
                 } else {
 
                 }
@@ -625,14 +633,20 @@ public class MainActivity extends  AppCompatActivity {
         comingSoonMovieAdapter = new ComingSoonMovieAdapter(this,singleComingSoonMovieList);
         comingsoonmovie_recycleview.setAdapter(comingSoonMovieAdapter);
 
-        swipeRefreshLayout_2 = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_2);
-        swipeRefreshLayout_2.setColorSchemeResources(R.color.colorPrimary);
-        swipeRefreshLayout_2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshComingSoonMovies(swipeRefreshLayout_2);
-            }
-        });
+        /*  解决数据加载不完的问题  */
+        comingsoonmovie_recycleview.setNestedScrollingEnabled(false);
+        comingsoonmovie_recycleview.setHasFixedSize(true);
+        /* 解决数据加载完成后, 没有停留在顶部的问题  */
+        comingsoonmovie_recycleview.setFocusable(false);
+
+//        swipeRefreshLayout_2 = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_2);
+//        swipeRefreshLayout_2.setColorSchemeResources(R.color.colorPrimary);
+//        swipeRefreshLayout_2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                refreshComingSoonMovies(swipeRefreshLayout_2);
+//            }
+//        });
     }
 }
 

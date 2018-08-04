@@ -18,6 +18,7 @@ import com.example.teamwork.filmui.beans.SingleBoxOffice;
 import com.example.teamwork.filmui.utils.GetBoxOfficeData;
 import com.example.teamwork.filmui.utils.HttpGetFilmData;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.example.teamwork.filmui.utils.BoxOfficeParse.getSingleBoxOfficeList;
@@ -87,8 +88,7 @@ public class BoxOfficeActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BoxOfficeActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -101,7 +101,7 @@ public class BoxOfficeActivity extends AppCompatActivity {
         }
 
         /* 给每日总票房TextView设置文本 */
-        sumBoxOffice.setText(Double.toString(sumboxoffice)+"万");
+        sumBoxOffice.setText(new DecimalFormat("0.0").format(sumboxoffice)+"万");
 
         /* 给日期TextView设置文本 */
         date.setText(singleBoxOfficeList.get(0).getTime().substring(0,4)+"年"+singleBoxOfficeList.get(0).getTime().substring(5,7)+"月"+
