@@ -1,8 +1,13 @@
 package com.example.teamwork.filmui;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -27,6 +32,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.example.teamwork.filmui.adapters.ComingSoonMovieAdapter;
 import com.example.teamwork.filmui.adapters.HotMovieAdapter;
 import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
@@ -53,6 +62,7 @@ import butterknife.ButterKnife;
 import static com.example.teamwork.filmui.utils.BoxOfficeParse.getSingleBoxOfficeList;
 import static com.example.teamwork.filmui.utils.ComingSoonMovieParse.getComingSoonMovieBean;
 import static com.example.teamwork.filmui.utils.HotMovieParse.getHotMoiveBean;
+
 
 public class MainActivity extends  AppCompatActivity {
 
@@ -100,9 +110,9 @@ public class MainActivity extends  AppCompatActivity {
 
     private int constellationPosition = 0;
 
-    private GirdDropDownAdapter NearAdapter;
-    private ListDropDownAdapter DistanceAdapter;
-    private ConstellationAdapter BrandAdapter;
+    private com.example.teamwork.filmui.GirdDropDownAdapter NearAdapter;
+    private com.example.teamwork.filmui.ListDropDownAdapter DistanceAdapter;
+    private com.example.teamwork.filmui.ConstellationAdapter BrandAdapter;
     private ListView nearView;
     private ListView distanceView;
     private View constellationView;
@@ -129,8 +139,8 @@ public class MainActivity extends  AppCompatActivity {
 
         /* 实例化二维码按钮 */
         Button QRbutton = (Button)findViewById(R.id.button_QR);
-        /* 实例化二维码按钮 */
-        Button locationbutton = (Button)findViewById(R.id.button_location);
+        /* 实例化定位按钮 */
+        Button locationbutton = (Button) findViewById(R.id.button_location);
         /* 实例化搜索按钮 */
         Button searchbutton = (Button)findViewById(R.id.button_sur);
 
@@ -154,14 +164,23 @@ public class MainActivity extends  AppCompatActivity {
         locationbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"You clicked location.",Toast.LENGTH_SHORT).show();
+                getGPSPermission();
+                initLocation();
+                Toast.makeText(MainActivity.this,"重新定位完成",Toast.LENGTH_SHORT).show();
             }
         });
 
         /* 初始化页面 */
         initView();
 
+        /* 检查定位权限状态 */
+        getGPSPermission();
+
+        /* 初始化定位 */
+        initLocation();
+
     }
+
 
     /**
      * 初始化页面，创建碎片
@@ -316,6 +335,99 @@ public class MainActivity extends  AppCompatActivity {
 
 
     /**
+     * 动态获取定位权限
+     */
+    private void getGPSPermission(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},1);
+        }
+    }
+
+
+    /**
+     * 初始化各种定位
+     */
+    private void initLocation(){
+
+        //声明AMapLocationClient类对象
+        AMapLocationClient mLocationClient = null;
+
+        //声明定位回调监听器
+        AMapLocationListener mLocationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                if (aMapLocation.getErrorCode() == 0) {
+                        //可在其中解析amapLocation获取相应内容。
+                    TextView citylocation = (TextView) findViewById(R.id.text_location);
+                    citylocation.setText(aMapLocation.getCity());
+                    Log.d("定位",aMapLocation.getAddress());
+                } else {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError", "location Error, ErrCode:"
+                            + aMapLocation.getErrorCode() + ", errInfo:"
+                            + aMapLocation.getErrorInfo());
+                    String errinfo = "location Error,ErrorCode:" + String.valueOf(aMapLocation.getErrorCode()) + "ErrorInfo:" + String.valueOf(aMapLocation.getErrorInfo());
+                    Toast.makeText(MainActivity.this, errinfo, Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+            //初始化定位
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+            //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+
+            //声明AMapLocationClientOption对象
+        AMapLocationClientOption mLocationOption = null;
+            //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+
+            //设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
+        mLocationOption.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
+
+            //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+
+            //获取最近3s内精度最高的一次定位结果：
+        mLocationOption.setOnceLocationLatest(true);
+            //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+            //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        mLocationOption.setHttpTimeOut(20000);
+
+        if (mLocationClient != null) {
+            mLocationClient.setLocationOption(mLocationOption);
+                //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+            mLocationClient.stopLocation();
+            mLocationClient.startLocation();
+        }
+
+    }
+
+
+    /**
+     * 返回权限获取结果
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    initLocation();
+                } else {
+                    Toast.makeText(this,"You denied the permissions", Toast.LENGTH_SHORT).show();
+                }
+                break;
+                default:
+                    break;
+        }
+    }
+
+
+    /**
      * 刷新电影
      * @param swipeRefreshLayout
      */
@@ -425,20 +537,20 @@ public class MainActivity extends  AppCompatActivity {
         ButterKnife.bind(this);
         //init city menu
         nearView = new ListView(this); //gird:准备
-        NearAdapter = new GirdDropDownAdapter(this, Arrays.asList(nearmenu));
+        NearAdapter = new com.example.teamwork.filmui.GirdDropDownAdapter(this, Arrays.asList(nearmenu));
         nearView.setDividerHeight(0);
         nearView.setAdapter(NearAdapter);
 
         //init age menu
         distanceView = new ListView(this);
         distanceView.setDividerHeight(0);
-        DistanceAdapter = new ListDropDownAdapter(this, Arrays.asList(distancemunu));
+        DistanceAdapter = new com.example.teamwork.filmui.ListDropDownAdapter(this, Arrays.asList(distancemunu));
         distanceView.setAdapter(DistanceAdapter);
 
         //init constellation
         constellationView = getLayoutInflater().inflate(R.layout.custom_layout, null);
         constellation = ButterKnife.findById(constellationView, R.id.constellation);
-        BrandAdapter = new ConstellationAdapter(this, Arrays.asList(brandmenu));
+        BrandAdapter = new com.example.teamwork.filmui.ConstellationAdapter(this, Arrays.asList(brandmenu));
         constellation.setAdapter(BrandAdapter);
         TextView ok = ButterKnife.findById(constellationView, R.id.ok);
 

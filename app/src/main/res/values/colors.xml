@@ -7,4 +7,9 @@
     <color name="gray">#666666</color>
     <color name="divider_line">#e2e2e2</color>
     <color name="orange">#F75000</color>
+    <color name="black">#000</color>
+    <color name="special_yellow">#d1b163</color>
+    <color name="special_blue">#7095c2</color>
+    <color name="special_red">#de6f6c</color>
+    <color name="special_green">#7a9c84</color>
 </resources>
