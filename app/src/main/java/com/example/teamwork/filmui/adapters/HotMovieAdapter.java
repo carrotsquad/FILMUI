@@ -2,6 +2,7 @@ package com.example.teamwork.filmui.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,13 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.teamwork.filmui.MainActivity;
+import com.example.teamwork.filmui.MovieDetailActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.beans.SingleHotMovie;
 import com.example.teamwork.filmui.utils.GetImageFromWeb;
 
 import java.util.List;
+
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_RATING;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TAGS;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TITLE;
 
 public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHolder> {
 
@@ -37,6 +46,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
         TextView commit;
         TextView actors;
         TextView directors;
+        LinearLayout linearLayout;
 
         public ViewHolder(View view){
             super(view);
@@ -46,6 +56,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
             commit = (TextView) view.findViewById(R.id.filmcommit);
             actors = (TextView) view.findViewById(R.id.filmactors);
             directors = (TextView) view.findViewById(R.id.filmdirectors);
+            linearLayout = (LinearLayout) view.findViewById(R.id.hotmovieitem_linearlayout);
         }
     }
 
@@ -61,7 +72,35 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
             mContext = parent.getContext();
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.film_item, parent,false);
-        return new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                SingleHotMovie singleHotMovie1 = hotMovieBeanList.get(position);
+                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                intent.putExtra(MOVIE_RATING, singleHotMovie1.getCommit());
+                intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
+                intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
+                intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                mContext.startActivity(intent);
+            }
+        });
+
+        holder.filmImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                SingleHotMovie singleHotMovie1 = hotMovieBeanList.get(position);
+                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                intent.putExtra(MOVIE_RATING, singleHotMovie1.getCommit());
+                intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
+                intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
+                intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                mContext.startActivity(intent);
+            }
+        });
+        return holder;
     }
 
     @Override
@@ -69,12 +108,6 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
         singleHotMovie = hotMovieBeanList.get(position);
         holder.filmname.setText(singleHotMovie.getTitle());
         holder.commit.setText("评分："+Double.toString(singleHotMovie.getCommit()));
-//        for(int i=0;i<SingleHotMovie.getSubjects().get(position).getDirectors().size();i++){
-//            directors.append(SingleHotMovie.getSubjects().get(position).getDirectors().get(i).getName());
-//        }
-//        for(int i=0;i<SingleHotMovie.getSubjects().get(position).getCasts().size();i++){
-//            actors.append(SingleHotMovie.getSubjects().get(position).getDirectors().get(i).getName());
-//        }
         holder.directors.setText("导演："+singleHotMovie.getDirectors());
         holder.actors.setText("演员："+singleHotMovie.getActors());
         GetImageFromWeb.setImageView(singleHotMovie.getImageId(), holder.filmImage, activity);

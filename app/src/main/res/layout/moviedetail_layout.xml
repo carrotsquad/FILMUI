@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -72,6 +76,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/moviedetail_poster"
                     android:layout_width="80dp"
                     android:layout_height="100dp"
                     android:layout_alignParentTop="true"
@@ -96,9 +101,10 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:layout_width="match_parent"
@@ -138,6 +144,7 @@
                         android:layout_alignRight="@+id/moviedetail_score" />
 
                     <TextView
+                        android:id="@+id/reshu_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/moviedetail_score"
@@ -169,8 +176,12 @@
                         android:layout_alignBaseline="@+id/moviedetail_score"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
+                        android:layout_marginStart="31dp"
+                        android:layout_marginLeft="31dp"
                         android:layout_marginEnd="33dp"
                         android:layout_marginRight="33dp"
+                        android:layout_toEndOf="@+id/reshu_2"
+                        android:layout_toRightOf="@+id/reshu_2"
                         android:text="想看人数"
                         android:textSize="20sp" />
 
@@ -178,15 +189,13 @@
                         android:id="@+id/moviedetail_yikanrenshu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/renshu"
                         android:layout_alignBaseline="@+id/moviedetail_xiangkanrenshu"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginStart="35dp"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="45dp"
-                        android:layout_marginRight="45dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginLeft="39dp"
+                        android:layout_marginEnd="41dp"
+                        android:layout_marginRight="41dp"
                         android:layout_toEndOf="@+id/moviedetail_xiangkanrenshu"
                         android:layout_toRightOf="@+id/moviedetail_xiangkanrenshu"
                         android:text="200000"
@@ -219,6 +228,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="31dp"
                     android:layout_marginRight="31dp"
+                    style="?android:attr/borderlessButtonStyle"
                     android:background="@drawable/alreadywatched" />
             </RelativeLayout>
 
@@ -290,11 +300,47 @@
 
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="观众热评"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/moviedetail_commitsrecycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 
 
 </android.support.design.widget.CoordinatorLayout>
+
+    <Button
+        android:id="@+id/moviedetail_xuanzuogoupiao"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/goupiao_pink"
+        android:text="选票购座"
+        android:textColor="@color/white">
+    </Button>
+
+
+</RelativeLayout>

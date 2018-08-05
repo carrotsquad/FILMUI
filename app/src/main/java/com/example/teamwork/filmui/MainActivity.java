@@ -523,7 +523,7 @@ public class MainActivity extends  AppCompatActivity {
             TextView collectcount = (TextView) view.findViewById(R.id.movie_item_hotgradetextview);
             GetImageFromWeb.setImageView(singleComingSoonMovies.get(i).getImageId(),img,MainActivity.this);
             title.setText(singleComingSoonMovies.get(i).getTitle());
-            collectcount.setText(singleComingSoonMovies.get(i).getCollectcount()+"人收藏");
+            collectcount.setText(singleComingSoonMovies.get(i).getWishcount()+"人收藏");
             mHorizontalLinear.addView(view);
         }
 

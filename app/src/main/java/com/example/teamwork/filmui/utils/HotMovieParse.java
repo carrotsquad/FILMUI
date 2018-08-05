@@ -85,6 +85,7 @@ public class HotMovieParse {
                     Log.d("网址：",small);
                     StringBuilder dirs = new StringBuilder();
                     StringBuilder acts = new StringBuilder();
+                    StringBuilder tags = new StringBuilder();
                     for (int j = 0; j < casts.length(); j++) {
                         JSONObject castsJSONObject = casts.getJSONObject(j);
                         String alt1 = castsJSONObject.optString("alt");
@@ -114,11 +115,10 @@ public class HotMovieParse {
                         String name = dirJSONObject.optString("name");
                         dirs.append(name+" ");
                     }
-                    for (int j = 0; j < genres.length(); j++) {
-                        String s = genres.optString(j);
-                        subjectsBean.getGenres().add(s);
+                    for (int j=0;j<genres.length();j++){
+                        tags.append(genres.get(j)+" ");
                     }
-                    singleHotMovie = new SingleHotMovie(title1,small,acts.toString(),dirs.toString(),average);
+                    singleHotMovie = new SingleHotMovie(title1,small,acts.toString(),dirs.toString(),average,id,tags.toString());
                 }
                 singleHotMovies.add(singleHotMovie);
                 Log.d("在里面的list大小：",String.valueOf(singleHotMovies.size()));

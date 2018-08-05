@@ -9,14 +9,18 @@ public class SingleComingSoonMovie {
     private String title;
     private String actors;
     private String directors;
-    private int collectcount;
+    private int wishcount;
+    private String id;
+    private String tags;
 
-    public SingleComingSoonMovie(String title, String imageId, String actors, String directors, int collectcount){
+    public SingleComingSoonMovie(String title, String imageId, String actors, String directors, int wishcount,String id,String tags){
         this.title = title;
+        this.tags = tags;
         this.imageId = imageId;
         this.actors = actors;
         this.directors = directors;
-        this.collectcount = collectcount;
+        this.wishcount = wishcount;
+        this.id = id;
     }
 
     public String getImageId(){
@@ -35,7 +39,13 @@ public class SingleComingSoonMovie {
         return directors;
     }
 
-    public int getCollectcount(){
-        return collectcount;
+    public int getWishcount() {
+        return wishcount;
+    }
+
+    public String getId(){return id;}
+
+    public String getTags() {
+        return tags;
     }
 }

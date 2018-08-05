@@ -83,6 +83,7 @@ public class ComingSoonMovieParse {
                     imagesBean.setSmall(small);
                     StringBuilder dirs = new StringBuilder();
                     StringBuilder acts = new StringBuilder();
+                    StringBuilder tags = new StringBuilder();
                     for (int j=0;j<casts.length();j++){
                         JSONObject castsJSONObject = casts.getJSONObject(j);
                         String alt1 = castsJSONObject.optString("alt");
@@ -113,10 +114,9 @@ public class ComingSoonMovieParse {
                         dirs.append(name+" ");
                     }
                     for (int j=0;j<genres.length();j++){
-                        String s = genres.optString(j);
-                        subjectsBean.getGenres().add(s);
+                        tags.append(genres.get(j)+" ");
                     }
-                    singleComingSoonMovie = new SingleComingSoonMovie(title1,small,acts.toString(),dirs.toString(),collect_count);
+                    singleComingSoonMovie = new SingleComingSoonMovie(title1,small,acts.toString(),dirs.toString(),collect_count,id,tags.toString());
                 }
                 singleComingSoonMovieList.add(singleComingSoonMovie);
                 Log.d("在里面的list大小：",String.valueOf(singleComingSoonMovieList.size()));
