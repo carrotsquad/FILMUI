@@ -35,6 +35,15 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
+             <LinearLayout
+                 android:layout_marginTop="15dp"
+                 android:layout_marginLeft="20dp"
+                 android:layout_marginRight="20dp"
+                 android:layout_width="match_parent"
+                 android:layout_height="0.1dp"
+                 android:background="@color/gray">
+             </LinearLayout>
+
             <ImageView
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
@@ -44,6 +53,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/comingsoonmovie_ad"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray">
             </LinearLayout>
 
     <!--<android.support.v4.widget.SwipeRefreshLayout-->

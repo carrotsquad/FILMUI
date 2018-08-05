@@ -9,15 +9,16 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:id="@+id/appBar"
+        android:id="@+id/moviedetail_appBar"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/collapsing_toolbar"
+            android:id="@+id/moviedetail_collapsing_toolbar"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:statusBarScrim="@color/colorAccent"
+            android:background="@color/special_blue"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true">
             <RelativeLayout
@@ -32,7 +33,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="30dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="50dp"
                     android:orientation="vertical">
 
@@ -77,10 +78,10 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="84dp"
-                    android:layout_marginEnd="48dp"
-                    android:layout_marginRight="48dp"
-                    android:layout_marginBottom="66dp" />
+                    android:layout_marginTop="100dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="50dp" />
 
 
             </RelativeLayout>
@@ -123,14 +124,18 @@
                         android:textSize="20sp"
                         android:text="评分：0.0"/>
 
-                    <ImageView
+                    <RatingBar
+                        android:id="@+id/moviedetail_ratingbar"
+                        style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/moviedetail_score"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginTop="8dp"
-                        android:src="@drawable/score_4" />
+                        android:layout_alignEnd="@+id/moviedetail_score"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="14dp"
+                        android:rating="5"
+                        android:layout_marginRight="2dp"
+                        android:layout_alignRight="@+id/moviedetail_score" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -191,10 +196,102 @@
             </android.support.v7.widget.CardView>
 
             <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="70dp">
 
+                <CheckBox
+                    android:id="@+id/moviedetail_wannawatch_checkbox"
+                    style="@style/CustomCheckboxTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginLeft="29dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="31dp"
+                    android:layout_marginRight="31dp"
+                    android:background="@drawable/alreadywatched" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/moviedetail_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:singleLine="false"/>
+            <!-- 更多和箭头 -->
+            <RelativeLayout
+                android:id="@+id/show_more"
+                android:layout_below="@id/moviedetail_intro"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="13sp"
+                    android:textColor="#999"
+                    android:layout_marginRight="34dip"
+                    android:text="更多" />
+
+
+                <ImageView
+                    android:id="@+id/spread"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shrink_up"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@drawable/ic_details_more" />
+
+                <ImageView
+                    android:id="@+id/shrink_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ic_shrink_up"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="演职人员"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/moviedetail_castsrecycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
