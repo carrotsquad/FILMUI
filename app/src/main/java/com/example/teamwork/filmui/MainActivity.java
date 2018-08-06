@@ -221,9 +221,14 @@ public class MainActivity extends  AppCompatActivity {
         MyFragmentAdapter adapter_1 = new MyFragmentAdapter(getSupportFragmentManager(),fragments_1, Arrays.asList(sTitle_1));
         mViewPager_1.setAdapter(adapter_1);
 
+        /* 设置初始化页面 */
+        mViewPager_1.setCurrentItem(0);
+
         /* 自定义tab布局 */
         mTabLayout_1.getTabAt(0).setCustomView(getTabView(0));
         mTabLayout_1.getTabAt(1).setCustomView(getTabView(1));
+
+
 
         /* 设置监听器 */
         mViewPager_1.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -231,6 +236,7 @@ public class MainActivity extends  AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
 
             /**
              * 滑动标签页响应
@@ -240,6 +246,7 @@ public class MainActivity extends  AppCompatActivity {
 
                 switch (position){
                     /* 滑动到第一个页面"电影" */
+                    default:
                     case 0:
                         /* 初始化第二级滑动页 */
                         mViewPager_2 = (ViewPager) findViewById(R.id.vp_content_2);
@@ -253,14 +260,13 @@ public class MainActivity extends  AppCompatActivity {
                             @Override public void onTabSelected(TabLayout.Tab tab) {
                                 switch (tab.getPosition()){
                                     /** 滑动到“正在上映”页面 **/
+                                    default:
                                     case 0:
                                         initHotMovie();
                                         break;
                                     /** 滑动到“即将上映”页面 **/
                                     case 1:
                                         initComingSoonMovie();
-                                        break;
-                                    default:
                                         break;
                                 }
                             }
@@ -284,9 +290,14 @@ public class MainActivity extends  AppCompatActivity {
                         /* 设置一级碎片适配器 */
                         MyFragmentAdapter adapter_2 = new MyFragmentAdapter(getSupportFragmentManager(),fragments_2, Arrays.asList(sTitle_2));
                         mViewPager_2.setAdapter(adapter_2);
+
+                        /* 设置初始化页面 */
+                        mViewPager_2.setCurrentItem(0);
+
                         /* 自定义tab布局 */
                         mTabLayout_2.getTabAt(0).setText(sTitle_2[0]);
                         mTabLayout_2.getTabAt(1).setText(sTitle_2[1]);
+
                         /*
                          * 设置第二级ViewPager监听器
                          */
@@ -299,14 +310,13 @@ public class MainActivity extends  AppCompatActivity {
                             @Override
                             public void onPageSelected(int position) {
                                 switch (position){
+                                    default:
                                     case 0:
                                         initHotMovie();
                                         break;
                                     case 1:
                                         initComingSoonMovie();
                                         break;
-                                        default:
-                                            break;
                                 }
                             }
 
@@ -321,8 +331,6 @@ public class MainActivity extends  AppCompatActivity {
                         initTheatreMenu();
 
                         break;
-                        default:
-                            break;
                 }
             }
 
@@ -651,14 +659,7 @@ public class MainActivity extends  AppCompatActivity {
         });
         setsumBoxOffice();
 
-//        swipeRefreshLayout_1 = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_1);
-//        swipeRefreshLayout_1.setColorSchemeResources(R.color.colorPrimary);
-//        swipeRefreshLayout_1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refreshHotMovies(swipeRefreshLayout_1);
-//            }
-//        });
+
         RecyclerView hotmovie_recycleview = (RecyclerView) findViewById(R.id.recycler_view_1);
         GridLayoutManager layoutManager1 = new GridLayoutManager(MainActivity.this,1);
         hotmovie_recycleview.setLayoutManager(layoutManager1);
@@ -750,15 +751,6 @@ public class MainActivity extends  AppCompatActivity {
         comingsoonmovie_recycleview.setHasFixedSize(true);
         /* 解决数据加载完成后, 没有停留在顶部的问题  */
         comingsoonmovie_recycleview.setFocusable(false);
-
-//        swipeRefreshLayout_2 = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_2);
-//        swipeRefreshLayout_2.setColorSchemeResources(R.color.colorPrimary);
-//        swipeRefreshLayout_2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refreshComingSoonMovies(swipeRefreshLayout_2);
-//            }
-//        });
     }
 }
 

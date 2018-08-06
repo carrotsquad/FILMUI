@@ -24,6 +24,7 @@ import com.example.teamwork.filmui.utils.GetImageFromWeb;
 import java.util.List;
 
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_POSTER;
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_RATING;
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TAGS;
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TITLE;
@@ -87,6 +88,7 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
                 intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
                 intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
                 intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
+                intent.putExtra(MOVIE_POSTER, singleComingSoonMovie1.getImageId());
                 mContext.startActivity(intent);
             }
         });
@@ -101,6 +103,7 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
                 intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
                 intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
                 intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
+                intent.putExtra(MOVIE_POSTER, singleComingSoonMovie1.getImageId());
                 mContext.startActivity(intent);
             }
         });

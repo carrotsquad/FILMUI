@@ -27,7 +27,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="FilmUI"
+        android:label="TPP2"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

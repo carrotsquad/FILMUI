@@ -3,9 +3,11 @@ package com.example.teamwork.filmui.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.example.teamwork.filmui.utils.GetImageFromWeb;
 import java.util.List;
 
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_POSTER;
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_RATING;
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TAGS;
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TITLE;
@@ -83,6 +86,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
                 intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
                 intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
                 intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                intent.putExtra(MOVIE_POSTER, singleHotMovie1.getImageId());
                 mContext.startActivity(intent);
             }
         });
@@ -97,6 +101,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
                 intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
                 intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
                 intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                intent.putExtra(MOVIE_POSTER, singleHotMovie1.getImageId());
                 mContext.startActivity(intent);
             }
         });

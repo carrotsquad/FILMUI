@@ -22,7 +22,7 @@
             android:id="@+id/moviedetail_collapsing_toolbar"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:statusBarScrim="@color/colorAccent"
-            android:background="@color/special_blue"
+            android:background="@color/white"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true">
             <RelativeLayout
@@ -46,10 +46,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
+                        android:maxLength="10"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/moviedetail_original_title"
+                        android:maxLength="25"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white" />
@@ -68,11 +70,11 @@
                         android:textColor="#E0E0E0" />
 
                     <TextView
-                        android:id="@+id/moviedetail_date"
+                        android:id="@+id/moviedetail_isitintheatre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2018-07-27 08:00 在中国上映"
-                        android:textColor="#E0E0E0" />
+                        android:textColor="#E0E0E0"/>
+
                 </LinearLayout>
 
                 <ImageView
@@ -189,16 +191,18 @@
                         android:id="@+id/moviedetail_yikanrenshu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/renshu"
                         android:layout_alignBaseline="@+id/moviedetail_xiangkanrenshu"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginStart="39dp"
-                        android:layout_marginLeft="39dp"
-                        android:layout_marginEnd="41dp"
-                        android:layout_marginRight="41dp"
+                        android:layout_marginStart="51dp"
+                        android:layout_marginLeft="51dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="29dp"
+                        android:layout_marginRight="29dp"
                         android:layout_toEndOf="@+id/moviedetail_xiangkanrenshu"
                         android:layout_toRightOf="@+id/moviedetail_xiangkanrenshu"
-                        android:text="200000"
+                        android:text="2000"
                         android:textSize="20sp" />
 
                 </RelativeLayout>
@@ -250,6 +254,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/gengduo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -263,10 +268,9 @@
                     android:id="@+id/spread"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/shrink_up"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginRight="19dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="22dp"
                     android:background="@drawable/ic_details_more" />
 
                 <ImageView
@@ -275,6 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/ic_shrink_up"
+                    android:layout_marginRight="22dp"
                     android:visibility="gone" />
             </RelativeLayout>
 
