@@ -54,8 +54,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="0dp"
             android:layout_centerInParent="true"
-            app:tabIndicatorColor="@android:color/holo_orange_light"
-            app:tabIndicatorHeight="4dp">
+            app:tabIndicatorColor="@android:color/holo_orange_light">
 
 
         </android.support.design.widget.TabLayout>

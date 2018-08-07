@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MovieDetailTheme" parent="AppTheme">
+
+    </style>
+
     <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/moivedetail_wannawatch_selector</item>
     </style>

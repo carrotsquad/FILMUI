@@ -47,7 +47,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".BoxOfficeActivity" />
-        <activity android:name=".MovieDetailActivity"></activity>
+        <activity
+            android:name=".MovieDetailActivity"
+            android:theme="@style/MovieDetailTheme">
+
+        </activity>
     </application>
 
 </manifest>

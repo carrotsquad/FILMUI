@@ -10,9 +10,11 @@ public class SingleCast {
     private String countries;
     private int collect_count;
     private int wish_count;
+    private String poster;
 
-    public SingleCast(String name, String avatar, String id,String summary, String aka,String countries, int wish_count, int collect_count) {
+    public SingleCast(String name, String avatar, String id,String summary, String aka,String countries, int wish_count, int collect_count,String poster) {
         this.summary = summary;
+        this.poster = poster;
         this.aka = aka;
         this.countries = countries;
         this.collect_count = collect_count;
@@ -20,6 +22,10 @@ public class SingleCast {
         this.name = name;
         this.avatar = avatar;
         this.id = id;
+    }
+
+    public String getPoster() {
+        return poster;
     }
 
     public int getCollect_count() {

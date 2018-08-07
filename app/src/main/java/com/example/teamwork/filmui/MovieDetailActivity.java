@@ -1,6 +1,8 @@
 package com.example.teamwork.filmui;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -44,10 +48,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     public static final String MOVIE_TAGS = "movie_tags";
 
-    public static final String MOVIE_POSTER = "movie_poster";
-
     // 默认展示最大行数3行
-    private static final int VIDEO_CONTENT_DESC_MAX_LINE = 3;
+    private static final int VIDEO_CONTENT_DESC_MAX_LINE = 5;
     // 扩充
     private static final int SHOW_CONTENT_NONE_STATE = 0;
     // 收起状态
@@ -88,9 +90,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private TextView Movie_Collect_Count;
     private TextView MovieSummary;
 
-
-    private String movieScore;
-    private String movieImage;
     private String movieID;
     private String movieTitle;
     private String movieTags;
@@ -101,6 +100,13 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
             "#7095c2",
             "#de6f6c",
             "#7a9c84"
+    };
+
+    private int[] bgcolor = {
+            R.color.special_yellow,
+            R.color.special_blue,
+            R.color.special_red,
+            R.color.special_green
     };
 
 
@@ -140,21 +146,18 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         movieID = intent.getStringExtra(MOVIE_ID);
         movieTags = intent.getStringExtra(MOVIE_TAGS);
         movieTitle = intent.getStringExtra(MOVIE_TITLE);
-        movieImage = intent.getStringExtra(MOVIE_POSTER);
 
         toolbar = (Toolbar)findViewById(R.id.moviedetail_toolbar);
         toolbar.setTitle(" ");
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.moviedetail_collapsing_toolbar);
         collapsingToolbarLayout.setBackgroundColor(android.graphics.Color.parseColor(bg[num]));
-        MovieImageView = (ImageView) findViewById(R.id.moviedetail_poster);
+        setWindowStatusBarColor(MovieDetailActivity.this, bgcolor[num]);
+
         MovieTitle = (TextView) findViewById(R.id.moviedetail_title);
         MovieTags = (TextView)findViewById(R.id.moviedetail_tags);
         MovieScore = (TextView)findViewById(R.id.moviedetail_score);
 
 
-
-
-        GetImageFromWeb.setImageView(movieImage, MovieImageView, MovieDetailActivity.this);
         MovieTitle.setText(movieTitle);
         MovieTags.setText(movieTags);
         MovieScore.setText("评分："+new DecimalFormat("0.0").format(movieRating));
@@ -247,8 +250,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         MovieAka = (TextView)findViewById(R.id.moviedetail_original_title);
         MovieCountries = (TextView)findViewById(R.id.moviedetail_period);
         MovieSummary = (TextView)findViewById(R.id.moviedetail_intro);
+        MovieImageView = (ImageView) findViewById(R.id.moviedetail_poster);
 
-
+        GetImageFromWeb.setImageView(singleCast.getPoster(), MovieImageView, MovieDetailActivity.this);
         Movie_Wish_Count.setText(Integer.toString(singleCast.getWish_count()));
         Movie_Collect_Count.setText(Integer.toString(singleCast.getCollect_count()));
         MovieCountries.setText(singleCast.getCountries());
@@ -303,6 +307,24 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                     break;
         }
         return true;
+    }
+
+
+    /**
+     * 设置状态栏颜色
+     * @param activity
+     * @param colorResId
+     */
+     private void setWindowStatusBarColor(Activity activity, int colorResId) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = activity.getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(activity.getResources().getColor(colorResId));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -275,55 +275,6 @@ public class MainActivity extends  AppCompatActivity {
     }
 
 
-//    /**
-//     * 刷新电影
-//     * @param swipeRefreshLayout
-//     */
-//    private void refreshHotMovies(final SwipeRefreshLayout swipeRefreshLayout) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException e){
-//                    e.printStackTrace();
-//                }
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        hotMovieAdapter.notifyDataSetChanged();
-//                        swipeRefreshLayout.setRefreshing(false);
-//                    }
-//                });
-//            }
-//        }).start();
-//    }
-//
-//
-//    /**
-//     * 设置刷新响应
-//     * @param swipeRefreshLayout
-//     */
-//    private void refreshComingSoonMovies(final SwipeRefreshLayout swipeRefreshLayout) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException e){
-//                    e.printStackTrace();
-//                }
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        comingSoonMovieAdapter.notifyDataSetChanged();
-//                        swipeRefreshLayout.setRefreshing(false);
-//                    }
-//                });
-//            }
-//        }).start();
-//    }
-
     /**
      * 重写返回键响应函数，按两次才退出
      */
