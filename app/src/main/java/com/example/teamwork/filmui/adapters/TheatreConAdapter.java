@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.amap.api.services.core.PoiItem;
 import com.example.teamwork.filmui.R;
-import com.example.teamwork.filmui.beans.TheatreCon;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.Vi
 
     private Context mContext;
 
-    private List<TheatreCon> mtheatreConList;
+    private List<PoiItem> poiItemList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -36,8 +36,8 @@ public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.Vi
         }
     }
 
-    public TheatreConAdapter(List<TheatreCon> mtheatreCons){
-        mtheatreConList = mtheatreCons;
+    public TheatreConAdapter(List<PoiItem> poiItemList){
+        this.poiItemList = poiItemList;
     }
 
     @NonNull
@@ -47,19 +47,28 @@ public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.Vi
             mContext = parent.getContext();
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.theatre_item, parent,false);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
         return new TheatreConAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TheatreConAdapter.ViewHolder holder, int position) {
-        TheatreCon theatreCon = mtheatreConList.get(position);
-        holder.theatrename.setText(theatreCon.getTheatreName());
-        holder.theatreaddress.setText(theatreCon.getTheatreAddress());
-        holder.theatredistance.setText(Double.toString(theatreCon.getTheatreDistance())+"km");
+        PoiItem poiItem = poiItemList.get(position);
+        holder.theatrename.setText(poiItem.getTitle());
+        holder.theatreaddress.setText(poiItem.getSnippet());
+        holder.theatredistance.setText(Integer.toString(poiItem.getDistance())+"米");
     }
 
     @Override
     public int getItemCount() {
-        return mtheatreConList.size();
+        return poiItemList.size();
     }
 }

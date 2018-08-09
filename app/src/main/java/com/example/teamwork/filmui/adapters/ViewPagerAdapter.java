@@ -10,6 +10,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment>  fragments;
     private List<String> titles;
+
+
     /**
      * 构造方法
      * @param manager
@@ -21,6 +23,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         this.titles=titles;
     }
 
+
     @Override
     public int getCount() {
         if (fragments!=null){
@@ -28,6 +31,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         }
         return 0;
     }
+
 
     @Override
     public Fragment getItem(int position) {

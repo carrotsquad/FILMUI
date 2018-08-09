@@ -61,7 +61,6 @@ public class MainActivity extends  AppCompatActivity {
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,9 +193,11 @@ public class MainActivity extends  AppCompatActivity {
 
 
     /**
-     * 初始化各种定位
+     * 初始化各种定位,返回AMapLocation对象
      */
-    private void initLocation(){
+    private AMapLocation initLocation(){
+
+        final AMapLocation[] MapLocation = new AMapLocation[1];
 
         //声明AMapLocationClient类对象
         AMapLocationClient mLocationClient = null;
@@ -208,8 +209,10 @@ public class MainActivity extends  AppCompatActivity {
                 if (aMapLocation.getErrorCode() == 0) {
                         //可在其中解析amapLocation获取相应内容。
                     TextView citylocation = (TextView) findViewById(R.id.text_location);
-                    citylocation.setText(aMapLocation.getCity());
+                    citylocation.setText(aMapLocation.getDistrict());
                     Log.d("定位",aMapLocation.getAddress());
+
+                    MapLocation[0] = aMapLocation;
                 } else {
                         //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                     Log.e("AmapError", "location Error, ErrCode:"
@@ -249,6 +252,8 @@ public class MainActivity extends  AppCompatActivity {
             mLocationClient.stopLocation();
             mLocationClient.startLocation();
         }
+
+        return MapLocation[0];
 
     }
 

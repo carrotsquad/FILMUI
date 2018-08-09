@@ -18,6 +18,10 @@ import java.util.Arrays;
 import java.util.List;
 
 
+/**
+ * “电影”页面
+ */
+
 public class FirstFragment extends Fragment {
 
     /**第二级滑动页标题**/

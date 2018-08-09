@@ -135,7 +135,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         Intent intent = getIntent();
         int min=0;
-        int max=3;
+        int max=4;
         Random random = new Random();
         int num = random.nextInt(max)%(max-min+1) + min;
 

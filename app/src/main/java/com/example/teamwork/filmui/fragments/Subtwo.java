@@ -1,6 +1,7 @@
 package com.example.teamwork.filmui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.teamwork.filmui.MainActivity;
+import com.example.teamwork.filmui.MovieDetailActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.ComingSoonMovieAdapter;
 import com.example.teamwork.filmui.beans.SingleComingSoonMovie;
@@ -25,6 +27,10 @@ import com.example.teamwork.filmui.utils.HttpGetFilmData;
 
 import java.util.List;
 
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_RATING;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TAGS;
+import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TITLE;
 import static com.example.teamwork.filmui.utils.ComingSoonMovieParse.getComingSoonMovieBean;
 
 public class Subtwo extends Fragment {
@@ -119,10 +125,30 @@ public class Subtwo extends Fragment {
             ImageView img = (ImageView) view1.findViewById(R.id.movie_item_hotimageview);
             TextView title = (TextView) view1.findViewById(R.id.movie_item_hotnametextview);
             TextView collectcount = (TextView) view1.findViewById(R.id.movie_item_hotgradetextview);
-            GetImageFromWeb.setImageView(singleComingSoonMovies.get(i).getImageId(),img, getActivity());
-            title.setText(singleComingSoonMovies.get(i).getTitle());
-            collectcount.setText(singleComingSoonMovies.get(i).getWishcount()+"人收藏");
+
+            String image = singleComingSoonMovies.get(i).getImageId();
+            String count = Integer.toString(singleComingSoonMovies.get(i).getWishcount());
+            final String Title = singleComingSoonMovies.get(i).getTitle();
+            final String ID = singleComingSoonMovies.get(i).getId();
+            final String Tags = singleComingSoonMovies.get(i).getTags();
+
+            GetImageFromWeb.setImageView(image ,img, getActivity());
+            title.setText(Title);
+            collectcount.setText(count+"人收藏");
             mHorizontalLinear.addView(view1);
+
+            /* 设置监听器 */
+            view1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                    intent.putExtra(MOVIE_RATING, 0.0);
+                    intent.putExtra(MOVIE_ID, ID);
+                    intent.putExtra(MOVIE_TITLE, Title);
+                    intent.putExtra(MOVIE_TAGS, Tags);
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
     }

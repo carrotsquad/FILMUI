@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.teamwork.filmui.BoxOfficeActivity;
-import com.example.teamwork.filmui.MainActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.HotMovieAdapter;
 import com.example.teamwork.filmui.beans.SingleBoxOffice;
@@ -48,6 +47,9 @@ public class Subone  extends Fragment{
         Subone fragment = new Subone();
         return fragment;
     }
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
