@@ -2,15 +2,12 @@ package com.example.teamwork.filmui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +23,19 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.district.DistrictItem;
+import com.amap.api.services.district.DistrictResult;
+import com.amap.api.services.district.DistrictSearch;
+import com.amap.api.services.district.DistrictSearchQuery;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.TheatreConAdapter;
 import com.yyydjk.library.DropDownMenu;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import butterknife.ButterKnife;
 
@@ -47,7 +44,7 @@ import butterknife.ButterKnife;
  * “影院”页面
  */
 
-public class SecondFragment extends Fragment{
+public class TheatreFragment extends Fragment{
 
     private Context mContext;
 
@@ -74,7 +71,7 @@ public class SecondFragment extends Fragment{
     private DropDownMenu theatreDropDownMenu;
 
     public static Fragment newInstance(){
-        SecondFragment fragment = new SecondFragment();
+        TheatreFragment fragment = new TheatreFragment();
         return fragment;
     }
 
@@ -90,6 +87,18 @@ public class SecondFragment extends Fragment{
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
 
+    private int jug=0;
+    private List<String> nearbys = new ArrayList<>();
+    private StringBuffer Adcode = new StringBuffer();
+    private double latitude;
+    private double longitude;
+    private DistrictSearch districtSearch;
+    private DistrictSearchQuery districtSearchQuery;
+    private int num=0;
+    private int isitstart;
+
+    private DistrictItem districtItem;
+
 
 
     @Nullable
@@ -97,6 +106,7 @@ public class SecondFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_theatre,null);
         mContext = getActivity();
+
         initTheatreMenu();
         return view;
     }
@@ -117,7 +127,7 @@ public class SecondFragment extends Fragment{
     /**
      * 初始化各种定位及列表
      */
-    private void initTheatre(final int Radius, final int posi, final StringBuffer brand){
+    private void initTheatre(){
 
         final AMapLocation[] MapLocation = new AMapLocation[1];
 
@@ -128,20 +138,28 @@ public class SecondFragment extends Fragment{
         AMapLocationListener mLocationListener = new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation.getErrorCode() == 0) {
-                    //可在其中解析amapLocation获取相应内容。
-                    Log.d("定位",aMapLocation.getAddress());
-                    initTheatreRecycleView(aMapLocation, Radius, posi, brand);
-                } else {
-                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                    Log.e("AmapError", "location Error, ErrCode:"
-                            + aMapLocation.getErrorCode() + ", errInfo:"
-                            + aMapLocation.getErrorInfo());
-                    String errinfo = "location Error,ErrorCode:" + String.valueOf(aMapLocation.getErrorCode()) + "ErrorInfo:" + String.valueOf(aMapLocation.getErrorInfo());
-                    Toast.makeText(mContext, errinfo, Toast.LENGTH_SHORT).show();
+                if (jug == 0) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        //可在其中解析amapLocation获取相应内容。
+                        Log.d("定位", aMapLocation.getAddress());
+                         /* 没有选择附近区域 */
+                          Adcode.setLength(0);
+                          Adcode.append(aMapLocation.getAdCode());
+                          latitude = aMapLocation.getLatitude();
+                          longitude = aMapLocation.getLongitude();
+                        initTheatreRecycleView(Adcode, latitude, longitude, Radius, posi, brand);
+                    } else {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError", "location Error, ErrCode:"
+                                + aMapLocation.getErrorCode() + ", errInfo:"
+                                + aMapLocation.getErrorInfo());
+                        String errinfo = "location Error,ErrorCode:" + String.valueOf(aMapLocation.getErrorCode()) + "ErrorInfo:" + String.valueOf(aMapLocation.getErrorInfo());
+                        Toast.makeText(mContext, errinfo, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         };
+
         //初始化定位
         mLocationClient = new AMapLocationClient(mContext);
         //设置定位回调监听
@@ -172,20 +190,26 @@ public class SecondFragment extends Fragment{
             mLocationClient.startLocation();
         }
 
+//        return MapLocation[0];
 
     }
 
 
     /**
      * 初始化列表
-     * @param aMapLocation
+     * @param Adcode
+     * @param latitude
+     * @param longitude
+     * @param Radius
+     * @param posi
+     * @param brand
      */
-    private void initTheatreRecycleView(AMapLocation aMapLocation, int Radius, final int posi, final StringBuffer brand){
-        query = new PoiSearch.Query(Keywords,"", aMapLocation.getCityCode());
+    private void initTheatreRecycleView(StringBuffer Adcode,double latitude, double longitude, int Radius, final int posi, final StringBuffer brand){
+        query = new PoiSearch.Query(Keywords,"", Adcode.toString());
         query.setPageSize(20);
         poiSearch = new PoiSearch(mContext, query);
-        poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(aMapLocation.getLatitude(),
-                aMapLocation.getLongitude()), Radius));//设置周边搜索的中心点以及半径
+        //设置周边搜索的中心点以及半径
+        poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), Radius));
         poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
             @Override
             public void onPoiSearched(PoiResult poiResult, int i) {
@@ -235,15 +259,114 @@ public class SecondFragment extends Fragment{
 
 
     /**
-     * 初始化过滤条,有bug
+     * 初始化区域及列表
+     * @return
+     */
+    private DistrictItem initDistricts(){
+
+        final AMapLocation[] MapLocation = new AMapLocation[1];
+
+        //声明AMapLocationClient类对象
+        AMapLocationClient mLocationClient = null;
+
+        //声明定位回调监听器
+        AMapLocationListener mLocationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        districtItem = new DistrictItem();
+                        districtSearch = new DistrictSearch(mContext);
+                        districtSearchQuery = new DistrictSearchQuery();
+                        //传入关键字
+                        districtSearchQuery.setKeywords(aMapLocation.getCity());
+
+                        Log.e("888888888888888", aMapLocation.getCity());
+                        //是否返回边界值
+                        districtSearchQuery.setShowBoundary(false);
+                        districtSearch.setQuery(districtSearchQuery);
+
+                        //绑定监听器
+                        districtSearch.setOnDistrictSearchListener(new DistrictSearch.OnDistrictSearchListener() {
+                            @Override
+                            public void onDistrictSearched(DistrictResult districtResult) {
+                                nearbys.clear();
+                                DistrictItem districtItem = districtResult.getDistrict().get(0);
+                                List<DistrictItem> districtItemArrayList = districtItem.getSubDistrict();
+                                for (int j=0;j<districtItemArrayList.size();j++){
+                                    nearbys.add(districtItemArrayList.get(j).getName());
+                                }
+                                districtItem = districtItemArrayList.get(num);
+                                if(jug==1){
+                                    /* 选择附近区域 */
+                                    Adcode.setLength(0);
+                                    Adcode.append(districtItem.getCitycode());
+                                    latitude = districtItem.getCenter().getLatitude();
+                                    longitude = districtItem.getCenter().getLongitude();
+
+                                    Log.e("99999999999999999",Adcode.toString());
+                                    initTheatreRecycleView(Adcode,latitude,longitude,Radius,posi,brand);
+                                }
+                            }
+                        });
+                        //开始搜索
+                        districtSearch.searchDistrictAsyn();
+                    } else {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError", "location Error, ErrCode:"
+                                + aMapLocation.getErrorCode() + ", errInfo:"
+                                + aMapLocation.getErrorInfo());
+                        String errinfo = "location Error,ErrorCode:" + String.valueOf(aMapLocation.getErrorCode()) + "ErrorInfo:" + String.valueOf(aMapLocation.getErrorInfo());
+                        Toast.makeText(mContext, errinfo, Toast.LENGTH_SHORT).show();
+                    }
+            }
+        };
+
+        //初始化定位
+        mLocationClient = new AMapLocationClient(mContext);
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+
+        //声明AMapLocationClientOption对象
+        AMapLocationClientOption mLocationOption = null;
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+
+        //设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
+        mLocationOption.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
+
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+
+        //获取最近3s内精度最高的一次定位结果：
+        mLocationOption.setOnceLocationLatest(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        mLocationOption.setHttpTimeOut(20000);
+
+        if (mLocationClient != null) {
+            mLocationClient.setLocationOption(mLocationOption);
+            //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+            mLocationClient.stopLocation();
+            mLocationClient.startLocation();
+        }
+        return districtItem;
+    }
+
+
+    /**
+     * 初始化过滤条
      */
     private void initTheatreMenu(){
         ButterKnife.bind(view);
 
         theatreDropDownMenu = view.findViewById(R.id.dropDownMenu);
+
+        initDistricts();
+
         //init city menu
         nearView = new ListView(mContext); //gird:准备
-        NearAdapter = new com.example.teamwork.filmui.GirdDropDownAdapter(mContext, Arrays.asList(nearmenu));
+        NearAdapter = new com.example.teamwork.filmui.GirdDropDownAdapter(mContext, nearbys);
         nearView.setDividerHeight(0);
         nearView.setAdapter(NearAdapter);
 
@@ -278,24 +401,34 @@ public class SecondFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NearAdapter.setCheckItem(position);
-                theatreDropDownMenu.setTabText(position == 0 ? headers[0] : nearmenu[position]);
+                theatreDropDownMenu.setTabText(position == 0 ? headers[0] : nearbys.get(position));
+                num = position;
+                jug = 1;
+                initDistricts();
                 theatreDropDownMenu.closeMenu();
+
             }
         });
 
 
+        /* 重新设置距离后 */
         distanceView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DistanceAdapter.setCheckItem(position);
                 theatreDropDownMenu.setTabText(position == 0 ? headers[1] : distancemunu[position]);
                 Radius = distances[position];
-                initTheatre(Radius, posi, brand);
+                if(jug==0){
+                    initTheatre();
+                }else {
+                    initDistricts();
+                }
                 theatreDropDownMenu.closeMenu();
             }
         });
 
 
+        /* 重新设置品牌后 */
         constellation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -310,7 +443,11 @@ public class SecondFragment extends Fragment{
                     Log.e("666666666666666666",brand.toString());
                     /* 重新初始化 */
                 }
-                initTheatre(Radius, posi, brand);
+                if(jug==0){
+                    initTheatre();
+                }else {
+                    initDistricts();
+                }
             }
         });
 
@@ -322,7 +459,8 @@ public class SecondFragment extends Fragment{
         //init context view
         recyclerView = new RecyclerView(mContext);
         recyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-        initTheatre(Radius, posi, brand);
+        initTheatre();
+
 
         Log.e("err",Integer.toString(Arrays.asList(headers).size())+" 另一个 "+Integer.toString(popupViews.size()));
 
@@ -332,31 +470,5 @@ public class SecondFragment extends Fragment{
 //        popupViews.clear();
 
     }
-
-
-//    /**
-//     * 设置刷新响应
-//     * @param swipeRefreshLayout
-//     */
-//    private void refreshTheatre(final SwipeRefreshLayout swipeRefreshLayout) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    initTheatre();
-//                    Thread.sleep(1500);
-//                } catch (InterruptedException e){
-//                    e.printStackTrace();
-//                }
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        theatreConAdapter.notifyDataSetChanged();
-//                        swipeRefreshLayout.setRefreshing(false);
-//                    }
-//                });
-//            }
-//        }).start();
-//    }
 
 }

@@ -24,8 +24,8 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
-import com.example.teamwork.filmui.fragments.FirstFragment;
-import com.example.teamwork.filmui.fragments.SecondFragment;
+import com.example.teamwork.filmui.fragments.MovieFragment;
+import com.example.teamwork.filmui.fragments.TheatreFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -143,8 +143,8 @@ public class MainActivity extends  AppCompatActivity {
         fragments_1 = new ArrayList<>();
 
         /* 加入第一级的两个碎片 */
-        fragments_1.add(FirstFragment.newInstance());
-        fragments_1.add(SecondFragment.newInstance());
+        fragments_1.add(MovieFragment.newInstance());
+        fragments_1.add(TheatreFragment.newInstance());
 
         /* 设置一级碎片适配器 */
         MyFragmentAdapter adapter_1 = new MyFragmentAdapter(getSupportFragmentManager(),fragments_1, Arrays.asList(sTitle_1));

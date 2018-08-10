@@ -30,7 +30,7 @@ import java.util.List;
 import static com.example.teamwork.filmui.utils.BoxOfficeParse.getSingleBoxOfficeList;
 import static com.example.teamwork.filmui.utils.HotMovieParse.getHotMoiveBean;
 
-public class Subone  extends Fragment{
+public class InTheatreFragment extends Fragment{
 
     private View view;
 
@@ -44,7 +44,7 @@ public class Subone  extends Fragment{
     private RelativeLayout boxoffice;
 
     public static Fragment newInstance(){
-        Subone fragment = new Subone();
+        InTheatreFragment fragment = new InTheatreFragment();
         return fragment;
     }
 

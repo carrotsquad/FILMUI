@@ -22,7 +22,7 @@ import java.util.List;
  * “电影”页面
  */
 
-public class FirstFragment extends Fragment {
+public class MovieFragment extends Fragment {
 
     /**第二级滑动页标题**/
     public static final String []sTitle_2 = new String[]{"正在热映","即将上映"};
@@ -32,7 +32,7 @@ public class FirstFragment extends Fragment {
     private TabLayout mTabLayout_2;
 
     public static Fragment newInstance(){
-        FirstFragment fragment = new FirstFragment();
+        MovieFragment fragment = new MovieFragment();
         return fragment;
     }
     @Nullable
@@ -66,8 +66,8 @@ public class FirstFragment extends Fragment {
         /* 实例化 */
         List<Fragment> fragments_2 = new ArrayList<>();
         /* 加入第二级的两个碎片 */
-        fragments_2.add(Subone.newInstance());
-        fragments_2.add(Subtwo.newInstance());
+        fragments_2.add(InTheatreFragment.newInstance());
+        fragments_2.add(ComingSoonFragment.newInstance());
         /* 设置一级碎片适配器 */
         MyFragmentAdapter adapter_2 = new MyFragmentAdapter(getChildFragmentManager(),fragments_2, Arrays.asList(sTitle_2));
         mViewPager_2.setAdapter(adapter_2);

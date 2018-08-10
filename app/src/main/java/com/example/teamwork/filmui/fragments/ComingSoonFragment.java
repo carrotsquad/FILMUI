@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.teamwork.filmui.MainActivity;
 import com.example.teamwork.filmui.MovieDetailActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.ComingSoonMovieAdapter;
@@ -33,7 +32,7 @@ import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TAGS;
 import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TITLE;
 import static com.example.teamwork.filmui.utils.ComingSoonMovieParse.getComingSoonMovieBean;
 
-public class Subtwo extends Fragment {
+public class ComingSoonFragment extends Fragment {
 
 
     /** 水平瀑布流 **/
@@ -47,7 +46,7 @@ public class Subtwo extends Fragment {
     private View view;
 
     public static Fragment newInstance(){
-        Subtwo fragment = new Subtwo();
+        ComingSoonFragment fragment = new ComingSoonFragment();
         return fragment;
     }
     @Nullable
