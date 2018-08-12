@@ -51,7 +51,6 @@ public class TheatreFragment extends Fragment{
     private String headers[] = {"附近区域", "离我最近", "特色品牌"};
     private List<View> popupViews = new ArrayList<>();
 
-    private String nearmenu[] = {"不限", "武汉", "北京", "上海", "成都", "广州", "深圳", "重庆", "天津", "西安", "南京", "杭州"};
     private String distancemunu[] = {"1000m", "2000m", "3000m", "4000m", "5000m"};
     private int[] distances =  {1000, 2000, 3000, 4000, 5000};
     private String brandmenu[] = {"不限", "UME","太平洋","金逸","万达","星美","时代","中影","联和","联合","保利","横店","大地"};
@@ -83,7 +82,6 @@ public class TheatreFragment extends Fragment{
     private StringBuffer brand  = new StringBuffer();
 
     private TheatreConAdapter theatreConAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
 
@@ -95,7 +93,6 @@ public class TheatreFragment extends Fragment{
     private DistrictSearch districtSearch;
     private DistrictSearchQuery districtSearchQuery;
     private int num=0;
-    private int isitstart;
 
     private DistrictItem districtItem;
 
