@@ -1,6 +1,5 @@
 package com.example.teamwork.filmui;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -10,19 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.teamwork.filmui.adapters.BoxOfficeAdapter;
 import com.example.teamwork.filmui.beans.SingleBoxOffice;
 import com.example.teamwork.filmui.utils.GetBoxOfficeData;
-import com.example.teamwork.filmui.utils.HttpGetFilmData;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.example.teamwork.filmui.utils.BoxOfficeParse.getSingleBoxOfficeList;
-import static com.example.teamwork.filmui.utils.HotMovieParse.getHotMoiveBean;
 
 /**
  * 票房页面

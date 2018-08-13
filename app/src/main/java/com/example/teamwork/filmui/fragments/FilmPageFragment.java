@@ -10,12 +10,18 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,17 +30,39 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.example.teamwork.filmui.MainActivity;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
+import com.example.teamwork.filmui.adapters.TheatreConAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FilmPageFragment extends Fragment{
+public class FilmPageFragment extends Fragment implements View.OnClickListener {
+
     private View view;
     private Context mContext;
+    private Button QRbutton;
+    private Button locationbutton;
+    private Button searchbutton;
+    private DrawerLayout drawerLayout;
+    private EditText editText;
+    private ImageButton searchsure;
+    private String keyword;
+    private RecyclerView recyclerView;
+    private TheatreConAdapter theatreConAdapter;
+    private GridLayoutManager gridLayoutManager;
+
+    private PoiSearch.Query query;
+    private PoiSearch poiSearch;
+    private String Keywords = "电影院";
+    private int Radius = 5000;
+
+
 
     /** 一级滑动标签页页的ViewPager和TabLayout **/
     private ViewPager mViewPager_1;
@@ -79,40 +107,31 @@ public class FilmPageFragment extends Fragment{
     }
 
 
+    /**
+     * 初始化页面
+     */
     private void initPageView(){
 
         /* 实例化二维码按钮 */
-        Button QRbutton = (Button)view.findViewById(R.id.button_QR);
+        QRbutton = (Button)view.findViewById(R.id.button_QR);
         /* 实例化定位按钮 */
-        Button locationbutton = (Button) view.findViewById(R.id.button_location);
+        locationbutton = (Button) view.findViewById(R.id.button_location);
         /* 实例化搜索按钮 */
-        Button searchbutton = (Button)view.findViewById(R.id.button_sur);
+        searchbutton = (Button)view.findViewById(R.id.button_sur);
 
-        /* 设置搜索按钮监听器 */
-        searchbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,"You clicked search.",Toast.LENGTH_SHORT).show();
-            }
-        });
+        drawerLayout = (DrawerLayout)view.findViewById(R.id.drawerlayout);
 
-        /* 设置二维码按钮监听器 */
-        QRbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,"You clicked QR.",Toast.LENGTH_SHORT).show();
-            }
-        });
+        editText = (EditText)view.findViewById(R.id.search_keyword);
 
-        /* 设置定位按钮监听器 */
-        locationbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getGPSPermission();
-                initLocation();
-                Toast.makeText(mContext,"重新定位完成",Toast.LENGTH_SHORT).show();
-            }
-        });
+        searchsure = (ImageButton) view.findViewById(R.id.search_sure);
+
+        recyclerView = (RecyclerView)view.findViewById(R.id.search_recyclerview);
+
+        searchsure.setOnClickListener(this);
+        QRbutton.setOnClickListener(this);
+        locationbutton.setOnClickListener(this);
+        searchbutton.setOnClickListener(this);
+
 
         /* 初始化页面 */
         initView();
@@ -126,7 +145,36 @@ public class FilmPageFragment extends Fragment{
 
 
     /**
-     * 初始化页面，创建碎片
+     * 重写点击响应
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.search_sure:
+                keyword = editText.getText().toString();
+                initLocation();
+//                editText.getText().clear();
+                break;
+            case R.id.button_QR:
+                Toast.makeText(mContext,"You clicked QR.",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.button_location:
+                getGPSPermission();
+                initLocation();
+                Toast.makeText(mContext,"重新定位完成",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.button_sur:
+                drawerLayout.openDrawer(GravityCompat.END);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    /**
+     * 初始化View，创建碎片
      */
     private void initView() {
 
@@ -141,7 +189,6 @@ public class FilmPageFragment extends Fragment{
         mTabLayout_1.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
             }
-
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -226,6 +273,10 @@ public class FilmPageFragment extends Fragment{
                     citylocation.setText(aMapLocation.getDistrict());
                     Log.d("定位",aMapLocation.getAddress());
 
+                    double la = aMapLocation.getLatitude();
+                    double lo = aMapLocation.getLongitude();
+                    String Adcode = aMapLocation.getAdCode();
+                    initRecycleView(la,lo,Adcode);
                     MapLocation[0] = aMapLocation;
                 } else {
                     //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
@@ -269,6 +320,63 @@ public class FilmPageFragment extends Fragment{
 
         return MapLocation[0];
 
+    }
+
+
+    /**
+     * 初始化DrawerLayout中的RecyclerView
+     * @param latitude
+     * @param longitude
+     * @param Adcode
+     */
+    private void initRecycleView(double latitude, double longitude, String Adcode){
+        query = new PoiSearch.Query(Keywords,"", Adcode);
+        query.setPageSize(100);
+        poiSearch = new PoiSearch(mContext, query);
+        //设置周边搜索的中心点以及半径
+        poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), Radius));
+        poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
+            @Override
+            public void onPoiSearched(PoiResult poiResult, int i) {
+
+                List<PoiItem> poiItemList = poiResult.getPois();
+                int lenth = poiItemList.size();
+                String str_brand = ".*"+keyword+".*";
+                Log.e("666666666666666666",str_brand);
+                Log.e("6666666666666666666666",Integer.toString(str_brand.length()));
+                Log.e("666666666666666666 列表长度",Integer.toString(poiItemList.size()));
+                if(keyword.length()>0) {
+                    for (int j = 0; j < lenth; j++) {
+                        PoiItem poiItem = poiItemList.get(j);
+                        Log.e("66666666666666666", poiItem.getTitle());
+                        if (poiItem.getTitle().matches(str_brand)) {
+                            Log.e("66666666666666666", poiItem.getTitle() + "包含" + str_brand);
+                        } else {
+                            poiItemList.remove(poiItem);
+
+                            /* 关键一步 */
+                            j = -1;
+                            lenth = poiItemList.size();
+                            Log.e("66666666666666666666666", poiItem.getTitle() + "不包含" + str_brand);
+                        }
+
+                    }
+                }
+
+                Log.e("666666666666666666 列表长度",Integer.toString(poiItemList.size()));
+                theatreConAdapter = new TheatreConAdapter(poiItemList);
+//                recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_3);
+                gridLayoutManager = new GridLayoutManager(mContext,1);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setAdapter(theatreConAdapter);
+            }
+
+            @Override
+            public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+            }
+        });
+        poiSearch.searchPOIAsyn();
     }
 
 

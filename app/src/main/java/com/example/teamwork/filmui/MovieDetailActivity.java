@@ -35,7 +35,6 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 
-import static com.example.teamwork.filmui.utils.HotMovieParse.getHotMoiveBean;
 import static com.example.teamwork.filmui.utils.MovieDetailParse.getMovieDetail;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
