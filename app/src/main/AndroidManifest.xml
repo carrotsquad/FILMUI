@@ -45,7 +45,7 @@
             android:value="e75de346fc8df6497b3e72d9f6f6a42d" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,9 +53,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BoxOfficeActivity" />
+        <activity android:name=".activities.BoxOfficeActivity" />
         <activity
-            android:name=".MovieDetailActivity"
+            android:name=".activities.MovieDetailActivity"
             android:theme="@style/MovieDetailTheme">
 
         </activity>

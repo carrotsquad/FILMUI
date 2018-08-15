@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui;
+package com.example.teamwork.filmui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.teamwork.filmui.R;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GirdDropDownAdapter extends BaseAdapter {
-
+public class ListDropDownAdapter extends BaseAdapter {
     private Context context;
     private List<String> list;
     private int checkItemPosition = 0;
@@ -23,7 +24,7 @@ public class GirdDropDownAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public GirdDropDownAdapter(Context context, List<String> list) {
+    public ListDropDownAdapter(Context context, List<String> list) {
         this.context = context;
         this.list = list;
     }
@@ -49,7 +50,7 @@ public class GirdDropDownAdapter extends BaseAdapter {
         if (convertView != null) {
             viewHolder = (ViewHolder) convertView.getTag();
         } else {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_list_drop_down, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_default_drop_down, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
@@ -62,10 +63,10 @@ public class GirdDropDownAdapter extends BaseAdapter {
         if (checkItemPosition != -1) {
             if (checkItemPosition == position) {
                 viewHolder.mText.setTextColor(context.getResources().getColor(R.color.drop_down_selected));
-                viewHolder.mText.setCompoundDrawablesWithIntrinsicBounds(null, null, context.getResources().getDrawable(R.mipmap.drop_down_checked), null);
+                viewHolder.mText.setBackgroundResource(R.color.check_bg);
             } else {
                 viewHolder.mText.setTextColor(context.getResources().getColor(R.color.drop_down_unselected));
-                viewHolder.mText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                viewHolder.mText.setBackgroundResource(R.color.white);
             }
         }
     }

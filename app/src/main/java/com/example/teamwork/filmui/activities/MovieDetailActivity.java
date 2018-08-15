@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui;
+package com.example.teamwork.filmui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.MovieDetailAdapter;
 import com.example.teamwork.filmui.beans.SingleCast;
 import com.example.teamwork.filmui.utils.GetImageFromWeb;

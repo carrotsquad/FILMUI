@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui;
+package com.example.teamwork.filmui.activities;
 
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.BoxOfficeAdapter;
 import com.example.teamwork.filmui.beans.SingleBoxOffice;
 import com.example.teamwork.filmui.utils.GetBoxOfficeData;

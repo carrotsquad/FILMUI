@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui;
+package com.example.teamwork.filmui.activities;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
 import com.example.teamwork.filmui.fragments.FilmPageFragment;
 import com.example.teamwork.filmui.fragments.HomePageFragment;

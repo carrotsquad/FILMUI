@@ -14,19 +14,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.teamwork.filmui.MainActivity;
-import com.example.teamwork.filmui.MovieDetailActivity;
+import com.example.teamwork.filmui.activities.MovieDetailActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.beans.SingleComingSoonMovie;
-import com.example.teamwork.filmui.beans.SingleHotMovie;
 import com.example.teamwork.filmui.utils.GetImageFromWeb;
 
 import java.util.List;
 
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_ID;
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_RATING;
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TAGS;
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TITLE;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_RATING;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TAGS;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TITLE;
 
 public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovieAdapter.ViewHolder>{
 

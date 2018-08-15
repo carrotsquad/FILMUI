@@ -273,8 +273,11 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
                     citylocation.setText(aMapLocation.getDistrict());
                     Log.d("定位",aMapLocation.getAddress());
 
+                    /* 获得纬度 */
                     double la = aMapLocation.getLatitude();
+                    /* 获得经度 */
                     double lo = aMapLocation.getLongitude();
+                    /* 获得区域编号 */
                     String Adcode = aMapLocation.getAdCode();
                     initRecycleView(la,lo,Adcode);
                     MapLocation[0] = aMapLocation;

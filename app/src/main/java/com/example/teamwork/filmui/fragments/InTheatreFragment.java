@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.teamwork.filmui.BoxOfficeActivity;
+import com.example.teamwork.filmui.activities.BoxOfficeActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.HotMovieAdapter;
 import com.example.teamwork.filmui.beans.SingleBoxOffice;

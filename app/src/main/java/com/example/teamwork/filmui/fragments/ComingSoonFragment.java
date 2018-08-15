@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.teamwork.filmui.MovieDetailActivity;
+import com.example.teamwork.filmui.activities.MovieDetailActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.ComingSoonMovieAdapter;
 import com.example.teamwork.filmui.beans.SingleComingSoonMovie;
@@ -26,10 +26,10 @@ import com.example.teamwork.filmui.utils.HttpGetFilmData;
 
 import java.util.List;
 
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_ID;
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_RATING;
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TAGS;
-import static com.example.teamwork.filmui.MovieDetailActivity.MOVIE_TITLE;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_RATING;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TAGS;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TITLE;
 import static com.example.teamwork.filmui.utils.ComingSoonMovieParse.getComingSoonMovieBean;
 
 public class ComingSoonFragment extends Fragment {

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,6 +29,9 @@ import com.amap.api.services.district.DistrictSearchQuery;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.adapters.ConstellationAdapter;
+import com.example.teamwork.filmui.adapters.GirdDropDownAdapter;
+import com.example.teamwork.filmui.adapters.ListDropDownAdapter;
 import com.example.teamwork.filmui.adapters.TheatreConAdapter;
 import com.yyydjk.library.DropDownMenu;
 
@@ -57,9 +59,9 @@ public class TheatreFragment extends Fragment{
 
     private int constellationPosition = 0;
 
-    private com.example.teamwork.filmui.GirdDropDownAdapter NearAdapter;
-    private com.example.teamwork.filmui.ListDropDownAdapter DistanceAdapter;
-    private com.example.teamwork.filmui.ConstellationAdapter BrandAdapter;
+    private GirdDropDownAdapter NearAdapter;
+    private ListDropDownAdapter DistanceAdapter;
+    private ConstellationAdapter BrandAdapter;
     private ListView nearView;
     private ListView distanceView;
     private View constellationView;
@@ -363,20 +365,20 @@ public class TheatreFragment extends Fragment{
 
         //init city menu
         nearView = new ListView(mContext); //gird:准备
-        NearAdapter = new com.example.teamwork.filmui.GirdDropDownAdapter(mContext, nearbys);
+        NearAdapter = new GirdDropDownAdapter(mContext, nearbys);
         nearView.setDividerHeight(0);
         nearView.setAdapter(NearAdapter);
 
         //init age menu
         distanceView = new ListView(mContext);
         distanceView.setDividerHeight(0);
-        DistanceAdapter = new com.example.teamwork.filmui.ListDropDownAdapter(mContext, Arrays.asList(distancemunu));
+        DistanceAdapter = new ListDropDownAdapter(mContext, Arrays.asList(distancemunu));
         distanceView.setAdapter(DistanceAdapter);
 
         //init constellation
         constellationView = getLayoutInflater().inflate(R.layout.custom_layout, null);
         constellation = ButterKnife.findById(constellationView, R.id.constellation);
-        BrandAdapter = new com.example.teamwork.filmui.ConstellationAdapter(mContext, Arrays.asList(brandmenu));
+        BrandAdapter = new ConstellationAdapter(mContext, Arrays.asList(brandmenu));
         constellation.setAdapter(BrandAdapter);
         TextView ok = ButterKnife.findById(constellationView, R.id.ok);
 
