@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
 import com.example.teamwork.filmui.fragments.FilmPageFragment;
-import com.example.teamwork.filmui.fragments.HomePageFragment;
+import com.example.teamwork.filmui.homepagepackage.HomePageFragment;
 import com.example.teamwork.filmui.fragments.MinePageFragment;
 
 import java.util.ArrayList;

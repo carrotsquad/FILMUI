@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fff"
+    android:id="@+id/activity_search_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.teamwork.filmui.homepagepackage.SearchViewActivity">
+    <scut.carson_ho.searchview.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        app:textColorSearch="#0b2fb2"
+        app:searchBlockColor="#938a8a"
+        android:layout_height="wrap_content"></scut.carson_ho.searchview.SearchView>
+
+</RelativeLayout>

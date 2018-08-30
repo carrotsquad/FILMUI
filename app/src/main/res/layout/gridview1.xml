@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/test666"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#191717"
+            android:text="定位城市"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.example.teamwork.filmui.homepagepackage.NoScrollGridView
+            android:layout_marginLeft="8dp"
+            android:id="@+id/gridview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:verticalSpacing="15dp"
+            android:horizontalSpacing="15dp"
+            android:gravity="center"></com.example.teamwork.filmui.homepagepackage.NoScrollGridView>
+    </LinearLayout>
+</LinearLayout>

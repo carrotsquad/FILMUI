@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_width="70dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:layout_width="99dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/movie_item_hotimageview"
+            android:background="#F2F2F2"
+            android:src="@mipmap/load"
+            android:layout_width="94dp"
+            android:layout_height="131dp" />
+        <TextView
+            android:layout_margin="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂无数据"
+            android:textSize="10dp"
+            android:textColor="#f5a609"
+            android:layout_alignBottom="@id/movie_item_hotimageview"
+            android:id="@+id/movie_item_hotgradetextview"/>
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_below="@id/movie_item_hotimageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_item_hotnametextview"
+            android:textColor="#f3130808"
+            android:textSize="10sp"
+            android:text="加载中..."
+            android:singleLine="true"
+            android:ellipsize="end"/>
+    </RelativeLayout>
+</RelativeLayout>

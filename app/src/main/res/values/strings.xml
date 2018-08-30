@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FILMUI</string>
+    <string name="behavior_sample_title">com.example.teamwork.filmui.homepagepackage.utils.SmapleTitleBehavior2</string>
 </resources>

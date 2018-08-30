@@ -13,4 +13,12 @@
     <color name="special_blue">#7095c2</color>
     <color name="special_red">#de6f6c</color>
     <color name="special_green">#7a9c84</color>
+    <color name="xiala2">#e6e6e6</color>
+    <color name="xiala3">#cdcdcd</color>
+    <color name="xiala4">#bfbfbf</color>
+    <color name="xiala5">#8a8a8a</color>
+    <color name="xiala6">#515151</color>
+    <color name="xiala7">#2c2c2c</color>
+    <color name="黑">#858585</color>
+    <color name="红">#d60b52</color>
 </resources>
