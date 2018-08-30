@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui.homepagepackage;
+package com.example.teamwork.filmui.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.teamwork.filmui.homepagepackage;
+package com.example.teamwork.filmui.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.homepagepackage.IndexView;
 import com.example.teamwork.filmui.homepagepackage.adapters.AutoTextViewAdapter;
 import com.example.teamwork.filmui.homepagepackage.adapters.ListViewAdapter;
 import com.example.teamwork.filmui.homepagepackage.beans.City;

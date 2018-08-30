@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f4efef"
-    tools:context="com.example.teamwork.filmui.homepagepackage.CitySearchActivity">
+    tools:context="com.example.teamwork.filmui.activities.CitySearchActivity">
     <RelativeLayout
         android:id="@+id/test444"
         android:layout_marginTop="10dp"

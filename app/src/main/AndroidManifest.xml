@@ -65,6 +65,16 @@
             android:theme="@style/MovieDetailTheme">
 
         </activity>
+        <activity
+            android:name=".activities.SearchViewActivity"
+            android:theme="@style/MovieDetailTheme">
+
+        </activity>
+        <activity
+            android:name=".activities.CitySearchActivity"
+            android:theme="@style/MovieDetailTheme">
+
+        </activity>
     </application>
 
 </manifest>

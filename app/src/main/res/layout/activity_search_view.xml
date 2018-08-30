@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.teamwork.filmui.homepagepackage.SearchViewActivity">
+    tools:context="com.example.teamwork.filmui.activities.SearchViewActivity">
     <scut.carson_ho.searchview.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
