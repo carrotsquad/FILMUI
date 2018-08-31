@@ -1,6 +1,8 @@
 package com.example.teamwork.filmui.homepagepackage.adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.activities.MovieDetailActivity;
 import com.example.teamwork.filmui.homepagepackage.beans.ComingSoonMovieBean;
 import com.example.teamwork.filmui.homepagepackage.utils.GetImageFromCache;
+import com.example.teamwork.filmui.theatrepagepackage.beans.SingleComingSoonMovie;
+
+import java.util.List;
+
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_RATING;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TAGS;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TITLE;
 
 
 /**
@@ -19,6 +30,7 @@ import com.example.teamwork.filmui.homepagepackage.utils.GetImageFromCache;
 
 public class ComingSoonRecyclerviewAdapter extends RecyclerView.Adapter <ComingSoonRecyclerviewAdapter.ViewHolder>{
     private Activity activity;
+    private Context mContext;
     private ComingSoonMovieBean comingsoonmoivebean;
     public ComingSoonRecyclerviewAdapter(ComingSoonMovieBean comingsoonmoivebean,Activity activity) {
         this.comingsoonmoivebean=comingsoonmoivebean;
@@ -27,8 +39,32 @@ public class ComingSoonRecyclerviewAdapter extends RecyclerView.Adapter <ComingS
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(mContext == null){
+            mContext = parent.getContext();
+        }
+
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item,null);
-        RecyclerView.ViewHolder viewHolder=new ViewHolder(view);
+        final RecyclerView.ViewHolder viewHolder=new ViewHolder(view);
+
+        /* 转到详细介绍页面 */
+        ((ViewHolder) viewHolder).movie_item_imageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = viewHolder.getAdapterPosition();
+                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                intent.putExtra(MOVIE_RATING, comingsoonmoivebean.getSubjects().get(position).getRating().getAverage());
+                intent.putExtra(MOVIE_ID, comingsoonmoivebean.getSubjects().get(position).getId());
+                intent.putExtra(MOVIE_TITLE, comingsoonmoivebean.getSubjects().get(position).getTitle());
+                List<String> Tags = comingsoonmoivebean.getSubjects().get(position).getGenres();
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i=0;i<Tags.size();i++){
+                    stringBuilder.append(Tags.get(i)+" ");
+                }
+                intent.putExtra(MOVIE_TAGS,stringBuilder.toString() );
+                mContext.startActivity(intent);
+            }
+        });
+
         return (ViewHolder) viewHolder;
     }
  //向对应的控件中设置内容

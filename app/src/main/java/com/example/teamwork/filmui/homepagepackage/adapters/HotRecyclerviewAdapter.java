@@ -1,6 +1,8 @@
 package com.example.teamwork.filmui.homepagepackage.adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,16 @@ import android.widget.TextView;
 
 
 import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.activities.MovieDetailActivity;
 import com.example.teamwork.filmui.homepagepackage.beans.HotMoiveBean;
 import com.example.teamwork.filmui.homepagepackage.utils.GetImageFromCache;
+
+import java.util.List;
+
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_ID;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_RATING;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TAGS;
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TITLE;
 
 
 /**
@@ -19,6 +29,7 @@ import com.example.teamwork.filmui.homepagepackage.utils.GetImageFromCache;
 
 public class HotRecyclerviewAdapter extends RecyclerView.Adapter<HotRecyclerviewAdapter.ViewHolder> {
     private Activity activity;
+    private Context mContext;
     private HotMoiveBean hotMoiveBean;
 
     public HotRecyclerviewAdapter(Activity activity, HotMoiveBean hotMoiveBean) {
@@ -28,8 +39,32 @@ public class HotRecyclerviewAdapter extends RecyclerView.Adapter<HotRecyclerview
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(mContext == null){
+            mContext = parent.getContext();
+        }
+
         View view=View.inflate(parent.getContext(), R.layout.coming_movie_item,null);
-        ViewHolder viewHolder=new ViewHolder(view);
+        final ViewHolder viewHolder=new ViewHolder(view);
+
+        /* 转到详细介绍页面 */
+        ((ViewHolder) viewHolder).movie_item_hotimageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = viewHolder.getAdapterPosition();
+                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                intent.putExtra(MOVIE_RATING, 0.0);
+                intent.putExtra(MOVIE_ID, hotMoiveBean.getSubjects().get(position).getId());
+                intent.putExtra(MOVIE_TITLE, hotMoiveBean.getSubjects().get(position).getTitle());
+                List<String> Tags = hotMoiveBean.getSubjects().get(position).getGenres();
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i=0;i<Tags.size();i++){
+                    stringBuilder.append(Tags.get(i)+" ");
+                }
+                intent.putExtra(MOVIE_TAGS,stringBuilder.toString() );
+                mContext.startActivity(intent);
+            }
+        });
+
         return viewHolder;
     }
 

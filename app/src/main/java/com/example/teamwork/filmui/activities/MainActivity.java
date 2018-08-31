@@ -12,10 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teamwork.filmui.R;
-import com.example.teamwork.filmui.adapters.MyFragmentAdapter;
-import com.example.teamwork.filmui.fragments.FilmPageFragment;
+import com.example.teamwork.filmui.theatrepagepackage.adapters.MyFragmentAdapter;
+import com.example.teamwork.filmui.theatrepagepackage.fragments.FilmPageFragment;
 import com.example.teamwork.filmui.homepagepackage.HomePageFragment;
-import com.example.teamwork.filmui.fragments.MinePageFragment;
+import com.example.teamwork.filmui.theatrepagepackage.fragments.MinePageFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,7 +98,7 @@ public class MainActivity extends  AppCompatActivity {
         mViewPager.setAdapter(adapter);
 
         /* 设置初始化页面 */
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(0);
 
         /* 自定义tab布局 */
         mTabLayout.getTabAt(0).setCustomView(getTabView(0));
@@ -125,8 +125,6 @@ public class MainActivity extends  AppCompatActivity {
 
             } });
     }
-
-
 
 
     /**

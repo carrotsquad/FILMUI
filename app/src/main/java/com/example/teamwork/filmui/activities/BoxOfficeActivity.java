@@ -12,14 +12,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.teamwork.filmui.R;
-import com.example.teamwork.filmui.adapters.BoxOfficeAdapter;
-import com.example.teamwork.filmui.beans.SingleBoxOffice;
-import com.example.teamwork.filmui.utils.GetBoxOfficeData;
+import com.example.teamwork.filmui.theatrepagepackage.adapters.BoxOfficeAdapter;
+import com.example.teamwork.filmui.theatrepagepackage.beans.SingleBoxOffice;
+import com.example.teamwork.filmui.theatrepagepackage.utils.GetBoxOfficeData;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static com.example.teamwork.filmui.utils.BoxOfficeParse.getSingleBoxOfficeList;
+import static com.example.teamwork.filmui.theatrepagepackage.utils.BoxOfficeParse.getSingleBoxOfficeList;
 
 /**
  * 票房页面

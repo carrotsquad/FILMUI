@@ -27,16 +27,16 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.teamwork.filmui.R;
-import com.example.teamwork.filmui.adapters.MovieDetailAdapter;
-import com.example.teamwork.filmui.beans.SingleCast;
-import com.example.teamwork.filmui.utils.GetImageFromWeb;
-import com.example.teamwork.filmui.utils.HttpGetDetailData;
+import com.example.teamwork.filmui.theatrepagepackage.adapters.MovieDetailAdapter;
+import com.example.teamwork.filmui.theatrepagepackage.beans.SingleCast;
+import com.example.teamwork.filmui.theatrepagepackage.utils.GetImageFromWeb;
+import com.example.teamwork.filmui.theatrepagepackage.utils.HttpGetDetailData;
 
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 
-import static com.example.teamwork.filmui.utils.MovieDetailParse.getMovieDetail;
+import static com.example.teamwork.filmui.theatrepagepackage.utils.MovieDetailParse.getMovieDetail;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 

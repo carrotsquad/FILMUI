@@ -42,9 +42,10 @@
         android:theme="@style/AppTheme">
         <service android:name="com.amap.api.location.APSService" />
 
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="pKnfgAcdd07oen3KiCxd97zEhbMWgHlI" />
+            android:value="RA0f4gags8IPlOUAY4dDc95wUQKTqEWE" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -65,6 +66,13 @@
             android:theme="@style/MovieDetailTheme">
 
         </activity>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+
         <activity
             android:name=".activities.SearchViewActivity"
             android:theme="@style/MovieDetailTheme">
