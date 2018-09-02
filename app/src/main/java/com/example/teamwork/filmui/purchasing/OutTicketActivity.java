@@ -31,6 +31,13 @@ public class OutTicketActivity extends AppCompatActivity {
     //开长时间-散场时间
     TextView time;
 
+    //电影名
+    TextView movieTitle;
+
+    //影院名
+    TextView cinemaTitle;
+
+
     //几号厅  座位排列数
     TextView match_place;
 
@@ -65,9 +72,13 @@ public class OutTicketActivity extends AppCompatActivity {
         time = findViewById(R.id.out_ticket_time);
         match_place = findViewById(R.id.out_ticket_seat);
         allPrice = findViewById(R.id.all_price);
+        movieTitle =findViewById(R.id.out_ticket_title);
+        cinemaTitle=findViewById(R.id.out_ticket_cinema);
         mIntent = getIntent();
         mSoldAndCheck = (SoldAndCheck) mIntent.getSerializableExtra("mSoldAndCheck");
         mMatch = mIntent.getParcelableExtra("match");
+        movieTitle.setText(mMatch.getString("movieTitle")+"   "+getIntent().getStringExtra("count")+"张");
+        cinemaTitle.setText(mMatch.getString("cinemaTitle"));
         seats[0] = mIntent.getStringExtra("first_seat");
         Log.d("seatlocation", "0" + seats[0]);
         seats[1] = mIntent.getStringExtra("second_seat");

@@ -148,6 +148,7 @@ public class SeatSelectActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra("third_seat", locations[2].getText());
                 intent.putExtra("position", all_position);
                 intent.putExtra("cinema_title", title.getText());
+                intent.putExtra("count",String.valueOf(count));
                 startActivity(intent);
                 break;
             case R.id.back:
