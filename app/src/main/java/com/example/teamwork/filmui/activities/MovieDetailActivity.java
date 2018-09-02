@@ -36,6 +36,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 
+import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
 import static com.example.teamwork.filmui.theatrepagepackage.utils.MovieDetailParse.getMovieDetail;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
@@ -93,6 +94,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private String movieID;
     private String movieTitle;
     private String movieTags;
+    private String moviePoster;
 
     /* 随机颜色 */
     private String[] bg = new String[]{
@@ -125,7 +127,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         /* 初始化简介 */
         initIntro();
     }
-
 
 
     /**
@@ -168,6 +169,17 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         }
 
         xuanzuogoupiao = (Button)findViewById(R.id.moviedetail_xuanzuogoupiao);
+        xuanzuogoupiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(MovieDetailActivity.this, FilmToTheatreActivity.class);
+                intent1.putExtra("filmname", movieTitle);
+                intent1.putExtra("filmgenre", movieTags);
+                intent1.putExtra("filmposter", moviePoster);
+                Log.e("film", moviePoster+"       "+movieTags+"        "+movieTitle);
+                startActivity(intent1);
+            }
+        });
 
     }
 
@@ -252,7 +264,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         MovieSummary = (TextView)findViewById(R.id.moviedetail_intro);
         MovieImageView = (ImageView) findViewById(R.id.moviedetail_poster);
 
-        GetImageFromWeb.setImageView(singleCast.getPoster(), MovieImageView, MovieDetailActivity.this);
+        moviePoster=singleCast.getPoster();
+
+        GetImageFromWeb.setImageView(moviePoster, MovieImageView, MovieDetailActivity.this);
         Movie_Wish_Count.setText(Integer.toString(singleCast.getWish_count()));
         Movie_Collect_Count.setText(Integer.toString(singleCast.getCollect_count()));
         MovieCountries.setText(singleCast.getCountries());

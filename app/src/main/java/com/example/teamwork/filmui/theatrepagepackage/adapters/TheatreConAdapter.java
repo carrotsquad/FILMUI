@@ -1,9 +1,11 @@
 package com.example.teamwork.filmui.theatrepagepackage.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +13,21 @@ import android.widget.TextView;
 
 import com.amap.api.services.core.PoiItem;
 import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.purchasing.MatchSelectActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
 
 public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.ViewHolder>{
 
     private Context mContext;
 
     private List<PoiItem> poiItemList;
+    private List<String> info;
+    private String thename;
+    private String theaddr;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -36,8 +45,13 @@ public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.Vi
         }
     }
 
-    public TheatreConAdapter(List<PoiItem> poiItemList){
+    public TheatreConAdapter(List<PoiItem> poiItemList,List<String> filminfo){
         this.poiItemList = poiItemList;
+//        this.filminfo=filminfo;
+        info=new ArrayList<>();
+        for(int i=0;i<filminfo.size();i++){
+            info.add(filminfo.get(i));
+        }
     }
 
     @NonNull
@@ -51,7 +65,20 @@ public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.Vi
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(info.size()!=0){
+                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           "+info.get(2));
+//                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           "+info.get(2));
+//                    Intent intent = new Intent(mContext, MatchSelectActivity.class);
+//                    intent.putExtra("movieTitle",info.get(0));
+//                    intent.putExtra("cinemaTitle", thename);
+//                    intent.putExtra("cinemaLocation",theaddr);
+//                    intent.putExtra("movieShuxing",info.get(1));
+//                    intent.putExtra("posterURL",info.get(2));
+//                    mContext.startActivity(intent);
+                    actionStart(mContext,thename,info.get(0),theaddr,info.get(1),info.get(2));
+                }else {
+                    Log.d("filllll",  "无");
+                }
             }
         });
 
@@ -62,6 +89,8 @@ public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull TheatreConAdapter.ViewHolder holder, int position) {
         PoiItem poiItem = poiItemList.get(position);
+        thename=poiItem.getTitle();
+        theaddr=poiItem.getSnippet();
         holder.theatrename.setText(poiItem.getTitle());
         holder.theatreaddress.setText(poiItem.getSnippet());
         holder.theatredistance.setText(Integer.toString(poiItem.getDistance())+"米");

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/seat_location"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/location1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:layout_height="50dp" />
+        <View
+            android:background="#D3D3D3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:gravity="center"
+            android:id="@+id/location2"
+            android:layout_width="0dp"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:layout_height="50dp" />
+        <View
+            android:background="#D3D3D3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:gravity="center"
+            android:textSize="10sp"
+            android:id="@+id/location3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/price_buy"
+        android:textSize="20sp"
+        android:text="117元  确认选座"
+        android:textColor="@color/white"
+        android:background="#CD5C5C"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</LinearLayout>

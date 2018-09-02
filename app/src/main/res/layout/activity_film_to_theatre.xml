@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.FilmToTheatreActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/film_to_theatre_back"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:background="@drawable/ic_back"/>
+    <TextView
+        android:id="@+id/film_to_theatre_filename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="电影名字"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/film_to_theatre_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</LinearLayout>

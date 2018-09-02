@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">FILMUI</string>
+    <string name="app_name">Tpp</string>
     <string name="behavior_sample_title">com.example.teamwork.filmui.homepagepackage.utils.SmapleTitleBehavior2</string>
+    <string name="title_activity_film_to_theatre">FilmToTheatreActivity</string>
 </resources>

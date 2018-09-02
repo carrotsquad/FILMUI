@@ -98,6 +98,11 @@ public class TheatreFragment extends Fragment{
 
     private DistrictItem districtItem;
 
+    private List<String> info = new ArrayList<>();
+    private String name;
+    private String genre;
+    private String poster;
+    private Bundle bundle;
 
 
     @Nullable
@@ -106,6 +111,7 @@ public class TheatreFragment extends Fragment{
         view = inflater.inflate(R.layout.activity_theatre,null);
         mContext = getActivity();
 
+        initgetbundle();
         initTheatreMenu();
         return view;
     }
@@ -120,6 +126,23 @@ public class TheatreFragment extends Fragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+
+    /**
+     * 获取电影信息
+     */
+    private void initgetbundle(){
+        bundle=getArguments();
+        if(bundle!=null){
+            name=bundle.getString("name");
+            genre=bundle.getString("genre");
+            poster=bundle.getString("poster");
+            info.add(name);
+            info.add(genre);
+            info.add(poster);
+            Log.e("filmlllll", name+"       "+genre+"        "+poster);
+        }
     }
 
 
@@ -240,7 +263,7 @@ public class TheatreFragment extends Fragment{
                 }
 
                 Log.e("666666666666666666 列表长度",Integer.toString(poiItemList.size()));
-                theatreConAdapter = new TheatreConAdapter(poiItemList);
+                theatreConAdapter = new TheatreConAdapter(poiItemList,info);
 //                recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_3);
                 gridLayoutManager = new GridLayoutManager(mContext,1);
                 recyclerView.setLayoutManager(gridLayoutManager);

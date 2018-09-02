@@ -24,29 +24,29 @@
     <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <!-- 使用照相机权限 -->
-    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动聚焦权限 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <!-- 自动聚焦权限 -->
     <application
-        tools:replace="label"
+        android:name=".BuyActivity"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="TPP2"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="label">
         <service android:name="com.amap.api.location.APSService" />
-
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="RA0f4gags8IPlOUAY4dDc95wUQKTqEWE" />
-
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="e75de346fc8df6497b3e72d9f6f6a42d" />
@@ -63,25 +63,33 @@
         <activity android:name=".activities.BoxOfficeActivity" />
         <activity
             android:name=".activities.MovieDetailActivity"
-            android:theme="@style/MovieDetailTheme">
-
-        </activity>
+            android:theme="@style/MovieDetailTheme"></activity>
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote">
-        </service>
+            android:process=":remote"></service>
 
         <activity
             android:name=".activities.SearchViewActivity"
-            android:theme="@style/MovieDetailTheme">
-
-        </activity>
+            android:theme="@style/MovieDetailTheme"></activity>
         <activity
             android:name=".activities.CitySearchActivity"
-            android:theme="@style/MovieDetailTheme">
+            android:theme="@style/MovieDetailTheme"></activity>
+        <activity android:name=".purchasing.MatchSelectActivity" />
+        <activity android:name=".purchasing.SeatSelectActivity" />
+        <activity android:name=".purchasing.OutTicketActivity" />
+        <activity android:name=".purchasing.BuySucess" />
+        <activity android:name=".purchasing.TicketPage" />
+        <activity
+            android:name=".activities.FilmToTheatreActivity"
+            android:label="@string/title_activity_film_to_theatre"
+            android:theme="@style/AppTheme">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
     </application>
 

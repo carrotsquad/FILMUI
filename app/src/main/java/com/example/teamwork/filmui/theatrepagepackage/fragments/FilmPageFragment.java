@@ -45,6 +45,8 @@ import java.util.List;
 public class FilmPageFragment extends Fragment implements View.OnClickListener {
 
     private View view;
+
+    private List<String> filminfo;
     private Context mContext;
     private Button QRbutton;
     private Button locationbutton;
@@ -367,7 +369,7 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
                 }
 
                 Log.e("666666666666666666 列表长度",Integer.toString(poiItemList.size()));
-                theatreConAdapter = new TheatreConAdapter(poiItemList);
+                theatreConAdapter = new TheatreConAdapter(poiItemList, filminfo);
 //                recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_3);
                 gridLayoutManager = new GridLayoutManager(mContext,1);
                 recyclerView.setLayoutManager(gridLayoutManager);
