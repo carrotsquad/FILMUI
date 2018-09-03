@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,12 @@ public class MovieFragment extends Fragment {
     private ViewPager mViewPager_2;
     private TabLayout mTabLayout_2;
 
+
+    private List<String> info = new ArrayList<>();
+    private String theatrename;
+    private String theatrelocation;
+    private Bundle bundle;
+
     public static Fragment newInstance(){
         MovieFragment fragment = new MovieFragment();
         return fragment;
@@ -39,6 +46,9 @@ public class MovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_1,null);
+
+        initgetbundle();
+
         /* 滑动到第一个页面"电影" */
         /* 初始化第二级滑动页 */
         mViewPager_2 = (ViewPager) view.findViewById(R.id.vp_content_2);
@@ -66,8 +76,12 @@ public class MovieFragment extends Fragment {
         /* 实例化 */
         List<Fragment> fragments_2 = new ArrayList<>();
         /* 加入第二级的两个碎片 */
-        fragments_2.add(InTheatreFragment.newInstance());
-        fragments_2.add(ComingSoonFragment.newInstance());
+        Fragment inTheatreFragment=InTheatreFragment.newInstance();
+        Fragment comingSoonFragment=ComingSoonFragment.newInstance();
+        inTheatreFragment.setArguments(bundle);
+        comingSoonFragment.setArguments(bundle);
+        fragments_2.add(inTheatreFragment);
+        fragments_2.add(comingSoonFragment);
         /* 设置一级碎片适配器 */
         MyFragmentAdapter adapter_2 = new MyFragmentAdapter(getChildFragmentManager(),fragments_2, Arrays.asList(sTitle_2));
         mViewPager_2.setAdapter(adapter_2);
@@ -107,5 +121,20 @@ public class MovieFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+
+    /**
+     * 获取影院信息
+     */
+    private void initgetbundle(){
+        bundle=getArguments();
+        if(bundle!=null){
+            theatrename=bundle.getString("theatrename");
+            theatrelocation=bundle.getString("theatrelocation");
+            info.add(theatrename);
+            info.add(theatrelocation);
+            Log.e("filmlllll", theatrename+"       "+theatrelocation);
+        }
     }
 }

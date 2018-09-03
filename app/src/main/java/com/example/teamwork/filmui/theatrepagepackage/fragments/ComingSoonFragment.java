@@ -24,6 +24,7 @@ import com.example.teamwork.filmui.theatrepagepackage.beans.SingleComingSoonMovi
 import com.example.teamwork.filmui.theatrepagepackage.utils.GetImageFromWeb;
 import com.example.teamwork.filmui.theatrepagepackage.utils.HttpGetFilmData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_ID;
@@ -45,6 +46,11 @@ public class ComingSoonFragment extends Fragment {
 
     private View view;
 
+    private List<String> info = new ArrayList<>();
+    private String theatrename;
+    private String theatrelocation;
+    private Bundle bundle;
+
     public static Fragment newInstance(){
         ComingSoonFragment fragment = new ComingSoonFragment();
         return fragment;
@@ -54,6 +60,8 @@ public class ComingSoonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.future_layout,null);
         mContext = getActivity();
+
+        initgetbundle();
         initComingSoonMovie();
         return view;
     }
@@ -66,6 +74,21 @@ public class ComingSoonFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+
+    /**
+     * 获取影院信息
+     */
+    private void initgetbundle(){
+        bundle=getArguments();
+        if(bundle!=null){
+            theatrename=bundle.getString("theatrename");
+            theatrelocation=bundle.getString("theatrelocation");
+            info.add(theatrename);
+            info.add(theatrelocation);
+            Log.e("filmlllll", theatrename+"       "+theatrelocation);
+        }
     }
 
 
@@ -100,7 +123,7 @@ public class ComingSoonFragment extends Fragment {
         RecyclerView comingsoonmovie_recycleview = (RecyclerView) view.findViewById(R.id.recycler_view_2);
         GridLayoutManager layoutManager2 = new GridLayoutManager(mContext,1);
         comingsoonmovie_recycleview.setLayoutManager(layoutManager2);
-        comingSoonMovieAdapter = new ComingSoonMovieAdapter(getActivity(),singleComingSoonMovieList);
+        comingSoonMovieAdapter = new ComingSoonMovieAdapter(getActivity(),singleComingSoonMovieList,info);
         comingsoonmovie_recycleview.setAdapter(comingSoonMovieAdapter);
 
         /*  解决数据加载不完的问题  */

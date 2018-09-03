@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.teamwork.filmui.activities.FilmToTheatreActivity;
 import com.example.teamwork.filmui.activities.MovieDetailActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.theatrepagepackage.beans.SingleHotMovie;
@@ -51,6 +53,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
         TextView actors;
         TextView directors;
         LinearLayout linearLayout;
+        Button wonderbuy;
 
         public ViewHolder(View view){
             super(view);
@@ -61,6 +64,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
             actors = (TextView) view.findViewById(R.id.filmactors);
             directors = (TextView) view.findViewById(R.id.filmdirectors);
             linearLayout = (LinearLayout) view.findViewById(R.id.hotmovieitem_linearlayout);
+            wonderbuy = (Button) view.findViewById(R.id.wonderbuy);
         }
     }
 
@@ -81,18 +85,24 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.film_item, parent,false);
         final ViewHolder holder = new ViewHolder(view);
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 SingleHotMovie singleHotMovie1 = hotMovieBeanList.get(position);
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra(MOVIE_RATING, singleHotMovie1.getCommit());
-                intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
-                intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
-                intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                if(info.size()==0) {
+                    Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                    intent.putExtra(MOVIE_RATING, singleHotMovie1.getCommit());
+                    intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
+                    intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
+                    intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
 //                intent.putExtra(MOVIE_POSTER, singleHotMovie1.getImageId());
-                mContext.startActivity(intent);
+                    mContext.startActivity(intent);
+                }else {
+                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           ");
+                    actionStart(mContext,info.get(0),singleHotMovie1.getTitle(),info.get(1),singleHotMovie1.getTags(),singleHotMovie1.getImageId());
+                }
             }
         });
 
@@ -110,6 +120,24 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
                     intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
 //                intent.putExtra(MOVIE_POSTER, singleHotMovie1.getImageId());
                     mContext.startActivity(intent);
+                }else {
+                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           ");
+                    actionStart(mContext,info.get(0),singleHotMovie1.getTitle(),info.get(1),singleHotMovie1.getTags(),singleHotMovie1.getImageId());
+                }
+            }
+        });
+
+        holder.wonderbuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                SingleHotMovie singleHotMovie1 = hotMovieBeanList.get(position);
+                if(info.size()==0) {
+                    Intent intent1=new Intent(mContext, FilmToTheatreActivity.class);
+                    intent1.putExtra("filmname", singleHotMovie1.getTitle());
+                    intent1.putExtra("filmgenre", singleHotMovie1.getTags());
+                    intent1.putExtra("filmposter",singleHotMovie1.getImageId());
+                    mContext.startActivity(intent1);
                 }else {
                     Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           ");
                     actionStart(mContext,info.get(0),singleHotMovie1.getTitle(),info.get(1),singleHotMovie1.getTags(),singleHotMovie1.getImageId());

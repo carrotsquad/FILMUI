@@ -109,6 +109,7 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
     }
 
 
+
     /**
      * 初始化页面
      */

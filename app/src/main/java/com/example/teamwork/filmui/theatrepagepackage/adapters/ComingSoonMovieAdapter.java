@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.teamwork.filmui.activities.FilmToTheatreActivity;
 import com.example.teamwork.filmui.activities.MovieDetailActivity;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.theatrepagepackage.beans.SingleComingSoonMovie;
 import com.example.teamwork.filmui.theatrepagepackage.utils.GetImageFromWeb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_ID;
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_RATING;
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TAGS;
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TITLE;
+import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
 
 public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovieAdapter.ViewHolder>{
 
@@ -37,6 +41,8 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
     private SingleComingSoonMovie singleComingSoonMovie;
 
     private Activity activity;
+
+    private List<String> info;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -62,9 +68,14 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
         }
     }
 
-    public ComingSoonMovieAdapter(Activity activity, List<SingleComingSoonMovie> comingSoonMovieList){
+    public ComingSoonMovieAdapter(Activity activity, List<SingleComingSoonMovie> comingSoonMovieList,List<String> theatreinfo){
         this.comingSoonMovieList = comingSoonMovieList;
         this.activity = activity;
+
+        info=new ArrayList<>();
+        for(int i=0;i<theatreinfo.size();i++){
+            info.add(theatreinfo.get(i));
+        }
     }
 
     @NonNull
@@ -75,17 +86,24 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.film_item, parent,false);
         final ComingSoonMovieAdapter.ViewHolder holder = new ComingSoonMovieAdapter.ViewHolder(view);
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                SingleComingSoonMovie singleComingSoonMovie1 = comingSoonMovieList.get(position);
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra(MOVIE_RATING, 0.0);
-                intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
-                intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
-                intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
-                mContext.startActivity(intent);
+                    SingleComingSoonMovie singleComingSoonMovie1 = comingSoonMovieList.get(position);
+                    if (info.size() == 0) {
+                        Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                        intent.putExtra(MOVIE_RATING, 0.0);
+                        intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
+                        intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
+                        intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
+                        mContext.startActivity(intent);
+                    } else {
+                        Log.d("filllll", info.get(0) + "           " + info.get(1) + "           ");
+                        actionStart(mContext, info.get(0), singleComingSoonMovie1.getTitle(), info.get(1), singleComingSoonMovie1.getTags(), singleComingSoonMovie1.getImageId());
+                    }
+
             }
         });
 
@@ -94,12 +112,35 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 SingleComingSoonMovie singleComingSoonMovie1 = comingSoonMovieList.get(position);
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra(MOVIE_RATING, 0.0);
-                intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
-                intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
-                intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
-                mContext.startActivity(intent);
+                if(info.size()==0) {
+                    Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                    intent.putExtra(MOVIE_RATING, 0.0);
+                    intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
+                    intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
+                    intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
+                    mContext.startActivity(intent);
+                }else {
+                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           ");
+                    actionStart(mContext,info.get(0),singleComingSoonMovie1.getTitle(),info.get(1),singleComingSoonMovie1.getTags(),singleComingSoonMovie1.getImageId());
+                }
+            }
+        });
+
+        holder.wonderbuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                SingleComingSoonMovie singleComingSoonMovie1 = comingSoonMovieList.get(position);
+                if(info.size()==0) {
+                    Intent intent1=new Intent(mContext, FilmToTheatreActivity.class);
+                    intent1.putExtra("filmname", singleComingSoonMovie1.getTitle());
+                    intent1.putExtra("filmgenre", singleComingSoonMovie1.getTags());
+                    intent1.putExtra("filmposter",singleComingSoonMovie1.getImageId());
+                    mContext.startActivity(intent1);
+                }else {
+                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           ");
+                    actionStart(mContext,info.get(0),singleComingSoonMovie1.getTitle(),info.get(1),singleComingSoonMovie1.getTags(),singleComingSoonMovie1.getImageId());
+                }
             }
         });
         return holder;

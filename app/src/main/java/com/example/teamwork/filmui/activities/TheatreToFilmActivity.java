@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.theatrepagepackage.fragments.InTheatreFragment;
+import com.example.teamwork.filmui.theatrepagepackage.fragments.MovieFragment;
 
 public class TheatreToFilmActivity extends AppCompatActivity {
 
@@ -46,9 +47,9 @@ public class TheatreToFilmActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
-        InTheatreFragment intheatreFragment = new InTheatreFragment();
-        intheatreFragment.setArguments(bundle);
-        transaction.replace(R.id.theatre_to_film_linearlayout,intheatreFragment);
+        MovieFragment movieFragment = new MovieFragment();
+        movieFragment.setArguments(bundle);
+        transaction.replace(R.id.theatre_to_film_linearlayout,movieFragment);
         transaction.commit();
 
     }
