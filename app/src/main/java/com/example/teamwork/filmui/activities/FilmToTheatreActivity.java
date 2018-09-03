@@ -31,7 +31,7 @@ public class FilmToTheatreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_to_theatre);
         button_back = (Button)findViewById(R.id.film_to_theatre_back);
-        film_name = (TextView)findViewById(R.id.film_to_theatre_filename);
+        film_name = (TextView)findViewById(R.id.film_to_theatre_filmname);
 
         Intent intent = getIntent();
         filmname=intent.getStringExtra("filmname");
@@ -42,6 +42,7 @@ public class FilmToTheatreActivity extends AppCompatActivity {
         button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
             }
         });
 

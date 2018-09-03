@@ -2,35 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.FilmToTheatreActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/film_to_theatre_back"
+            android:id="@+id/theatre_to_film_back"
             android:layout_width="20dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/ic_back"/>
         <TextView
-            android:id="@+id/film_to_theatre_filmname"
+            android:id="@+id/theatre_to_film_theatrename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="电影名字"
+            android:text="影院名字"
             android:gravity="center_horizontal"
             android:textColor="@color/gray"
             android:textSize="25sp"/>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/film_to_theatre_linearlayout"
+        android:id="@+id/theatre_to_film_linearlayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
     </LinearLayout>
 

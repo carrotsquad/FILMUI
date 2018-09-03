@@ -25,6 +25,7 @@ import com.example.teamwork.filmui.theatrepagepackage.utils.GetBoxOfficeData;
 import com.example.teamwork.filmui.theatrepagepackage.utils.HttpGetFilmData;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.teamwork.filmui.theatrepagepackage.utils.BoxOfficeParse.getSingleBoxOfficeList;
@@ -43,6 +44,11 @@ public class InTheatreFragment extends Fragment{
     private TextView todaysumboxoffice;
     private RelativeLayout boxoffice;
 
+    private List<String> info = new ArrayList<>();
+    private String theatrename;
+    private String theatrelocation;
+    private Bundle bundle;
+
     public static Fragment newInstance(){
         InTheatreFragment fragment = new InTheatreFragment();
         return fragment;
@@ -55,6 +61,8 @@ public class InTheatreFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.now_layout,null);
         mContext = getActivity();
+
+        initgetbundle();
         initHotMovie();
         return view;
     }
@@ -67,6 +75,21 @@ public class InTheatreFragment extends Fragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+
+    /**
+     * 获取影院信息
+     */
+    private void initgetbundle(){
+        bundle=getArguments();
+        if(bundle!=null){
+            theatrename=bundle.getString("theatrename");
+            theatrelocation=bundle.getString("theatrelocation");
+            info.add(theatrename);
+            info.add(theatrelocation);
+            Log.e("filmlllll", theatrename+"       "+theatrelocation);
+        }
     }
 
 
@@ -110,7 +133,7 @@ public class InTheatreFragment extends Fragment{
         RecyclerView hotmovie_recycleview = (RecyclerView) view.findViewById(R.id.recycler_view_1);
         GridLayoutManager layoutManager1 = new GridLayoutManager(mContext,1);
         hotmovie_recycleview.setLayoutManager(layoutManager1);
-        hotMovieAdapter = new HotMovieAdapter(getActivity(), hotmovielist);
+        hotMovieAdapter = new HotMovieAdapter(getActivity(), hotmovielist, info);
         hotmovie_recycleview.setAdapter(hotMovieAdapter);
         /*  解决数据加载不完的问题  */
         hotmovie_recycleview.setNestedScrollingEnabled(false);

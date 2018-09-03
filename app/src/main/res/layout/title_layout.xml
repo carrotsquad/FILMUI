@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="50dp"
     android:background="@color/white"
     >
    <ImageView
@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/title"
         android:text="ACTION梦空间影城"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:gravity="center"
         android:textColor="@color/cardview_dark_background"
         android:layout_width="0dp"

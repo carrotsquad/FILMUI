@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,14 @@ import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.theatrepagepackage.beans.SingleHotMovie;
 import com.example.teamwork.filmui.theatrepagepackage.utils.GetImageFromWeb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_ID;
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_RATING;
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TAGS;
 import static com.example.teamwork.filmui.activities.MovieDetailActivity.MOVIE_TITLE;
+import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
 
 public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHolder> {
 
@@ -36,6 +39,8 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
     private SingleHotMovie singleHotMovie;
 
     private Activity activity;
+
+    private List<String> info;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -59,9 +64,13 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
         }
     }
 
-    public HotMovieAdapter(Activity activity, List<SingleHotMovie> hotMovieBeanList){
+    public HotMovieAdapter(Activity activity, List<SingleHotMovie> hotMovieBeanList, List<String> theatreinfo){
         this.hotMovieBeanList = hotMovieBeanList;
         this.activity = activity;
+        info=new ArrayList<>();
+        for(int i=0;i<theatreinfo.size();i++){
+            info.add(theatreinfo.get(i));
+        }
     }
 
     @NonNull
@@ -92,13 +101,19 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 SingleHotMovie singleHotMovie1 = hotMovieBeanList.get(position);
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra(MOVIE_RATING, singleHotMovie1.getCommit());
-                intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
-                intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
-                intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                if(info.size()==0) {
+
+                    Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                    intent.putExtra(MOVIE_RATING, singleHotMovie1.getCommit());
+                    intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
+                    intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
+                    intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
 //                intent.putExtra(MOVIE_POSTER, singleHotMovie1.getImageId());
-                mContext.startActivity(intent);
+                    mContext.startActivity(intent);
+                }else {
+                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           ");
+                    actionStart(mContext,info.get(0),singleHotMovie1.getTitle(),info.get(1),singleHotMovie1.getTags(),singleHotMovie1.getImageId());
+                }
             }
         });
         return holder;

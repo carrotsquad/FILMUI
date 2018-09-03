@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.amap.api.services.core.PoiItem;
 import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.activities.TheatreToFilmActivity;
 import com.example.teamwork.filmui.purchasing.MatchSelectActivity;
 
 import java.util.ArrayList;
@@ -67,17 +68,13 @@ public class TheatreConAdapter extends RecyclerView.Adapter<TheatreConAdapter.Vi
             public void onClick(View v) {
                 if(info.size()!=0){
                     Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           "+info.get(2));
-//                    Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           "+info.get(2));
-//                    Intent intent = new Intent(mContext, MatchSelectActivity.class);
-//                    intent.putExtra("movieTitle",info.get(0));
-//                    intent.putExtra("cinemaTitle", thename);
-//                    intent.putExtra("cinemaLocation",theaddr);
-//                    intent.putExtra("movieShuxing",info.get(1));
-//                    intent.putExtra("posterURL",info.get(2));
-//                    mContext.startActivity(intent);
                     actionStart(mContext,thename,info.get(0),theaddr,info.get(1),info.get(2));
                 }else {
-                    Log.d("filllll",  "无");
+                    Log.d("filllll",  "lol");
+                    Intent intent = new Intent(mContext, TheatreToFilmActivity.class);
+                    intent.putExtra("cinemaTitle", thename);
+                    intent.putExtra("cinemaLocation",theaddr);
+                    mContext.startActivity(intent);
                 }
             }
         });

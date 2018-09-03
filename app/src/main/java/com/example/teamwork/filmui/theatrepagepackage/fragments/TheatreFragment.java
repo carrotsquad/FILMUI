@@ -419,6 +419,7 @@ public class TheatreFragment extends Fragment{
 
 
         //add item click event
+        /* 设置完附近区域后 */
         nearView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

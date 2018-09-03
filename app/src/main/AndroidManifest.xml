@@ -63,19 +63,19 @@
         <activity android:name=".activities.BoxOfficeActivity" />
         <activity
             android:name=".activities.MovieDetailActivity"
-            android:theme="@style/MovieDetailTheme"></activity>
+            android:theme="@style/MovieDetailTheme" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <activity
             android:name=".activities.SearchViewActivity"
-            android:theme="@style/MovieDetailTheme"></activity>
+            android:theme="@style/MovieDetailTheme" />
         <activity
             android:name=".activities.CitySearchActivity"
-            android:theme="@style/MovieDetailTheme"></activity>
+            android:theme="@style/MovieDetailTheme" />
         <activity android:name=".purchasing.MatchSelectActivity" />
         <activity android:name=".purchasing.SeatSelectActivity" />
         <activity android:name=".purchasing.OutTicketActivity" />
@@ -85,12 +85,18 @@
             android:name=".activities.FilmToTheatreActivity"
             android:label="@string/title_activity_film_to_theatre"
             android:theme="@style/AppTheme">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity
+            android:name=".activities.TheatreToFilmActivity"
+            android:label="@string/title_activity_theatre_to_film"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
