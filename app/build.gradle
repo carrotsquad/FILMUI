@@ -77,5 +77,6 @@ dependencies {
     // LeanCloud 基础包
     implementation 'cn.leancloud.android:avoscloud-sdk:v4.6.4'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.google.zxing:core:3.3.3'
+//    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.github.yuzhiqiang1993:zxing:2.1.8'
 }

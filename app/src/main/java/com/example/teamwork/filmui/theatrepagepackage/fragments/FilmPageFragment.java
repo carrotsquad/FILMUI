@@ -2,7 +2,9 @@ package com.example.teamwork.filmui.theatrepagepackage.fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,10 +39,15 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.theatrepagepackage.adapters.MyFragmentAdapter;
 import com.example.teamwork.filmui.theatrepagepackage.adapters.TheatreConAdapter;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.bean.ZxingConfig;
+import com.yzq.zxinglibrary.common.Constant;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 public class FilmPageFragment extends Fragment implements View.OnClickListener {
 
@@ -63,6 +70,8 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
     private PoiSearch poiSearch;
     private String Keywords = "电影院";
     private int Radius = 5000;
+
+    public static int REQUEST_CODE_SCAN=1;
 
 
 
@@ -140,7 +149,7 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
         initView();
 
         /* 检查定位权限状态 */
-        getGPSPermission();
+        getGPSPermissions();
 
         /* 初始化定位 */
         initLocation();
@@ -160,10 +169,11 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
 //                editText.getText().clear();
                 break;
             case R.id.button_QR:
-                Toast.makeText(mContext,"You clicked QR.",Toast.LENGTH_SHORT).show();
+                getQRPermission();
+                initQR();
                 break;
             case R.id.button_location:
-                getGPSPermission();
+                getGPSPermissions();
                 initLocation();
                 Toast.makeText(mContext,"重新定位完成",Toast.LENGTH_SHORT).show();
                 break;
@@ -248,11 +258,26 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
     /**
      * 动态获取定位权限
      */
-    private void getGPSPermission(){
+    private void getGPSPermissions(){
         if(ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},1);
         }
+    }
+
+
+    /**
+     * 动态获取QR权限
+     */
+    private void getQRPermission(){
+        if(ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(mContext, Manifest.permission.VIBRATE)!=PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(mContext, Manifest.permission.WAKE_LOCK)!=PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.VIBRATE,Manifest.permission.WAKE_LOCK,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+        }
+
     }
 
 
@@ -402,8 +427,62 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(mContext,"You denied the permissions", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case 2:
+                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    initQR();
+                } else {
+                    Toast.makeText(mContext,"You denied the permissions", Toast.LENGTH_SHORT).show();
+                }
+                break;
             default:
                 break;
+        }
+    }
+
+
+    /**
+     * 初始化二维码界面
+     */
+    private void initQR(){
+        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+        /*ZxingConfig是配置类
+         *可以设置是否显示底部布局，闪光灯，相册，
+         * 是否播放提示音  震动
+         * 设置扫描框颜色等
+         * 也可以不传这个参数
+         * */
+        ZxingConfig config = new ZxingConfig();
+        config.setPlayBeep(true);//是否播放扫描声音 默认为true
+        config.setShake(true);//是否震动  默认为true
+        config.setDecodeBarCode(false);//是否扫描条形码 默认为true
+        config.setReactColor(R.color.colorPrimary);//设置扫描框四个角的颜色 默认为淡蓝色
+        config.setFrameLineColor(R.color.paleturquoise);//设置扫描框边框颜色 默认无色
+        config.setFullScreenScan(false);//是否全屏扫描  默认为true  设为false则只会在扫描框中扫描
+        intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+        startActivityForResult(intent,REQUEST_CODE_SCAN);
+    }
+
+
+    /**
+     * 获取二维码扫描结果并打开网页
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 扫描二维码/条码回传
+        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
+            if (data != null) {
+
+                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                Uri uri = Uri.parse(content);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+//                Toast.makeText(getActivity(),"扫描结果为：" + content,Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
