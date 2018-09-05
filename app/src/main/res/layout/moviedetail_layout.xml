@@ -123,14 +123,17 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
                         android:id="@+id/moviedetail_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="评分：0.0"/>
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="21dp"
+                        android:layout_marginTop="14dp"
+                        android:text="评分：0.0"
+                        android:textSize="15sp" />
 
                     <RatingBar
                         android:id="@+id/moviedetail_ratingbar"
@@ -138,12 +141,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/moviedetail_score"
+                        android:layout_alignRight="@+id/moviedetail_score"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginBottom="14dp"
-                        android:rating="5"
-                        android:layout_marginRight="2dp"
-                        android:layout_alignRight="@+id/moviedetail_score" />
+                        android:layout_marginEnd="-14dp"
+                        android:layout_marginRight="-14dp"
+                        android:layout_marginBottom="13dp"
+                        android:rating="5" />
 
                     <TextView
                         android:id="@+id/reshu_2"
@@ -152,10 +155,10 @@
                         android:layout_alignBaseline="@+id/moviedetail_score"
                         android:layout_alignStart="@+id/moviedetail_xiangkanrenshu"
                         android:layout_alignLeft="@+id/moviedetail_xiangkanrenshu"
-                        android:layout_marginStart="-2dp"
-                        android:layout_marginLeft="-2dp"
+                        android:layout_marginStart="-1dp"
+                        android:layout_marginLeft="-1dp"
                         android:text="已看人数"
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/moviedetail_xiangkanrenshu"
@@ -164,10 +167,9 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="131dp"
-                        android:layout_marginLeft="131dp"
-                        android:layout_marginTop="45dp"
+                        android:layout_marginStart="137dp"
+                        android:layout_marginLeft="137dp"
+                        android:layout_marginTop="44dp"
                         android:text="2000000"
                         android:textSize="20sp" />
 
@@ -175,33 +177,23 @@
                         android:id="@+id/renshu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/moviedetail_score"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginStart="31dp"
-                        android:layout_marginLeft="31dp"
-                        android:layout_marginEnd="33dp"
-                        android:layout_marginRight="33dp"
+
+                        android:layout_alignTop="@+id/moviedetail_score"
+                        android:layout_marginStart="38dp"
+                        android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/reshu_2"
-                        android:layout_toRightOf="@+id/reshu_2"
                         android:text="想看人数"
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/moviedetail_yikanrenshu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/renshu"
-                        android:layout_alignBaseline="@+id/moviedetail_xiangkanrenshu"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginStart="51dp"
-                        android:layout_marginLeft="51dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="29dp"
-                        android:layout_marginRight="29dp"
+
+                        android:layout_alignTop="@+id/moviedetail_xiangkanrenshu"
+                        android:layout_marginStart="34dp"
+                        android:layout_marginTop="-1dp"
                         android:layout_toEndOf="@+id/moviedetail_xiangkanrenshu"
-                        android:layout_toRightOf="@+id/moviedetail_xiangkanrenshu"
                         android:text="2000"
                         android:textSize="20sp" />
 

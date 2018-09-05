@@ -73,6 +73,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.amap.api:location:latest.integration'
     implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.teprinciple:updateapputils:1.4'
 
     // LeanCloud 基础包
     implementation 'cn.leancloud.android:avoscloud-sdk:v4.6.4'
