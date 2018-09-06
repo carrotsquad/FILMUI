@@ -32,6 +32,7 @@
 
     <!-- 使用照相机权限 -->
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <!-- 自动聚焦权限 -->
@@ -56,11 +57,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.BoxOfficeActivity" />
         <activity
@@ -98,7 +95,14 @@
         <activity
             android:name=".activities.TheatreToFilmActivity"
             android:label="@string/title_activity_theatre_to_film"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.LuanchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
