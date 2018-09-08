@@ -17,9 +17,13 @@ import com.example.teamwork.filmui.theatrepagepackage.fragments.FilmPageFragment
 import com.example.teamwork.filmui.homepagepackage.HomePageFragment;
 import com.example.teamwork.filmui.theatrepagepackage.fragments.MinePageFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.example.teamwork.filmui.activities.MovieDetailActivity.wannapush_uri;
+import static com.example.teamwork.filmui.theatrepagepackage.utils.PushMovieData.submitPostData;
 
 
 public class MainActivity extends  AppCompatActivity {
@@ -52,8 +56,6 @@ public class MainActivity extends  AppCompatActivity {
 
         /* 初始化页面 */
         initView();
-
-
     }
 
 

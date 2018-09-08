@@ -19,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -32,14 +33,18 @@ import com.example.teamwork.filmui.theatrepagepackage.beans.SingleCast;
 import com.example.teamwork.filmui.theatrepagepackage.utils.GetImageFromWeb;
 import com.example.teamwork.filmui.theatrepagepackage.utils.HttpGetDetailData;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
 import static com.example.teamwork.filmui.theatrepagepackage.utils.MovieDetailParse.getMovieDetail;
+import static com.example.teamwork.filmui.theatrepagepackage.utils.PushMovieData.submitPostData;
 
-public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     public static final String MOVIE_ID = "movie_id";
 
@@ -60,6 +65,26 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     //默认收起状态
     private static int mState = SHRINK_UP_STATE;
 
+    /**
+     * 想看的电影,参数username，want（电影ID）返回参数success或者false
+     */
+    public static final String wannapush_uri="http://47.106.95.140:8080/tpp/want";
+
+    /**
+     * 看过的电影,参数username，watched（电影ID）返回参数success或者false
+     */
+    public static final String alreadypush_uri="http://47.106.95.140:8080/tpp/watched";
+
+    /**
+     * 删除想看的电影,参数username,want 成功返回success失败返回false want即想看电影id
+     */
+    public static final String wannadelete_uri="http://47.106.95.140:8080/tpp/deletewant";
+
+    /**
+     * 删除看过电影,参数username,watched成功返回success失败返回false want即想看电影id
+     */
+    public static final String alreadydelete_uri="http://47.106.95.140:8080/tpp/deletewatched";
+
     // 展示更多
     private RelativeLayout mShowMore;
     // 展开
@@ -68,7 +93,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private ImageView mImageShrinkUp;
 
     private CheckBox notwatch_checkBox;
-    private Button alreadywatched_button;
+    private CheckBox alreadywatched_checkbox;
     private Button xuanzuogoupiao;
     private RatingBar ratingBar;
 
@@ -169,26 +194,19 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         }
 
         xuanzuogoupiao = (Button)findViewById(R.id.moviedetail_xuanzuogoupiao);
-        xuanzuogoupiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1=new Intent(MovieDetailActivity.this, FilmToTheatreActivity.class);
-                intent1.putExtra("filmname", movieTitle);
-                intent1.putExtra("filmgenre", movieTags);
-                intent1.putExtra("filmposter", moviePoster);
-                Log.e("film", moviePoster+"       "+movieTags+"        "+movieTitle);
-                startActivity(intent1);
-            }
-        });
+        alreadywatched_checkbox = (CheckBox) findViewById(R.id.moviedetail_alreadywatched_checkbox);
+        notwatch_checkBox = (CheckBox)findViewById(R.id.moviedetail_wannawatch_checkbox);
+        xuanzuogoupiao.setOnClickListener(this);
+        notwatch_checkBox.setOnCheckedChangeListener(this);
+        alreadywatched_checkbox.setOnCheckedChangeListener(this);
 
     }
 
 
     /**
-     * 初始化简介的伸缩特性
+     * 初始化简介的伸缩特性的控件
      */
     private void initIntro(){
-
         mShowMore = (RelativeLayout) findViewById(R.id.show_more);
         mImageSpread = (ImageView) findViewById(R.id.spread);
         mImageShrinkUp = (ImageView) findViewById(R.id.shrink_up);
@@ -220,10 +238,88 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
             }
+            case R.id.moviedetail_xuanzuogoupiao:{
+                Intent intent1=new Intent(MovieDetailActivity.this, FilmToTheatreActivity.class);
+                intent1.putExtra("filmname", movieTitle);
+                intent1.putExtra("filmgenre", movieTags);
+                intent1.putExtra("filmposter", moviePoster);
+                Log.e("film", moviePoster+"       "+movieTags+"        "+movieTitle);
+                startActivity(intent1);
+                break;
+            }
             default: {
                 break;
             }
+        }
+    }
 
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()){
+            case R.id.moviedetail_wannawatch_checkbox:{
+                if (isChecked){
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                submitPostData(wannapush_uri,"admin", movieID);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    alreadywatched_checkbox.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                submitPostData(wannadelete_uri,"admin", movieID);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    alreadywatched_checkbox.setVisibility(View.VISIBLE);
+                }
+                break;
+            }
+            case R.id.moviedetail_alreadywatched_checkbox:{
+                if(isChecked){
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                submitPostData(alreadypush_uri,"admin", movieID);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    notwatch_checkBox.setVisibility(View.INVISIBLE);
+
+                }else {
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                submitPostData(alreadydelete_uri,"admin", movieID);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    notwatch_checkBox.setVisibility(View.VISIBLE);
+                }
+                break;
+            }
+            default:{
+                break;
+            }
         }
     }
 
@@ -340,5 +436,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
     }
+
 
 }
