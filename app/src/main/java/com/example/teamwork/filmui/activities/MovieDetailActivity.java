@@ -1,7 +1,9 @@
 package com.example.teamwork.filmui.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -40,6 +42,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static com.example.teamwork.filmui.activities.MainActivity.alreadydelete_uri;
+import static com.example.teamwork.filmui.activities.MainActivity.alreadypush_uri;
+import static com.example.teamwork.filmui.activities.MainActivity.wannadelete_uri;
+import static com.example.teamwork.filmui.activities.MainActivity.wannapush_uri;
 import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
 import static com.example.teamwork.filmui.theatrepagepackage.utils.MovieDetailParse.getMovieDetail;
 import static com.example.teamwork.filmui.theatrepagepackage.utils.PushMovieData.submitPostData;
@@ -64,26 +70,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private static final int SPREAD_STATE = 2;
     //默认收起状态
     private static int mState = SHRINK_UP_STATE;
-
-    /**
-     * 想看的电影,参数username，want（电影ID）返回参数success或者false
-     */
-    public static final String wannapush_uri="http://47.106.95.140:8080/tpp/want";
-
-    /**
-     * 看过的电影,参数username，watched（电影ID）返回参数success或者false
-     */
-    public static final String alreadypush_uri="http://47.106.95.140:8080/tpp/watched";
-
-    /**
-     * 删除想看的电影,参数username,want 成功返回success失败返回false want即想看电影id
-     */
-    public static final String wannadelete_uri="http://47.106.95.140:8080/tpp/deletewant";
-
-    /**
-     * 删除看过电影,参数username,watched成功返回success失败返回false want即想看电影id
-     */
-    public static final String alreadydelete_uri="http://47.106.95.140:8080/tpp/deletewatched";
 
     // 展示更多
     private RelativeLayout mShowMore;
@@ -120,6 +106,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private String movieTitle;
     private String movieTags;
     private String moviePoster;
+    private String name;
+
+    private SharedPreferences sharedPreferences;
 
     /* 随机颜色 */
     private String[] bg = new String[]{
@@ -158,6 +147,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
      * 初始化界面
      */
     private void initVIew(){
+
+        sharedPreferences = getSharedPreferences("users",Context.MODE_PRIVATE);
+        name = sharedPreferences.getString("name","");
 
         Intent intent = getIntent();
         int min=0;
@@ -254,6 +246,11 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
 
+    /**
+     * 重写checkbox的onCheckedChanged方法
+     * @param buttonView
+     * @param isChecked
+     */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()){
@@ -263,12 +260,15 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void run() {
                             try {
-                                submitPostData(wannapush_uri,"admin", movieID);
+                                String res=submitPostData(wannapush_uri,name, movieID);
+                                if(res=="false"){
+                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                    };
+                    }.start();
                     alreadywatched_checkbox.setVisibility(View.INVISIBLE);
                 }
                 else {
@@ -276,12 +276,16 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void run() {
                             try {
-                                submitPostData(wannadelete_uri,"admin", movieID);
+                                String res=submitPostData(wannadelete_uri, name, movieID);
+                                if(res=="false"){
+                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
+                                Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    };
+                    }.start();
                     alreadywatched_checkbox.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -292,12 +296,15 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void run() {
                             try {
-                                submitPostData(alreadypush_uri,"admin", movieID);
+                                String res=submitPostData(alreadypush_uri, name, movieID);
+                                if(res=="false"){
+                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                    };
+                    }.start();
 
                     notwatch_checkBox.setVisibility(View.INVISIBLE);
 
@@ -306,12 +313,16 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void run() {
                             try {
-                                submitPostData(alreadydelete_uri,"admin", movieID);
+                                String res=submitPostData(alreadydelete_uri, name, movieID);
+                                if(res=="false"){
+                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
+                                Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    };
+                    }.start();
 
                     notwatch_checkBox.setVisibility(View.VISIBLE);
                 }
@@ -408,7 +419,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.share:
-                Toast.makeText(this, "You clicked share.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "You clicked share.", Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home:
                 finish();

@@ -21,7 +21,11 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static com.example.teamwork.filmui.activities.MovieDetailActivity.alreadypush_uri;
+import static com.example.teamwork.filmui.activities.MainActivity.alreadydelete_uri;
+import static com.example.teamwork.filmui.activities.MainActivity.alreadypush_uri;
+import static com.example.teamwork.filmui.activities.MainActivity.wannadelete_uri;
+import static com.example.teamwork.filmui.activities.MainActivity.wannapush_uri;
+
 
 public class PushMovieData {
     /**
@@ -30,10 +34,14 @@ public class PushMovieData {
      */
     public static String submitPostData(String strUrlPath, String username, String MovieID) throws IOException {
 
-        String data = data = "username=" + URLEncoder.encode(username, "UTF-8") + "&watched=" + URLEncoder.encode(MovieID, "UTF-8");//获得请求体
+        String data = "";
 
-        if(strUrlPath != alreadypush_uri) {
+        //获得请求体
+        if(strUrlPath == wannapush_uri || strUrlPath == wannadelete_uri){
             data = "username=" + URLEncoder.encode(username, "UTF-8") + "&want=" + URLEncoder.encode(MovieID, "UTF-8");
+        }
+        if(strUrlPath == alreadypush_uri || strUrlPath == alreadydelete_uri) {
+            data = "username=" + URLEncoder.encode(username, "UTF-8") + "&watched=" + URLEncoder.encode(MovieID, "UTF-8");
         }
 
         //String urlPath = "http://192.168.1.9:80/JJKSms/RecSms.php";

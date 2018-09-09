@@ -96,7 +96,7 @@ public class InTheatreFragment extends Fragment{
     /**
      * 初始化“正在热映”
      */
-    private void initHotMovie(){
+    public void initHotMovie(){
         Handler hotmoviehandler;
         hotmoviehandler=new Handler(){
             @Override

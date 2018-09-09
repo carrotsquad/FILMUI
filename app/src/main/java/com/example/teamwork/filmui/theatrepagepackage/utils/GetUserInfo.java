@@ -1,5 +1,7 @@
 package com.example.teamwork.filmui.theatrepagepackage.utils;
 
+import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,16 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetUserInfo {
-
-    /**
-     * 想看的电影集合,参数username,成功返回list，失败无返回
-     */
-    public static final String wannaget_uri="http://47.106.95.140:8080/tpp/allwant";
-
-    /**
-     * 看过的电影集合,参数username 成功返回list，失败无返回
-     */
-    public static final String alreadyget_uri="http://47.106.95.140:8080/tpp/allwatched";
 
 
     /**
@@ -76,12 +68,17 @@ public class GetUserInfo {
             byteArrayOutputStream.write(data, 0, len);
         }
         resultData = new String(byteArrayOutputStream.toByteArray());
-        resultData_1=resultData.substring(1,resultData.length()-2);
+        if(resultData.length()<=2){
+            return movielist;
+        }
+        resultData_1=resultData.substring(1,resultData.length()-1);
         resultData_2=resultData_1.split(",");
         for(int i=0; i<resultData_2.length; i++){
             movielist.add(resultData_2[i]);
         }
         System.out.println(movielist);
+
+        Log.e("用户的电影",Integer.toString(movielist.size()));
         return movielist;
     }
 

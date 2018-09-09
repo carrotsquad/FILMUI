@@ -1,10 +1,14 @@
 package com.example.teamwork.filmui.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,22 +19,67 @@ import com.example.teamwork.filmui.R;
 import com.example.teamwork.filmui.theatrepagepackage.adapters.MyFragmentAdapter;
 import com.example.teamwork.filmui.theatrepagepackage.fragments.FilmPageFragment;
 import com.example.teamwork.filmui.homepagepackage.HomePageFragment;
-import com.example.teamwork.filmui.theatrepagepackage.fragments.MinePageFragment;
+import com.example.teamwork.filmui.minepagepackage.Fragment.MinePageFragment;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.example.teamwork.filmui.activities.MovieDetailActivity.wannapush_uri;
-import static com.example.teamwork.filmui.theatrepagepackage.utils.PushMovieData.submitPostData;
+import java.util.Map;
+import java.util.Set;
 
 
 public class MainActivity extends  AppCompatActivity {
 
 
+
+
+    /**
+     * 参数movie_title cinema_title date_time shuxing place seat_location imageUrl username num
+     */
+    public static String ticketpush_uri="http://47.106.95.140:8080/tpp//addticket";
+
+
+    /**
+     * 参数username
+     */
+    public static String ticketget_uri="http://47.106.95.140:8080/tpp//allticket";
+
+
+    /**
+     * 想看的电影集合,参数username,成功返回list，失败无返回
+     */
+    public static final String wannaget_uri="http://47.106.95.140:8080/tpp/allwant";
+
+    /**
+     * 看过的电影集合,参数username 成功返回list，失败无返回
+     */
+    public static final String alreadyget_uri="http://47.106.95.140:8080/tpp/allwatched";
+
+
+    /**
+     * 想看的电影,参数username，want（电影ID）返回参数success或者false
+     */
+    public static final String wannapush_uri="http://47.106.95.140:8080/tpp/want";
+
+    /**
+     * 看过的电影,参数username，watched（电影ID）返回参数success或者false
+     */
+    public static final String alreadypush_uri="http://47.106.95.140:8080/tpp/watched";
+
+    /**
+     * 删除想看的电影,参数username,want 成功返回success失败返回false want即想看电影id
+     */
+    public static final String wannadelete_uri="http://47.106.95.140:8080/tpp/deletewant";
+
+    /**
+     * 删除看过电影,参数username,watched成功返回success失败返回false want即想看电影id
+     */
+    public static final String alreadydelete_uri="http://47.106.95.140:8080/tpp/deletewatched";
+
     /** 上次点击返回键的时间 */
     private long lastBackPressed;
+
+    private SharedPreferences sharedPreferences;
 
     /** 两次点击的间隔时间 */
     private static final int QUIT_INTERVAL = 2000;
@@ -64,6 +113,9 @@ public class MainActivity extends  AppCompatActivity {
      */
     private void initView() {
 
+        sharedPreferences = getSharedPreferences("users",Context.MODE_PRIVATE);
+
+        Log.e("username",sharedPreferences.getString("name",""));
         /* 初始化第一级滑动页 */
         mViewPager = (ViewPager) findViewById(R.id.vp_content);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
@@ -100,7 +152,7 @@ public class MainActivity extends  AppCompatActivity {
         mViewPager.setAdapter(adapter);
 
         /* 设置初始化页面 */
-        mViewPager.setCurrentItem(0);
+        mViewPager.setCurrentItem(1);
 
         /* 自定义tab布局 */
         mTabLayout.getTabAt(0).setCustomView(getTabView(0));

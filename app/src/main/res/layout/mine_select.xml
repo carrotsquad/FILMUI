@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+            android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#ffffff">
+    <LinearLayout
+        android:id="@+id/mine_movie"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/mine_movie_ticket"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="电影票"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mine_coupon"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/mine_coupon"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="优惠卷"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mine_card"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/mine_card"
+             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="权益卡"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/mine_show"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/mine_show_ticket"
+             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="演出票"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+

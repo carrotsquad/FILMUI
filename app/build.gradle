@@ -32,7 +32,7 @@ android {
     //为了解决部分第三方库重复打包了META-INF的问题
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/*'
     }
     lintOptions {
         abortOnError false
@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.github.qcloudsms:qcloudsms:1.0.5'
     implementation 'com.carson_ho:SearchLayout:1.0.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'

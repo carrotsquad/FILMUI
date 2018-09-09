@@ -140,26 +140,29 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
         activity_main_viewpager.setAdapter(new MyViewPagerAdapter(imageViewList));
         int pos=Integer.MAX_VALUE/2-(Integer.MAX_VALUE/2%imageViewList.size());
         activity_main_viewpager.setCurrentItem(pos);
-        new Thread(){
-            @Override
-            public void run() {
-                isRunning=true;
-                while (isRunning){
-                    try {
-                        Thread.sleep(4000);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                activity_main_viewpager.setCurrentItem(activity_main_viewpager.getCurrentItem()+1);
-                            }
-                        });
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                isRunning = true;
+//                    while (isRunning) {
+//                        try {
+//                            Thread.sleep(1000);
+//                            getActivity().runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+                                    activity_main_viewpager.setCurrentItem(activity_main_viewpager.getCurrentItem() + 1);
+//                                }
+//                            });
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//            }
+//        }.start();
     }
+
+
+
     private void initViewPagerView(){
         activity_main_viewpager= (ViewPager) view.findViewById(R.id.activity_main_viewpager);
         activity_main_llpoints= (LinearLayout)view. findViewById(R.id.activity_main_llpoints);
