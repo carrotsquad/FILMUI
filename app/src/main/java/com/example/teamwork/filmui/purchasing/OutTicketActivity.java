@@ -152,7 +152,7 @@ public class OutTicketActivity extends AppCompatActivity {
                 };
 
                 thread_1.start();
-                while (thread.isAlive()){
+                while (thread_1.isAlive()){
 
                 }
 
@@ -174,6 +174,11 @@ public class OutTicketActivity extends AppCompatActivity {
                         }
                     };
 
+                    thread_2.start();
+                    while (thread_2.isAlive()){
+
+                    }
+
                     if(res[0]=="false"){
                         Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
                     }else {
@@ -184,7 +189,7 @@ public class OutTicketActivity extends AppCompatActivity {
 
                 if(seats[2]!=""){
 
-                    Thread thread_2 = new Thread(){
+                    Thread thread_3 = new Thread(){
                         @Override
                         public void run() {
                             try {
@@ -194,6 +199,11 @@ public class OutTicketActivity extends AppCompatActivity {
                             }
                         }
                     };
+
+                    thread_3.start();
+                    while (thread_3.isAlive()){
+
+                    }
 
                     if(res[0]=="false"){
                         Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
