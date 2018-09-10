@@ -23,7 +23,7 @@ import java.util.Random;
  * @author Administrator
  * @version $Rev$
  * @des ${TODO}
- * @updateAuthor $Author$
+ * @updateAuthor zhangqianyuan
  * @updateDes ${TODO}
  */
 public class MatchFragment1 extends Fragment {
@@ -32,8 +32,16 @@ public class MatchFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
         View view = inflater.inflate(R.layout.first_fragment,null);
+
+        Bundle bundle = getArguments();
+        String date = bundle.getString("date","");
+        String shuxing = bundle.getString("shuxing","");
+        String imageUrl = bundle.getString("imageUrl","");
         recycle1 = view.findViewById(R.id.first_list);
         adapter1 =new MatchAdapter();
+        adapter1.setDate(date);
+        adapter1.setImageUrl(imageUrl);
+        adapter1.setShuxing(shuxing);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recycle1.setLayoutManager(manager);
         recycle1.setAdapter(adapter1);

@@ -208,12 +208,13 @@ public class HomePageFragment extends Fragment implements ViewPager.OnPageChange
                 }
                 else {
                     comingSoonMovieBean = ComingSoonMovieParse.getComingSoonMovieBean(stringBuilder);
-                    if (comingSoonMovieBean == null) {
+                    // TODO: 2018/9/10 这里又有线程问题 
+//                    if (comingSoonMovieBean == null) {
                         activity_main_totaltextvie.setText("全部"+20+"部");
-                    }
-                    else {
-                        activity_main_totaltextvie.setText("全部"+comingSoonMovieBean.getSubjects().size()+"部");
-                    }
+//                    }
+//                    else {
+//                        activity_main_totaltextvie.setText("全部"+comingSoonMovieBean.getSubjects().size()+"部");
+//                    }
                     initComingSoonRecyclerAdapter();
                 }
             }

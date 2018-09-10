@@ -8,8 +8,8 @@ import com.avos.avoscloud.AVOSCloud;
  * @author Administrator
  * @version $Rev$
  * @des ${TODO}
- * @updateAuthor $Author$
- * @updateDes ${TODO}
+ * @updateAuthor zhangqianyuan
+ * @updateDes 我把这个活动单独拿出来是因为，要连接服务器，必须这样
  */
 public class BuyActivity extends Application {
     @Override

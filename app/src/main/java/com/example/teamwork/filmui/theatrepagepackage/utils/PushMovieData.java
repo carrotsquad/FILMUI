@@ -21,10 +21,10 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static com.example.teamwork.filmui.activities.MainActivity.alreadydelete_uri;
-import static com.example.teamwork.filmui.activities.MainActivity.alreadypush_uri;
-import static com.example.teamwork.filmui.activities.MainActivity.wannadelete_uri;
-import static com.example.teamwork.filmui.activities.MainActivity.wannapush_uri;
+import static com.example.teamwork.filmui.UriStorage.alreadydelete_uri;
+import static com.example.teamwork.filmui.UriStorage.alreadypush_uri;
+import static com.example.teamwork.filmui.UriStorage.wannadelete_uri;
+import static com.example.teamwork.filmui.UriStorage.wannapush_uri;
 
 
 public class PushMovieData {
@@ -34,14 +34,14 @@ public class PushMovieData {
      */
     public static String submitPostData(String strUrlPath, String username, String MovieID) throws IOException {
 
-        String data = "";
+        String data_2 = "";
 
         //获得请求体
         if(strUrlPath == wannapush_uri || strUrlPath == wannadelete_uri){
-            data = "username=" + URLEncoder.encode(username, "UTF-8") + "&want=" + URLEncoder.encode(MovieID, "UTF-8");
+            data_2 = "username=" + URLEncoder.encode(username, "UTF-8") + "&want=" + URLEncoder.encode(MovieID, "UTF-8");
         }
         if(strUrlPath == alreadypush_uri || strUrlPath == alreadydelete_uri) {
-            data = "username=" + URLEncoder.encode(username, "UTF-8") + "&watched=" + URLEncoder.encode(MovieID, "UTF-8");
+            data_2 = "username=" + URLEncoder.encode(username, "UTF-8") + "&watched=" + URLEncoder.encode(MovieID, "UTF-8");
         }
 
         //String urlPath = "http://192.168.1.9:80/JJKSms/RecSms.php";
@@ -55,15 +55,15 @@ public class PushMovieData {
         httpURLConnection.setUseCaches(false);               //使用Post方式不能使用缓存
         //至少要设置的两个请求头//
         httpURLConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-        httpURLConnection.setRequestProperty("Content-Length", data.length()+"");
+        httpURLConnection.setRequestProperty("Content-Length", data_2.length()+"");
         //获得输出流，向服务器写入数据
         OutputStream outputStream = httpURLConnection.getOutputStream();
-        outputStream.write(data.getBytes());
+        outputStream.write(data_2.getBytes());
 
         int response = httpURLConnection.getResponseCode();            //获得服务器的响应码
         if(response == HttpURLConnection.HTTP_OK) {
             InputStream inptStream = httpURLConnection.getInputStream();
-            return dealResponseResult(inptStream);                     //处理服务器的响应结果
+            return dealResponseResult_2(inptStream);                     //处理服务器的响应结果
         }
         return "false";
     }
@@ -73,7 +73,7 @@ public class PushMovieData {
      * Function  :   处理服务器的响应结果（将输入流转化成字符串）
      * Param     :   inputStream服务器的响应输入流
      */
-    public static String dealResponseResult(InputStream inputStream) throws IOException {
+    public static String dealResponseResult_2(InputStream inputStream) throws IOException {
         //存储处理结果
         String resultData = null;
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

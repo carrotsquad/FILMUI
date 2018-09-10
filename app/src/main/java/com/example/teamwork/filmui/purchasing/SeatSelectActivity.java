@@ -44,7 +44,10 @@ public class SeatSelectActivity extends AppCompatActivity implements View.OnClic
 
     //服务器isSold 数据
     String mIsSold;
+    String date;
 
+    String shuxing;
+    String imageUrl;
     //三个座位位置的 TextView
     TextView[] locations = new TextView[3];
     TextView price_buy;
@@ -58,6 +61,9 @@ public class SeatSelectActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_seat_test);
         intent = getIntent();
         mIsSold = intent.getStringExtra("mSoldAndCheck");
+        date = intent.getStringExtra("date");
+        shuxing = intent.getStringExtra("shuxing");
+        imageUrl = intent.getStringExtra("imageUrl");
         mSoldAndCheck = new Gson().fromJson(mIsSold, SoldAndCheck.class);
         initView();
 
@@ -149,6 +155,9 @@ public class SeatSelectActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra("position", all_position);
                 intent.putExtra("cinema_title", title.getText());
                 intent.putExtra("count",String.valueOf(count));
+                intent.putExtra("date",date);
+                intent.putExtra("shuxing",shuxing);
+                intent.putExtra("imageUrl",imageUrl);
                 startActivity(intent);
                 break;
             case R.id.back:

@@ -25,6 +25,36 @@ import java.util.List;
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
     List<AVObject> mMatches =new ArrayList<>();
 
+    private String date = "";
+
+    private String shuxing = "";
+
+    private String imageUrl = "";
+
+    public String getShuxing() {
+        return shuxing;
+    }
+
+    public void setShuxing(String shuxing) {
+        this.shuxing = shuxing;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public class ViewHolder extends  RecyclerView.ViewHolder{
          TextView start;  //开场时间
          TextView end;    //散场时间
@@ -74,6 +104,9 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> 
                 Intent intent =new Intent(v.getContext(),SeatSelectActivity.class);
                 intent.putExtra("match",object);
                 intent.putExtra("mSoldAndCheck",isSold);
+                intent.putExtra("date",getDate());
+                intent.putExtra("shuxing",getShuxing());
+                intent.putExtra("imageUrl",getImageUrl());
                 v.getContext().startActivity(intent);
     }});}}
     @Override

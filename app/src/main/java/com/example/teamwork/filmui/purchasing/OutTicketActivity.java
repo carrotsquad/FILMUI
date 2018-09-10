@@ -1,6 +1,8 @@
 package com.example.teamwork.filmui.purchasing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Movie;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,22 +11,28 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.LogUtil;
 import com.avos.avoscloud.SaveCallback;
 import com.example.teamwork.filmui.R;
+import com.example.teamwork.filmui.theatrepagepackage.beans.SingleTicket;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+
+import static com.example.teamwork.filmui.theatrepagepackage.utils.GetUserTickets.getUserTickets;
+import static com.example.teamwork.filmui.theatrepagepackage.utils.PushUserTickets.pushUserTickets;
 
 public class OutTicketActivity extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
+
     //总价格
     TextView allPrice;
 
@@ -52,6 +60,8 @@ public class OutTicketActivity extends AppCompatActivity {
     //电影票类
     TicketInformation mTicketInformation;
 
+    String date;
+
 
 
     String cinema_title;
@@ -75,6 +85,7 @@ public class OutTicketActivity extends AppCompatActivity {
         movieTitle =findViewById(R.id.out_ticket_title);
         cinemaTitle=findViewById(R.id.out_ticket_cinema);
         mIntent = getIntent();
+        date = mIntent.getStringExtra("date");
         mSoldAndCheck = (SoldAndCheck) mIntent.getSerializableExtra("mSoldAndCheck");
         mMatch = mIntent.getParcelableExtra("match");
         movieTitle.setText(mMatch.getString("movieTitle")+"   "+getIntent().getStringExtra("count")+"张");
@@ -93,6 +104,107 @@ public class OutTicketActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 initClondData();
+
+                sharedPreferences = getSharedPreferences("users",Context.MODE_PRIVATE);
+
+                String name = sharedPreferences.getString("name","");
+
+                String filmtitle = mMatch.getString("movieTitle");
+                String cinematitle = mIntent.getStringExtra("cinema_title");
+
+                String time = date;
+
+                String place = mMatch.getString("place");
+
+                String shuxing = mIntent.getStringExtra("shuxing");
+
+                String imageUrl = mIntent.getStringExtra("imageUrl");
+
+                ArrayList<SingleTicket> singleTicketArrayList = new ArrayList<>();
+                Thread thread = new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+                            singleTicketArrayList.addAll(getUserTickets(name));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                thread.start();
+                while (thread.isAlive()){
+
+                }
+
+                int len = singleTicketArrayList.size();
+
+                final String[] res = {""};
+                Thread thread_1 = new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+                            res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[0],imageUrl,name,Integer.toString(len+1));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                thread_1.start();
+                while (thread.isAlive()){
+
+                }
+
+                if(res[0] =="false"){
+                    Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(OutTicketActivity.this,"购票成功",Toast.LENGTH_SHORT).show();
+                }
+
+                if(seats[1]!=""){
+                    Thread thread_2 = new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[1],imageUrl,name,Integer.toString(len+2));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    if(res[0]=="false"){
+                        Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(OutTicketActivity.this,"购票成功",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                if(seats[2]!=""){
+
+                    Thread thread_2 = new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[1],imageUrl,name,Integer.toString(len+3));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    if(res[0]=="false"){
+                        Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(OutTicketActivity.this,"购票成功",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+
+
                 Intent intent = new Intent(OutTicketActivity.this, BuySucess.class);
                 startActivity(intent);
                 finish();

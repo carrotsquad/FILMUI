@@ -23,8 +23,8 @@ import com.example.teamwork.filmui.minepagepackage.Activity.SettingActivity;
 import com.example.teamwork.filmui.minepagepackage.Activity.WebActivity;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.teamwork.filmui.activities.MainActivity.alreadyget_uri;
-import static com.example.teamwork.filmui.activities.MainActivity.wannaget_uri;
+import static com.example.teamwork.filmui.UriStorage.alreadyget_uri;
+import static com.example.teamwork.filmui.UriStorage.wannaget_uri;
 
 public class MinePageFragment extends Fragment implements View.OnClickListener{
 

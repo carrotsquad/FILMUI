@@ -109,6 +109,24 @@ public class MatchSelectActivity extends AppCompatActivity {
         tabTitle.add(getOldDate(0));
         tabTitle.add(getOldDate(1));
         tabTitle.add(getOldDate(2));
+
+        Bundle bundle = new Bundle();
+        bundle.putString("date",getOldDate(0));
+        bundle.putString("shuxing",movieShuxing);
+        bundle.putString("imageUrl",posterURL);
+        fragments[0].setArguments(bundle);
+        bundle.clear();
+        bundle.putString("date",getOldDate(1));
+        bundle.putString("shuxing",movieShuxing);
+        bundle.putString("imageUrl",posterURL);
+        fragments[1].setArguments(bundle);
+        bundle.clear();
+        bundle.putString("date",getOldDate(2));
+        fragments[2].setArguments(bundle);
+        bundle.putString("shuxing",movieShuxing);
+        bundle.putString("imageUrl",posterURL);
+        bundle.clear();
+
         //设置预加载最大页数为2
         mViewPager.setOffscreenPageLimit(2);
         mVpagerAdapter = new VpagerAdapter(getSupportFragmentManager(), this, fragments, tabTitle);
@@ -130,6 +148,8 @@ public class MatchSelectActivity extends AppCompatActivity {
         }
         return dft.format(endDate);
     }
+
+
     public static void actionStart(Context context,String cinemaTitle,String movieTitle,String cinemaLocation,String movieShuxing, String posterURL) {
         Intent intent = new Intent(context, MatchSelectActivity.class);
         intent.putExtra("movieTitle",movieTitle);

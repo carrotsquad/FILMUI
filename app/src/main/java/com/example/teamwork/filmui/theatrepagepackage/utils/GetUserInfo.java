@@ -22,7 +22,7 @@ public class GetUserInfo {
     public static ArrayList<String> getUserInfo(String strUrlPath, String username) throws IOException {
 
         //获得请求体
-        String data = data = "username=" + URLEncoder.encode(username, "UTF-8");
+        String data ="username=" + URLEncoder.encode(username, "UTF-8");
 
         //String urlPath = "http://192.168.1.9:80/JJKSms/RecSms.php";
         URL url = new URL(strUrlPath);

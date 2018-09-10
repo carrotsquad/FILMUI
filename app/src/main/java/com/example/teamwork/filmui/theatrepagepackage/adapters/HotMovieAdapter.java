@@ -144,6 +144,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
                 }
             }
         });
+
         return holder;
     }
 
@@ -154,6 +155,7 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
         holder.commit.setText("评分："+Double.toString(singleHotMovie.getCommit()));
         holder.directors.setText("导演："+singleHotMovie.getDirectors());
         holder.actors.setText("演员："+singleHotMovie.getActors());
+        Log.e("URL",singleHotMovie.getImageId());
         GetImageFromWeb.setImageView(singleHotMovie.getImageId(), holder.filmImage, activity);
     }
 

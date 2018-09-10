@@ -42,10 +42,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static com.example.teamwork.filmui.activities.MainActivity.alreadydelete_uri;
-import static com.example.teamwork.filmui.activities.MainActivity.alreadypush_uri;
-import static com.example.teamwork.filmui.activities.MainActivity.wannadelete_uri;
-import static com.example.teamwork.filmui.activities.MainActivity.wannapush_uri;
+import static com.example.teamwork.filmui.UriStorage.alreadydelete_uri;
+import static com.example.teamwork.filmui.UriStorage.alreadypush_uri;
+import static com.example.teamwork.filmui.UriStorage.wannadelete_uri;
+import static com.example.teamwork.filmui.UriStorage.wannapush_uri;
+
 import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
 import static com.example.teamwork.filmui.theatrepagepackage.utils.MovieDetailParse.getMovieDetail;
 import static com.example.teamwork.filmui.theatrepagepackage.utils.PushMovieData.submitPostData;
