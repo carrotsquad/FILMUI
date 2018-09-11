@@ -1,7 +1,10 @@
 package com.example.teamwork.filmui.purchasing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,36 +27,6 @@ import java.util.List;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
     List<AVObject> mMatches =new ArrayList<>();
-
-    private String date = "";
-
-    private String shuxing = "";
-
-    private String imageUrl = "";
-
-    public String getShuxing() {
-        return shuxing;
-    }
-
-    public void setShuxing(String shuxing) {
-        this.shuxing = shuxing;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
          TextView start;  //开场时间
@@ -104,9 +77,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> 
                 Intent intent =new Intent(v.getContext(),SeatSelectActivity.class);
                 intent.putExtra("match",object);
                 intent.putExtra("mSoldAndCheck",isSold);
-                intent.putExtra("date",getDate());
-                intent.putExtra("shuxing",getShuxing());
-                intent.putExtra("imageUrl",getImageUrl());
                 v.getContext().startActivity(intent);
     }});}}
     @Override

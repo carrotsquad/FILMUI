@@ -42,6 +42,8 @@ public class MovieFragment extends Fragment {
         MovieFragment fragment = new MovieFragment();
         return fragment;
     }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -85,7 +85,7 @@ public class OutTicketActivity extends AppCompatActivity {
         movieTitle =findViewById(R.id.out_ticket_title);
         cinemaTitle=findViewById(R.id.out_ticket_cinema);
         mIntent = getIntent();
-        date = mIntent.getStringExtra("date");
+
         mSoldAndCheck = (SoldAndCheck) mIntent.getSerializableExtra("mSoldAndCheck");
         mMatch = mIntent.getParcelableExtra("match");
         movieTitle.setText(mMatch.getString("movieTitle")+"   "+getIntent().getStringExtra("count")+"张");
@@ -109,16 +109,52 @@ public class OutTicketActivity extends AppCompatActivity {
 
                 String name = sharedPreferences.getString("name","");
 
+                sharedPreferences = getSharedPreferences("infos", Context.MODE_PRIVATE);
+
                 String filmtitle = mMatch.getString("movieTitle");
                 String cinematitle = mIntent.getStringExtra("cinema_title");
 
-                String time = date;
+                switch (sharedPreferences.getString("index","1")){
+                    default:
+                    case "0":
+                        date = sharedPreferences.getString("date_1","date_not_known");
+                        break;
+                    case "1":
+                        date = sharedPreferences.getString("date_2","date_not_known");
+                        break;
+                    case "2":
+                        date = sharedPreferences.getString("date_3","date_not_known");
+                        break;
+                }
+
+                String time_yue;
+                String time_day;
+                String[] strings = new String[50];
+                strings = date.split("-");
+                String yue = strings[0];
+                String day = strings[1];
+
+                if(yue.charAt(0)=='0'){
+                    time_yue = yue.substring(1,2)+"月";
+                }else {
+                    time_yue = yue+"月";
+                }
+
+                if(day.charAt(0)=='0'){
+                    time_day = day.substring(1, 2)+"日";
+                }else {
+                    time_day = day+"日";
+                }
+
+                date = time_yue+time_day;
+
+
 
                 String place = mMatch.getString("place");
 
-                String shuxing = mIntent.getStringExtra("shuxing");
+                String shuxing = sharedPreferences.getString("shuxing","电影");
 
-                String imageUrl = mIntent.getStringExtra("imageUrl");
+                String imageUrl = sharedPreferences.getString("imageUrl","");
 
                 ArrayList<SingleTicket> singleTicketArrayList = new ArrayList<>();
                 Thread thread = new Thread(){
@@ -193,7 +229,7 @@ public class OutTicketActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[1],imageUrl,name,Integer.toString(len+3));
+                                res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[2],imageUrl,name,Integer.toString(len+3));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -213,13 +249,12 @@ public class OutTicketActivity extends AppCompatActivity {
 
                 }
 
-
-
                 Intent intent = new Intent(OutTicketActivity.this, BuySucess.class);
                 startActivity(intent);
                 finish();
             }
         });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

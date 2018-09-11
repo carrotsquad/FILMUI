@@ -3,6 +3,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
@@ -57,6 +58,8 @@ public class MatchSelectActivity extends AppCompatActivity {
     String cinemaLocation;
     String posterURL;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -100,38 +103,79 @@ public class MatchSelectActivity extends AppCompatActivity {
                 Toast.makeText(MatchSelectActivity.this, "导航功能暂未开放", Toast.LENGTH_SHORT).show();
             }
         });
+
+        sharedPreferences = getSharedPreferences("infos", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("date_1",getOldDate(0));
+        editor.putString("date_2",getOldDate(1));
+        editor.putString("date_3",getOldDate(2));
+        editor.putString("shuxing",movieShuxing);
+        editor.putString("imageUrl",posterURL);
+        editor.commit();
+
+        editor.commit();
         mTableLayout = findViewById(R.id.tablayout);
         mViewPager = findViewById(R.id.viewpager);
         tabTitle = new ArrayList<>();
-        fragments[0] = new MatchFragment1();
-        fragments[1] = new MatchFragment1();
-        fragments[2] = new MatchFragment1();
+        MatchFragment1 fragment1= new MatchFragment1();
+        MatchFragment1 fragment2= new MatchFragment1();
+        MatchFragment1 fragment3= new MatchFragment1();
         tabTitle.add(getOldDate(0));
         tabTitle.add(getOldDate(1));
         tabTitle.add(getOldDate(2));
+
+
+//        Log.e("是否为空",movieShuxing);
+//        Log.e("是否为空",posterURL);
 
         Bundle bundle = new Bundle();
         bundle.putString("date",getOldDate(0));
         bundle.putString("shuxing",movieShuxing);
         bundle.putString("imageUrl",posterURL);
-        fragments[0].setArguments(bundle);
+        fragment1.setArguments(bundle);
         bundle.clear();
         bundle.putString("date",getOldDate(1));
         bundle.putString("shuxing",movieShuxing);
         bundle.putString("imageUrl",posterURL);
-        fragments[1].setArguments(bundle);
+        fragment2.setArguments(bundle);
         bundle.clear();
         bundle.putString("date",getOldDate(2));
-        fragments[2].setArguments(bundle);
         bundle.putString("shuxing",movieShuxing);
         bundle.putString("imageUrl",posterURL);
+        fragment3.setArguments(bundle);
         bundle.clear();
+
+        fragments[0] = fragment1;
+        fragments[1] = fragment2;
+        fragments[2] = fragment3;
 
         //设置预加载最大页数为2
         mViewPager.setOffscreenPageLimit(2);
         mVpagerAdapter = new VpagerAdapter(getSupportFragmentManager(), this, fragments, tabTitle);
         mViewPager.setAdapter(mVpagerAdapter);
         mTableLayout.setupWithViewPager(mViewPager);
+
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("index",Integer.toString(position));
+                editor.commit();
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         }
 
     public static String getOldDate(int distanceDay) {
