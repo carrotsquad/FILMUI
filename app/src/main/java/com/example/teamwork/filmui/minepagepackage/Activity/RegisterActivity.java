@@ -63,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String result = bundle.getString("result");
         if(result.equals("success")){
             Intent intent = new Intent(this,LoginActivity.class);
+            finish();
             startActivity(intent);
             Toast.makeText(getApplicationContext(),"注册成功，请登录！",Toast.LENGTH_SHORT).show();
         }else{

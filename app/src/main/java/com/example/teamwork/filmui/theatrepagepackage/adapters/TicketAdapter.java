@@ -41,6 +41,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
         TextView seat;
         TextView cinema;
         LinearLayout linearLayout;
+        TextView ticketscount;
 
         public ViewHolder(View view){
             super(view);
@@ -51,6 +52,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
             seat = (TextView) view.findViewById(R.id.ticketitem_seat);
             cinema = (TextView) view.findViewById(R.id.ticketitem_cinema);
             linearLayout = (LinearLayout) view.findViewById(R.id.ticketitem_linearlayout);
+            ticketscount = (TextView) view.findViewById(R.id.ticketitem_num);
         }
     }
 
@@ -96,6 +98,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
         holder.date.setText(singleTicket.getDate_time());
         GetImageFromInternet.setImageView(singleTicket.getImageUrl(), holder.filmImage, activity);
         holder.filmname.setText(singleTicket.getMovie_title());
+        holder.ticketscount.setText(singleTicket.getNum()+"张");
     }
 
     @Override

@@ -6,7 +6,7 @@
     >
     <ImageView
         android:paddingLeft="10dp"
-        android:id="@+id/back"
+        android:id="@+id/ticket_back"
         android:src="@drawable/ic_back"
         android:layout_width="wrap_content"
         android:layout_gravity="center"

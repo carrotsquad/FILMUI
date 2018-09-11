@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ public class TicketPage extends AppCompatActivity {
     private TextView seat;
     private ImageView filmimage;
     private Bitmap mBitmap;
+    private ImageView back;
 
     private String filmTitle;
     private String dateandshuxing;
@@ -57,6 +60,14 @@ public class TicketPage extends AppCompatActivity {
         place = (TextView) findViewById(R.id.page_cinema_place);
         seat = (TextView) findViewById(R.id.page_seat_location);
         filmimage = (ImageView) findViewById(R.id.page_movie_image);
+        back = (ImageView) findViewById(R.id.ticket_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -70,8 +81,8 @@ public class TicketPage extends AppCompatActivity {
         imageUri = intent.getStringExtra("imageUri");
         seatlocation = intent.getStringExtra("seatlocation");
         cinemaplace = intent.getStringExtra("cinemaplace");
-        mBitmap= CoreProducer.createQRCodeBitmap("data",800,800);
 
+        mBitmap= CoreProducer.createQRCodeBitmap("data",800,800);
         filmname.setText(filmTitle);
         timeandshuxing.setText(dateandshuxing);
         place.setText(cinemaplace);

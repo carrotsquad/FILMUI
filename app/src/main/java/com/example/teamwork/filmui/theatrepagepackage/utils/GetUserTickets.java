@@ -110,7 +110,7 @@ public class GetUserTickets {
                     singleTicket.setUsername(resultData_2[j]);
                     break;
                 case 9:
-                    singleTicket.setUsername(resultData_2[j]);
+                    singleTicket.setNum(resultData_2[j]);
                     break;
                     default:
                         break;

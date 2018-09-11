@@ -60,7 +60,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
         <TextView
-            android:id="@+id/ticketitem_nonoononon"
+            android:id="@+id/ticketitem_num"
             android:layout_width="60dp"
             android:layout_height="33dp"
             android:text="一张"

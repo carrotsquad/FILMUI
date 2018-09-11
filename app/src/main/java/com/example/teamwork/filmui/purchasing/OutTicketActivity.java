@@ -61,13 +61,13 @@ public class OutTicketActivity extends AppCompatActivity {
     TicketInformation mTicketInformation;
 
     String date;
-
-
+    String count;
 
     String cinema_title;
     String[] seats = new String[3];
     Intent mIntent;
     ImageView back;
+    String seat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +86,7 @@ public class OutTicketActivity extends AppCompatActivity {
         cinemaTitle=findViewById(R.id.out_ticket_cinema);
         mIntent = getIntent();
 
+        count = mIntent.getStringExtra("count");
         mSoldAndCheck = (SoldAndCheck) mIntent.getSerializableExtra("mSoldAndCheck");
         mMatch = mIntent.getParcelableExtra("match");
         movieTitle.setText(mMatch.getString("movieTitle")+"   "+getIntent().getStringExtra("count")+"张");
@@ -108,6 +109,8 @@ public class OutTicketActivity extends AppCompatActivity {
                 sharedPreferences = getSharedPreferences("users",Context.MODE_PRIVATE);
 
                 String name = sharedPreferences.getString("name","");
+
+                String accurate_time = mMatch.getString("start_time") + "-" + mMatch.getString("end_time");
 
                 sharedPreferences = getSharedPreferences("infos", Context.MODE_PRIVATE);
 
@@ -134,6 +137,19 @@ public class OutTicketActivity extends AppCompatActivity {
                 String yue = strings[0];
                 String day = strings[1];
 
+                switch (count){
+                    default:
+                    case "1":
+                        seat = seats[0];
+                        break;
+                    case "2":
+                        seat = seats[0]+ " ||"+seats[1];
+                        break;
+                    case "3":
+                        seat = seats[0] + " ||"+seats[1] +" ||"+seats[2];
+                        break;
+                }
+
                 if(yue.charAt(0)=='0'){
                     time_yue = yue.substring(1,2)+"月";
                 }else {
@@ -146,7 +162,7 @@ public class OutTicketActivity extends AppCompatActivity {
                     time_day = day+"日";
                 }
 
-                date = time_yue+time_day;
+                date = time_yue+time_day+" "+accurate_time;
 
 
 
@@ -156,31 +172,13 @@ public class OutTicketActivity extends AppCompatActivity {
 
                 String imageUrl = sharedPreferences.getString("imageUrl","");
 
-                ArrayList<SingleTicket> singleTicketArrayList = new ArrayList<>();
-                Thread thread = new Thread(){
-                    @Override
-                    public void run() {
-                        try {
-                            singleTicketArrayList.addAll(getUserTickets(name));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                thread.start();
-                while (thread.isAlive()){
-
-                }
-
-                int len = singleTicketArrayList.size();
-
                 final String[] res = {""};
+
                 Thread thread_1 = new Thread(){
                     @Override
                     public void run() {
                         try {
-                            res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[0],imageUrl,name,Integer.toString(len+1));
+                            res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seat,imageUrl,name,count);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -191,63 +189,16 @@ public class OutTicketActivity extends AppCompatActivity {
                 while (thread_1.isAlive()){
 
                 }
+                Log.e("购票结果",res[0]);
 
-                if(res[0] =="false"){
+                if(res[0] == "false"){
                     Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(OutTicketActivity.this,"购票成功",Toast.LENGTH_SHORT).show();
                 }
 
-                if(seats[1]!=""){
-                    Thread thread_2 = new Thread(){
-                        @Override
-                        public void run() {
-                            try {
-                                res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[1],imageUrl,name,Integer.toString(len+2));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    };
+                Log.e("购票结果",res[0]);
 
-                    thread_2.start();
-                    while (thread_2.isAlive()){
-
-                    }
-
-                    if(res[0]=="false"){
-                        Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(OutTicketActivity.this,"购票成功",Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-                if(seats[2]!=""){
-
-                    Thread thread_3 = new Thread(){
-                        @Override
-                        public void run() {
-                            try {
-                                res[0] =pushUserTickets(filmtitle,cinema_title,date,shuxing,place,seats[2],imageUrl,name,Integer.toString(len+3));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    };
-
-                    thread_3.start();
-                    while (thread_3.isAlive()){
-
-                    }
-
-                    if(res[0]=="false"){
-                        Toast.makeText(OutTicketActivity.this,"购票失败",Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(OutTicketActivity.this,"购票成功",Toast.LENGTH_SHORT).show();
-                    }
-
-                }
 
                 Intent intent = new Intent(OutTicketActivity.this, BuySucess.class);
                 startActivity(intent);
