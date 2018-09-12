@@ -116,7 +116,7 @@ public class ComingSoonMovieParse {
                     for (int j=0;j<genres.length();j++){
                         tags.append(genres.get(j)+" ");
                     }
-                    singleComingSoonMovie = new SingleComingSoonMovie(title1,small,acts.toString(),dirs.toString(),collect_count,id,tags.toString());
+                    singleComingSoonMovie = new SingleComingSoonMovie(title1,small,acts.toString(),dirs.toString(),Integer.toString(collect_count),id,tags.toString());
                 }
                 singleComingSoonMovieList.add(singleComingSoonMovie);
                 Log.d("在里面的list大小：",String.valueOf(singleComingSoonMovieList.size()));

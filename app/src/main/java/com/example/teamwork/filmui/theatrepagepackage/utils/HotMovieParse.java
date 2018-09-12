@@ -118,7 +118,7 @@ public class HotMovieParse {
                     for (int j=0;j<genres.length();j++){
                         tags.append(genres.get(j)+" ");
                     }
-                    singleHotMovie = new SingleHotMovie(title1,small,acts.toString(),dirs.toString(),average,id,tags.toString());
+                    singleHotMovie = new SingleHotMovie(title1,small,acts.toString(),dirs.toString(),Double.toString(average),id,tags.toString());
                 }
                 singleHotMovies.add(singleHotMovie);
                 Log.d("在里面的list大小：",String.valueOf(singleHotMovies.size()));

@@ -6,11 +6,11 @@ public class SingleHotMovie {
     private String title;
     private String actors;
     private String directors;
-    private double commit;
+    private String commit;
     private String id;
     private String tags;
 
-    public SingleHotMovie(String title, String imageId, String actors, String directors, double commit,String id,String tags){
+    public SingleHotMovie(String title, String imageId, String actors, String directors, String commit,String id,String tags){
         this.tags = tags;
         this.title = title;
         this.imageId = imageId;
@@ -36,7 +36,7 @@ public class SingleHotMovie {
         return directors;
     }
 
-    public double getCommit(){
+    public String getCommit(){
         return commit;
     }
 

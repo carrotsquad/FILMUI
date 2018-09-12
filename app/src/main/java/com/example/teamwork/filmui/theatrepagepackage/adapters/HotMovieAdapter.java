@@ -93,10 +93,13 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
                 SingleHotMovie singleHotMovie1 = hotMovieBeanList.get(position);
                 if(info.size()==0) {
                     Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                    intent.putExtra(MOVIE_RATING, singleHotMovie1.getCommit());
+                    intent.putExtra(MOVIE_RATING, Double.parseDouble(singleHotMovie1.getCommit()));
                     intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
                     intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
                     intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                    intent.putExtra("actors",singleHotMovie1.getActors());
+                    intent.putExtra("directors",singleHotMovie1.getDirectors());
+                    intent.putExtra("commit",singleHotMovie1.getCommit());
 //                intent.putExtra(MOVIE_POSTER, singleHotMovie1.getImageId());
                     mContext.startActivity(intent);
                 }else {
@@ -118,6 +121,9 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
                     intent.putExtra(MOVIE_ID, singleHotMovie1.getId());
                     intent.putExtra(MOVIE_TITLE, singleHotMovie1.getTitle());
                     intent.putExtra(MOVIE_TAGS, singleHotMovie1.getTags());
+                    intent.putExtra("actors",singleHotMovie1.getActors());
+                    intent.putExtra("directors",singleHotMovie1.getDirectors());
+                    intent.putExtra("commit",singleHotMovie1.getCommit());
 //                intent.putExtra(MOVIE_POSTER, singleHotMovie1.getImageId());
                     mContext.startActivity(intent);
                 }else {
@@ -152,10 +158,10 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
     public void onBindViewHolder(@NonNull HotMovieAdapter.ViewHolder holder, int position) {
         singleHotMovie = hotMovieBeanList.get(position);
         holder.filmname.setText(singleHotMovie.getTitle());
-        if(singleHotMovie.getCommit()<10) {
-            holder.commit.setText("评分：" + Double.toString(singleHotMovie.getCommit()));
+        if(singleHotMovie.getCommit().contains(".")) {
+            holder.commit.setText("评分：" + singleHotMovie.getCommit());
         }else {
-            holder.commit.setText(Double.toString(singleHotMovie.getCommit())+"人收藏");
+            holder.commit.setText(singleHotMovie.getCommit()+"人收藏");
         }
         holder.directors.setText("导演："+singleHotMovie.getDirectors());
         holder.actors.setText("演员："+singleHotMovie.getActors());

@@ -18,6 +18,7 @@ import com.example.teamwork.filmui.R;
 
 //import com.example.teamwork.filmui.activities.UserMovieActivity;
 import com.example.teamwork.filmui.activities.MyTickets;
+import com.example.teamwork.filmui.activities.UserMovieActivity;
 import com.example.teamwork.filmui.minepagepackage.Activity.InfoActivity;
 import com.example.teamwork.filmui.minepagepackage.Activity.LoginActivity;
 import com.example.teamwork.filmui.minepagepackage.Activity.SettingActivity;
@@ -192,20 +193,20 @@ public class MinePageFragment extends Fragment implements View.OnClickListener{
                 if (check()){
                     no_sign();
                 }else{
-//                    Intent intent1 = new Intent(getActivity(), UserMovieActivity.class);
-//                    intent1.putExtra("class","wanna");
-//                    intent1.putExtra("url", wannaget_uri);
-//                    startActivity(intent1);
+                    Intent intent1 = new Intent(getActivity(), UserMovieActivity.class);
+                    intent1.putExtra("class","wanna");
+                    intent1.putExtra("url", wannaget_uri);
+                    startActivity(intent1);
                 }
                 break;
             case R.id.watched_movie:
                 if (check()){
                     no_sign();
                 }else{
-//                    Intent intent1 = new Intent(getActivity(), UserMovieActivity.class);
-//                    intent1.putExtra("class","already");
-//                    intent1.putExtra("url", alreadyget_uri);
-//                    startActivity(intent1);
+                    Intent intent1 = new Intent(getActivity(), UserMovieActivity.class);
+                    intent1.putExtra("class","already");
+                    intent1.putExtra("url", alreadyget_uri);
+                    startActivity(intent1);
                 }
                 break;
             case R.id.mine_comm:

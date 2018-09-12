@@ -9,11 +9,11 @@ public class SingleComingSoonMovie {
     private String title;
     private String actors;
     private String directors;
-    private int wishcount;
+    private String wishcount;
     private String id;
     private String tags;
 
-    public SingleComingSoonMovie(String title, String imageId, String actors, String directors, int wishcount,String id,String tags){
+    public SingleComingSoonMovie(String title, String imageId, String actors, String directors, String wishcount,String id,String tags){
         this.title = title;
         this.tags = tags;
         this.imageId = imageId;
@@ -39,7 +39,7 @@ public class SingleComingSoonMovie {
         return directors;
     }
 
-    public int getWishcount() {
+    public String getWishcount() {
         return wishcount;
     }
 

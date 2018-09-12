@@ -149,7 +149,7 @@ public class ComingSoonFragment extends Fragment {
             TextView collectcount = (TextView) view1.findViewById(R.id.movie_item_hotgradetextview);
 
             String image = singleComingSoonMovies.get(i).getImageId();
-            String count = Integer.toString(singleComingSoonMovies.get(i).getWishcount());
+            String count = singleComingSoonMovies.get(i).getWishcount();
             final String Title = singleComingSoonMovies.get(i).getTitle();
             final String ID = singleComingSoonMovies.get(i).getId();
             final String Tags = singleComingSoonMovies.get(i).getTags();

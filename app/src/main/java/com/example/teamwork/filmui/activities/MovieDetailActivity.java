@@ -48,8 +48,9 @@ import static com.example.teamwork.filmui.UriStorage.wannadelete_uri;
 import static com.example.teamwork.filmui.UriStorage.wannapush_uri;
 
 import static com.example.teamwork.filmui.purchasing.MatchSelectActivity.actionStart;
+import static com.example.teamwork.filmui.theatrepagepackage.utils.DeleteUserInfo.deleteUserInfo;
 import static com.example.teamwork.filmui.theatrepagepackage.utils.MovieDetailParse.getMovieDetail;
-import static com.example.teamwork.filmui.theatrepagepackage.utils.PushMovieData.submitPostData;
+import static com.example.teamwork.filmui.theatrepagepackage.utils.PushUserInfo.pushUserinfo;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -108,6 +109,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private String movieTags;
     private String moviePoster;
     private String name;
+    private String actors;
+    private String directors;
+    private String commit;
 
     private SharedPreferences sharedPreferences;
 
@@ -165,6 +169,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         movieID = intent.getStringExtra(MOVIE_ID);
         movieTags = intent.getStringExtra(MOVIE_TAGS);
         movieTitle = intent.getStringExtra(MOVIE_TITLE);
+        actors = intent.getStringExtra("actors");
+        directors = intent.getStringExtra("directors");
+        commit = intent.getStringExtra("commit");
 
         toolbar = (Toolbar)findViewById(R.id.moviedetail_toolbar);
         toolbar.setTitle(" ");
@@ -256,75 +263,112 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()){
             case R.id.moviedetail_wannawatch_checkbox:{
+                final String[] res = new String[1];
                 if (isChecked){
-                    new Thread(){
+                    Thread thread=new Thread(){
                         @Override
                         public void run() {
                             try {
-                                String res=submitPostData(wannapush_uri,name, movieID);
-                                if(res=="false"){
-                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                                }
+                                res[0] =pushUserinfo(wannapush_uri,name, moviePoster,movieTitle,actors,directors,commit,movieID,movieTags);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                    }.start();
+                    };
+
+                    thread.start();
+
+                    while (thread.isAlive()){
+
+                    }
+
+                    if(res[0] =="false"){
+                        Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MovieDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                    }
                     alreadywatched_checkbox.setVisibility(View.INVISIBLE);
                 }
                 else {
-                    new Thread(){
+                    Thread thread=new Thread(){
                         @Override
                         public void run() {
                             try {
-                                String res=submitPostData(wannadelete_uri, name, movieID);
-                                if(res=="false"){
-                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                                }
+                                res[0]=deleteUserInfo(wannadelete_uri,name,movieID);
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }.start();
+                    };
+
+                    thread.start();
+
+                    while (thread.isAlive()){
+
+                    }
+
+                    if(res[0]=="false"){
+                        Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MovieDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                    }
                     alreadywatched_checkbox.setVisibility(View.VISIBLE);
                 }
                 break;
             }
             case R.id.moviedetail_alreadywatched_checkbox:{
+                final String[] res = new String[1];
                 if(isChecked){
-                    new Thread(){
+                    Thread thread=new Thread(){
                         @Override
                         public void run() {
                             try {
-                                String res=submitPostData(alreadypush_uri, name, movieID);
-                                if(res=="false"){
-                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                                }
+                                res[0]=pushUserinfo(alreadypush_uri,name, moviePoster,movieTitle,actors,directors,commit,movieID,movieTags);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                    }.start();
+                    };
 
+                    thread.start();
+
+                    while (thread.isAlive()){
+
+                    }
+
+                    if(res[0]=="false"){
+                        Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MovieDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                    }
                     notwatch_checkBox.setVisibility(View.INVISIBLE);
 
                 }else {
-                    new Thread(){
+                    Thread thread=new Thread(){
                         @Override
                         public void run() {
                             try {
-                                String res=submitPostData(alreadydelete_uri, name, movieID);
-                                if(res=="false"){
-                                    Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                                }
+                                res[0]=deleteUserInfo(alreadydelete_uri,name,movieID);
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }.start();
+                    };
 
+
+                    thread.start();
+
+                    while (thread.isAlive()){
+
+                    }
+
+                    if(res[0]=="false"){
+                        Toast.makeText(MovieDetailActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MovieDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                    }
                     notwatch_checkBox.setVisibility(View.VISIBLE);
                 }
                 break;

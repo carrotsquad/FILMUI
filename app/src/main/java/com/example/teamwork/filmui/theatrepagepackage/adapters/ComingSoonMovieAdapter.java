@@ -94,10 +94,13 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
                     SingleComingSoonMovie singleComingSoonMovie1 = comingSoonMovieList.get(position);
                     if (info.size() == 0) {
                         Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                        intent.putExtra(MOVIE_RATING, 0.0);
+                        intent.putExtra(MOVIE_RATING, "0.0");
                         intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
                         intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
                         intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
+                        intent.putExtra("actors",singleComingSoonMovie1.getActors());
+                        intent.putExtra("directors",singleComingSoonMovie1.getDirectors());
+                        intent.putExtra("commit","0.0");
                         mContext.startActivity(intent);
                     } else {
                         Log.d("filllll", info.get(0) + "           " + info.get(1) + "           ");
@@ -118,6 +121,9 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
                     intent.putExtra(MOVIE_ID, singleComingSoonMovie1.getId());
                     intent.putExtra(MOVIE_TITLE, singleComingSoonMovie1.getTitle());
                     intent.putExtra(MOVIE_TAGS, singleComingSoonMovie1.getTags());
+                    intent.putExtra("actors",singleComingSoonMovie1.getActors());
+                    intent.putExtra("directors",singleComingSoonMovie1.getDirectors());
+                    intent.putExtra("commit","0.0");
                     mContext.startActivity(intent);
                 }else {
                     Log.d("filllll",  info.get(0)+"           "+info.get(1)+"           ");
@@ -150,7 +156,7 @@ public class ComingSoonMovieAdapter extends RecyclerView.Adapter<ComingSoonMovie
     public void onBindViewHolder(@NonNull ComingSoonMovieAdapter.ViewHolder holder, int position) {
         singleComingSoonMovie = comingSoonMovieList.get(position);
         holder.filmname.setText(singleComingSoonMovie.getTitle());
-        holder.collectcount.setText(Integer.toString(singleComingSoonMovie.getWishcount())+"人收藏");
+        holder.collectcount.setText(singleComingSoonMovie.getWishcount()+"人收藏");
         holder.directors.setText("导演："+singleComingSoonMovie.getDirectors());
         holder.actors.setText("演员："+singleComingSoonMovie.getActors());
         holder.wonderbuy.setBackgroundResource(R.drawable.book);
