@@ -82,7 +82,7 @@ public class TicketPage extends AppCompatActivity {
         seatlocation = intent.getStringExtra("seatlocation");
         cinemaplace = intent.getStringExtra("cinemaplace");
 
-        mBitmap= CoreProducer.createQRCodeBitmap("data",800,800);
+        mBitmap= CoreProducer.createQRCodeBitmap(filmTitle+"\n\n"+dateandshuxing+"\n\n"+cinemaplace+"\n\n"+seatlocation,800,800);
         filmname.setText(filmTitle);
         timeandshuxing.setText(dateandshuxing);
         place.setText(cinemaplace);

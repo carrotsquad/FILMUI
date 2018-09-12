@@ -152,7 +152,11 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
     public void onBindViewHolder(@NonNull HotMovieAdapter.ViewHolder holder, int position) {
         singleHotMovie = hotMovieBeanList.get(position);
         holder.filmname.setText(singleHotMovie.getTitle());
-        holder.commit.setText("评分："+Double.toString(singleHotMovie.getCommit()));
+        if(singleHotMovie.getCommit()<10) {
+            holder.commit.setText("评分：" + Double.toString(singleHotMovie.getCommit()));
+        }else {
+            holder.commit.setText(Double.toString(singleHotMovie.getCommit())+"人收藏");
+        }
         holder.directors.setText("导演："+singleHotMovie.getDirectors());
         holder.actors.setText("演员："+singleHotMovie.getActors());
         Log.e("URL",singleHotMovie.getImageId());
