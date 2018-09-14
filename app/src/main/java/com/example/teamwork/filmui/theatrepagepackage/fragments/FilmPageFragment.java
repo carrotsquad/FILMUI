@@ -53,7 +53,7 @@ public class FilmPageFragment extends Fragment implements View.OnClickListener {
 
     private View view;
 
-    private List<String> filminfo;
+    private List<String> filminfo=new ArrayList<>();
     private Context mContext;
     private Button QRbutton;
     private Button locationbutton;
